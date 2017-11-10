@@ -1,4 +1,4 @@
-:host {
+/* :host {
   border: 0 solid #e1e1e1;
   border-bottom-width: 1px;
   display: block;
@@ -18,4 +18,36 @@ nav a {
 
 nav a.router-link-active {
   color: #106cc8;
+} */
+
+ul {
+  background-color: #ECEFF1;
+  box-shadow: 3px 4px 20px 1px rgba(0, 0, 0, 0.14);
+}
+  
+ul li :hover {
+  background-color: #CFD8DC;
+  color: #424242 !important;
+}
+
+ul li a {
+	height: 65px;
+	line-height: 65px;
+  vertical-align: middle;
+  color: #9E9E9E;
+  font-weight: 400;
+}
+
+ul li a.router-link-active {
+  border-left: 4px solid #41b3f9;
+  padding-left: 29px;
+  color: #424242;
+  background-color: #e1e7ea;
+}
+
+.logo-container {
+  height: 65px;
+  line-height: 65px;
+  text-align: center;
+  vertical-align: middle;
 }

@@ -1,2 +1,2 @@
-export * from "./home/index";
+export * from "./dashboard/index";
 export * from "./about/index";

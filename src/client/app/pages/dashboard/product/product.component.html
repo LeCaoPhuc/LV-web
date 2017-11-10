@@ -1,0 +1,61 @@
+<div>
+  <h4 class="title col s6">Danh sách sản phẩm</h4>
+  <!-- <div class="row valign-wrapper"> -->
+    <a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap()">
+      <i class="material-icons left">add_circle</i>Thêm sản phẩm mới</a>
+    <ul class="pagination right">
+      <li class="disabled">
+        <a>
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+      <li class="active">
+        <a>1</a>
+      </li>
+      <li class="waves-effect">
+        <a>2</a>
+      </li>
+      <li class="waves-effect">
+        <a>3</a>
+      </li>
+      <li class="waves-effect">
+        <a>4</a>
+      </li>
+      <li class="waves-effect">
+        <a>5</a>
+      </li>
+      <li class="waves-effect">
+        <a>
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+    </ul>
+  <!-- </div> -->
+  <table class="bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên sản phẩm</th>
+        <th>Ngành hàng</th>
+        <th>Mô tả</th>
+        <!-- <th>Màu sắc</th>
+        <th>Chất liệu</th> -->
+        <th>Giá</th>
+        <th>Tình trạng</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let product of listProduct; let i=index" (click)="showProductDetails($event)">
+        <td>{{i + 1}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.category}}</td>
+        <td class="text-overflow">{{product.desciption}}</td>
+        <!-- <td>{{product.color}}</td>
+        <td>{{product.material}}</td> -->
+        <td>{{product.price}}</td>
+        <td>{{product.stockStatus == 'instock' ? 'Còn hàng' : 'Hết hàng'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

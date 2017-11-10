@@ -1,0 +1,82 @@
+<div class="user-details-layout z-depth-3">
+	<div class="btn-close">
+		<a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
+			<i class="material-icons">close</i>
+		</a>
+	</div>
+	<form class="col s12">
+		<div class="row">
+			<div class="col s8">
+				<div class="row" *ngIf="pageType == 'add'">
+					<div  class="input-field col s6">
+						<i class="material-icons prefix">contacts</i>
+						<input id="username" type="text" class="" [value]="user.userName">
+						<label for="username" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">lock</i>
+						<input id="password" type="password" class="" [value]="user.userName">
+						<label for="password" [class]="pageType != 'add' ? 'active' : ''">Mật khẩu</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<i class="material-icons prefix">person</i>
+						<input id="last_name" type="text" class="" [value]="user.lastName">
+						<label for="last_name" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">person</i>
+						<input id="first_name" type="text" class="" [value]="user.firstName">
+						<label for="first_name" [class]="pageType != 'add' ? 'active' : ''">Tên</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<i class="material-icons prefix">phone</i>
+						<input id="phoneNumber" type="text" class="" [value]="user.phoneNumber">
+						<label for="phoneNumber" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">email</i>
+						<input id="email" type="email" class="" [value]="user.email">
+						<label for="email" [class]="pageType != 'add' ? 'active' : ''">Email</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">map</i>
+						<input id="address" type="text" class="" [value]="user.address">
+						<label for="address" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">wc</i>
+						<select id="gender">
+							<option value="male" selected>Nam</option>
+							<option value="female">Nữ</option>
+						</select>
+						<label>Giới tính</label>
+					</div>
+				</div>
+			</div>
+			<div class="col s4 center-align">
+				<img [src]="user.avatar ? user.avatar : '../../../../assets/images/avatar_default.png'" stretch="fill" class="z-depth-1">
+				<h5 *ngIf="pageType != 'add'" style="color: #797979">@{{user.userName}}</h5>
+				<div class="switch">
+					<label>
+						<input *ngIf="user.block" type="checkbox" :checked>
+						<input *ngIf="!user.block" type="checkbox">
+						<span class="lever"></span>
+						<label for="block">Khóa tài khoản</label>
+					</label>
+				</div>
+				<a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap()">
+					<i class="material-icons left">save</i>Lưu lại</a>
+				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
+					<i class="material-icons left">close</i>Xóa tài khoản</a>
+			</div>
+		</div>
+	</form>
+</div>

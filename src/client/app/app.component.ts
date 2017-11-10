@@ -4,14 +4,22 @@ import './operators';
 /**
  * This class represents the main application component.
  */
+declare var $: any;
 @Component({
   moduleId: module.id,
   selector: 'sd-app',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
 })
-export class AppComponent {
+export class AppComponent  {
   constructor() {
     console.log('Environment config', Config);
+    
+  }
+
+  ngOnInit() {
+    $(document).ready(function () {
+			$('select').material_select();
+		});
   }
 }

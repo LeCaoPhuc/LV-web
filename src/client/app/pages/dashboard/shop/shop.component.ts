@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpRequestService, ParseSDKService, ParseUser, GetStringService } from '../../shared/index';
+import { HttpRequestService, ParseSDKService, ParseUser, GetStringService } from '../../../shared/index';
 
 /**
- * This class represents the lazy loaded HomeComponent.
+ * This class represents the lazy loaded ShopComponent.
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-home',
-  templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css'],
+  selector: 'sd-shop',
+  templateUrl: 'shop.component.html',
+  styleUrls: ['shop.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class ShopComponent implements OnInit {
 
   newName: string = '';
   errorMessage: string;
