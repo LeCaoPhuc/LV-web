@@ -4,6 +4,7 @@ import { HomeRoutes } from "./home/index";
 import { UserRoutes } from "./user/index";
 import { ShopRoutes } from "./shop/index";
 import { ProductRoutes } from "./product/index";
+import { OrderRoutes } from "./order/index";
 
 export const DashboardRoutes: Routes = [
 	{
@@ -14,6 +15,7 @@ export const DashboardRoutes: Routes = [
 			...UserRoutes,
 			...ShopRoutes,
 			...ProductRoutes,
+			...OrderRoutes,
 		]
 	},
 	// {
