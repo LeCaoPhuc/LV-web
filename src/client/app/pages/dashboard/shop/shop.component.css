@@ -1,0 +1,11 @@
+.title {
+  color: #EC646A;
+  font-weight: 300;
+  padding: 20px;
+}
+
+.content {
+  padding: 10px;
+  /* display: flex;
+  justify-content: center; */
+}

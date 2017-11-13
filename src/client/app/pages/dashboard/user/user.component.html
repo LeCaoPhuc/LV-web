@@ -1,0 +1,69 @@
+<div>
+	<h4 class="title col s6">Danh sách người dùng</h4>
+	<a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap()">
+		<i class="material-icons left">add_circle</i>Thêm người dùng mới</a>
+	<ul class="pagination right">
+		<li class="disabled">
+			<a>
+				<i class="material-icons">chevron_left</i>
+			</a>
+		</li>
+		<li class="active">
+			<a>1</a>
+		</li>
+		<li class="waves-effect">
+			<a>2</a>
+		</li>
+		<li class="waves-effect">
+			<a>3</a>
+		</li>
+		<li class="waves-effect">
+			<a>4</a>
+		</li>
+		<li class="waves-effect">
+			<a>5</a>
+		</li>
+		<li class="waves-effect">
+			<a>
+				<i class="material-icons">chevron_right</i>
+			</a>
+		</li>
+	</ul>
+	<table class="bordered">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Họ</th>
+				<th>Tên</th>
+				<th>Tài khoản</th>
+				<th>Giới tính</th>
+				<th>Số điện thoại</th>
+				<th>Email</th>
+				<th>Địa chỉ</th>
+				<th>Bị khóa</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr *ngFor="let user of users; let i=index" (click)="showUserDetails($event)">
+				<td>{{i + 1}}</td>
+				<td>{{user.lastName}}</td>
+				<td>{{user.firstName}}</td>
+				<td>{{'@' + user.userName}}</td>
+				<td>{{user.gender == 'male' ? 'Nam' : 'Nữ'}}</td>
+				<td>{{user.phoneNumber}}</td>
+				<td>{{user.email}}</td>
+				<td class="address">{{user.address}}</td>
+				<td>
+					<div class="switch">
+						<label>
+							<input *ngIf="user.block" disabled type="checkbox" :checked>
+							<input *ngIf="!user.block" disabled type="checkbox">
+							<span class="lever"></span>
+						</label>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

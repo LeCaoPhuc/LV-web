@@ -1,0 +1,46 @@
+.user-details-layout {
+  margin-top: 20px;
+  padding: 20px 0px;
+  width: calc(100% - 10px);
+  height: 100%;
+  background-color: #ececec;
+}
+
+img {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  width: 100px;
+  border-radius: 50px;
+}
+
+.avatar-container {
+  background-color: #5c7aa9;
+}
+
+.material-icons.prefix {
+  color: #999;
+}
+
+.input-field .prefix.active {
+  color: #26a69a;
+}
+
+.switch {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-save {
+  margin-top: 30px;
+  width: 80%;
+}
+
+.btn-delete {
+  margin-top: 15px;
+  width: 80%;
+}
+
+.btn-close {
+  position: absolute;
+  right: 3%;
+}

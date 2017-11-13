@@ -1,5 +1,24 @@
 <ul id="slide-out" class="side-nav fixed">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  <div class="logo-container">
+    <a href="#" class="brand-logo">Logo</a>
+  </div>
+  <li>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/user' ]" [routerLinkActive]="['router-link-active']">Quản lí người dùng</a>
+  </li>
+  <li>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/shop' ]" [routerLinkActive]="['router-link-active']">Quản lí thông tin shop</a>
+  </li>
+  <li>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/product' ]" [routerLinkActive]="['router-link-active']">Quản lí sản phẩm</a>
+  </li>
+  <li>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/order' ]" [routerLinkActive]="['router-link-active']">Quản lí đơn hàng</a>
+  </li>
+  <li>
+    <a class="side-bar-text">Quản lí khuyến mãi</a>
+  </li>
+  <li>
+    <a class="side-bar-text">Quản lí thông báo</a>
+  </li>
+</ul>
+<!-- <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a> -->
