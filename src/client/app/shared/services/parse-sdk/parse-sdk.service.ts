@@ -14,6 +14,7 @@ export class ParseSDKService {
   init() {
     console.log('ParseSDK Init');
     console.log(Parse);
+    Parse.initialize(Config.APP_ID);
   }
 
   login(username: string, password: string) {

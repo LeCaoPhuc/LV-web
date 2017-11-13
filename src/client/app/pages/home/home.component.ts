@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // console.log('---------');
-    // this.parse.init();
+    this.parse.init();
     // this.parse.login('phongdo', '11111111').then((user: ParseUser) => {
     //   console.log(user);
     // }).catch((err: any) => {
