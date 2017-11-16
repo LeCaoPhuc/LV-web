@@ -46,7 +46,9 @@ export class ParseSDKService {
       })
     })
   }
-
+  fetch() {
+    return Parse.User.current().fetch();
+  }
   currentUser() {
     return new ParseUser(Parse.User.current());
   }

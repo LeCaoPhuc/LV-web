@@ -5,3 +5,4 @@ export * from './get-string/get-string.service';
 export * from './shared/shared.service';
 export * from './toastr/toastr.service';
 export * from './tools/tools.service';
+export * from './pagination/pagination';

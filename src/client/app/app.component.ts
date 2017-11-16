@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Config } from './shared/config/env.config';
 import './operators';
+import { ParseSDKService } from './shared/services/parse-sdk/parse-sdk.service'
 /**
  * This class represents the main application component.
  */
@@ -12,9 +13,9 @@ declare var $: any;
   styleUrls: ['app.component.css'],
 })
 export class AppComponent  {
-  constructor() {
+  constructor(private parseSDK : ParseSDKService) {
     console.log('Environment config', Config);
-    
+    parseSDK.init();
   }
 
   ngOnInit() {

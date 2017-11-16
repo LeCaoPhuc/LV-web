@@ -9,7 +9,6 @@ import { UserModule } from "./user/index";
 import { ShopModule } from "./shop/index";
 import { ProductModule } from "./product/index";
 import { OrderModule } from "./order/index";
-
 @NgModule({
   imports: [
     CommonModule, 

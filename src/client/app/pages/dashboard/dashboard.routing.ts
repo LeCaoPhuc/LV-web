@@ -16,6 +16,7 @@ export const DashboardRoutes: Routes = [
 			...ShopRoutes,
 			...ProductRoutes,
 			...OrderRoutes,
+			// ...LoginRoutes
 		]
 	},
 	// {

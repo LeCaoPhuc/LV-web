@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpRequestService, ParseSDKService, ParseUser, SharedService } from '../../../shared/index';
+import { HttpRequestService, ParseSDKService, ParseUser, SharedService, Pagination } from '../../../shared/index';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 /**
  * This class represents the lazy loaded UserComponent.
@@ -11,59 +11,46 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 	styleUrls: ['user.component.css'],
 })
 export class UserComponent implements OnInit {
-	private users: Array<any>;
-	private test: string;
+	private userList: Array<any>;
+	private pagination: any;
 	constructor(
 		private router: Router,
 		private sharedService: SharedService,
+		private parseService: ParseSDKService,
 	) {
-		// this.test = 'sjkhfsjfhsjkfhsjkfhsj'
-		var array = [{
-			id: 'dx2nqLmeh1',
-			gender: 'male',
-			lastName: 'Băng',
-			firstName: 'Thiên',
-			userName: 'bangthien',
-			address: '123 đường A, Phường B, Quận C, Thành Phố M',
-			phoneNumber: '01665990099',
-			email: 'bangthien@gmail.com',
-			block: false
-		},
-		{
-			id: 'dx2nqLm23d',
-			gender: 'female',
-			lastName: 'Nguyên',
-			firstName: 'Ngọc',
-			userName: 'nguyenngoc',
-			address: '123 đường A, Phường B, Quận C, Thành Phố M',
-			phoneNumber: '01665990099',
-			email: 'nguyenngoc@gmail.com',
-			block: true
-		}]
-		this.users = [
-			...array,
-			...array,
-			...array,
-			...array,
-			...array,
-			...array,
-			...array,
-			...array,
-			...array,
-		]
-		// this.users = array;
 	}
 
 	ngOnInit() {
-
+		var self = this;
+		this.pagination = new Pagination();
+		this.pagination.page = 1;
+		this.pagination.perPage = 9;
+		this.pagination.getNumOfPage = function(){
+			return self.parseService.cloud('countObject',{
+				className: 'User'
+			})
+		}		
+ 		this.pagination.getData = function() {
+			return self.parseService.cloud('getUserList',{
+				page: self.pagination.page,
+				limit: self.pagination.perPage
+			})
+		}
+		this.pagination.getPage(this.pagination.page)
+		.then(function(res: any){	
+			console.log(res);
+		})
+		.catch(function(err: any){
+			console.log("error ")
+		})
 	}
 
 
 	showUserDetails(args: any) {
-		var user = this.users[args.currentTarget.children[0].innerText - 1];
-		var userId = user.id;
-		this.sharedService.setShareData('currentUser', user);
-		this.router.navigate(['dashboard/user/' + userId]);
+		// var user = this.users[args.currentTarget.children[0].innerText - 1];
+		// var userId = user.id;
+		// this.sharedService.setShareData('currentUser', user);
+		// this.router.navigate(['dashboard/user/' + userId]);
 	}
 
 	onAddButtonTap(args: any) {
