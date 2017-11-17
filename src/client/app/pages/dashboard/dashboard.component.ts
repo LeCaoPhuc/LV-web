@@ -7,7 +7,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent { 
+export class DashboardComponent {
   constructor(
 		private router: Router,
 		private sharedService: SharedService,
@@ -28,5 +28,13 @@ export class DashboardComponent {
         console.log(err);
       	self.router.navigate(['']);
     })
+
+    this.parseService.cloud('getCategoryList', { limit: 10000, page: 1 }).then(function (res: any) {
+      if (res && res.data) {
+        self.sharedService.setShareData('category', res.data);
+      }
+    }).catch(function (err: any) {
+      console.log(err);
+    });
   }
 }

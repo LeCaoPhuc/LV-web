@@ -15,6 +15,7 @@
     <div class="input-field col s4">
       <select *ngIf="listCategory && listCategory.length > 0" material-select (materialSelectEmiter)="onSelectCategory($event)">
         <option value="" disabled selected>Chọn ngành hàng</option>
+        <option value="">Tất cả</option>
         <option *ngFor="let item of listCategory" [value]="item.id">{{item.get('category_name')}}</option>
       </select>
       <!-- <label>Ngành hàng</label> -->
@@ -52,13 +53,15 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let product of listProduct; let i=index" (click)="showProductDetails($event)">
+          <tr *ngFor="let product of listProduct; let i=index" (click)="showProductDetails(product)">
             <td>{{i + 1}}</td>
             <td>{{product.get('product').get('product_name')}}</td>
             <td>{{product.get('category').get('category_name')}}</td>
-            <td class="text-overflow">{{product.get('product').get('product_desciption')}}</td>
+            <td class="text-overflow">{{product.get('product').get('product_description')}}</td>
             <td>{{product.get('price')}}</td>
-            <td>{{product.get('product').get('status')}}</td>
+            <td>
+              <span *ngIf="product.get('product').get('status') == 'block'">Hết hàng</span>
+            </td>
           </tr>
         </tbody>
       </table>

@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit {
     var self = this;
     this.pagination = new Pagination();
     this.pagination.page = 1;
-    this.pagination.perPage = 2;
+    this.pagination.perPage = 10;
     this.pagination.enableLoading = true;
     this.pagination.enableMaxPageMode = true;
     this.pagination.maxPageInPagination = 5;
@@ -34,12 +34,14 @@ export class ProductComponent implements OnInit {
       return self.parse.cloud('getProductListWithCategory', {
         categoryId: self.currentCategoryId,
         limit: perPage,
-        page: page
+        page: page,
+        withBlock: true
       })
     }
     this.pagination.getNumOfPage = function () {
       return self.parse.cloud('getCountProductWithCategory', {
-        categoryId: self.currentCategoryId
+        categoryId: self.currentCategoryId,
+        withBlock: true
       }).then(function (res: any) {
         return res.data;
       })
@@ -73,10 +75,10 @@ export class ProductComponent implements OnInit {
     this.pagination.executeGetNumOfPage();
   }
 
-  showProductDetails(args: any) {
-    var index = args.currentTarget.children[0].innerText - 1;
-    this.sharedService.setShareData('currentProduct', this.listProduct[index]);
-    this.router.navigate(['dashboard/product/' + this.listProduct[index].id]);
+  showProductDetails(product: any) {
+    // var index = args.currentTarget.children[0].innerText - 1;
+    this.sharedService.setShareData('currentProduct', product);
+    this.router.navigate(['dashboard/product/' + product.id]);
   }
 
   onSelectCategory(event: any) {

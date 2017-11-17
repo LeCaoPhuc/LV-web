@@ -1,79 +1,57 @@
 <div class="product-details-layout z-depth-3">
-	<div class="btn-close">
-		<a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
-			<i class="material-icons">close</i>
-		</a>
-	</div>
-	<form class="col s12">
-		<div class="row">
-			<div class="col s8">
-				<div class="row">
-					<div class="input-field col s6">
-						<!-- <i class="material-icons prefix">person</i> -->
-						<input id="name" type="text" class="" [value]="product.name">
-						<label for="name" class="active">Tên sản phẩm</label>
-					</div>
-					<div class="input-field col s6">
-						<!-- <i class="material-icons prefix">wc</i> -->
-						<select id="category">
-							<option value="1">Ngành hàng 1</option>
-							<option value="2">Ngành hàng 2</option>
-						</select>
-						<label>Ngành hàng</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s6">
-						<!-- <i class="material-icons prefix">person</i> -->
-						<input id="price" type="number" class="" [value]="product.price">
-						<label for="price" class="active">Giá</label>
-					</div>
-					<div class="input-field col s6">
-						<!-- <i class="material-icons prefix">wc</i> -->
-						<select id="stock-status">
-							<option value="1">Còn hàng</option>
-							<option value="2">Hết hàng</option>
-						</select>
-						<label>Tình trạng</label>
-					</div>
-				</div>
-				<!-- <div class="row">
-					<div class="input-field col s6">
-						<i class="material-icons prefix">wc</i>
-						<select id="color">
-							<option value="1" selected>Đỏ</option>
-							<option value="2">Xanh</option>
-						</select>
-						<label>Màu sắc</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">wc</i>
-						<select id="material">
-							<option value="1" selected>Nhựa</option>
-							<option value="2">Kim loại</option>
-						</select>
-						<label>Chất liệu</label>
-					</div>
-				</div> -->
-				<div class="row">
-					<div class="input-field col s12">
-						<!-- <i class="material-icons prefix">person</i> -->
-						<textarea id="description" class="materialize-textarea"></textarea>
-						<label for="description" class="active">Mô tả sản phẩm</label>
-					</div>
+  <div class="btn-close">
+    <a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+  <form class="col s12">
+    <div class="row">
+      <div class="col s8">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="name" type="text" class="" name="name" [(ngModel)]="product.name">
+            <label for="name" class="active">Tên sản phẩm</label>
+          </div>
+          <div class="input-field col s6">
+            <select *ngIf="listCategory && listCategory.length > 0" name="category" [(ngModel)]="product.category" material-select>
+              <option value="" disabled selected>Chọn ngành hàng</option>
+              <option *ngFor="let item of listCategory" [value]="item.id">{{item.get('category_name')}}</option>
+            </select>
+            <label>Ngành hàng {{product.category}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="price" type="number" class="" [value]="product.price">
+            <label for="price" class="active">Giá</label>
+          </div>
+          <div class="input-field col s6">
+            <select name="status" [(ngModel)]="product.status" material-select>
+              <option value="">Còn hàng</option>
+              <option value="block">Hết hàng</option>
+            </select>
+            <label>Tình trạng</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="description" class="materialize-textarea" name="description" [(ngModel)]="product.description"></textarea>
+            <label for="description" class="active">Mô tả sản phẩm</label>
+          </div>
 
-				</div>
-			</div>
-			<div class="col s4 center-align">
-				<img [src]="product.image ? product.image : '../../../../assets/images/product_default.png'" stretch="fill" class="z-depth-1">
-				<div>
-					<a (click)="onChangeImageTap()">Thay đổi ảnh</a>
-				</div>
-				<a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap()">
-					<i class="material-icons left">save</i>Lưu lại</a>
-				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
-					<i class="material-icons left">close</i>Xóa sản phẩm</a>
-			</div>
-		</div>
-	</form>
+        </div>
+      </div>
+      <div class="col s4 center-align">
+        <img *ngIf="product" [src]="product.image ? product.image : '../../../../assets/images/product_default.png'" stretch="fill" class="z-depth-1">
+        <div>
+          <a (click)="file.click()">Thay đổi ảnh</a>
+          <input #file type="file" (change)="changePhoto(file)" style="display:none">
+        </div>
+        <a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap()">
+          <i class="material-icons left">save</i>Lưu lại</a>
+        <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
+          <i class="material-icons left">close</i>Xóa sản phẩm</a>
+      </div>
+    </div>
+  </form>
 </div>

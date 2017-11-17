@@ -241,10 +241,11 @@ export class Pagination {
 
   public makePageList() {
     if (this.enableMaxPageMode) {
+      console.log(this.numOfPage);
       this.pageList = [];
       if (this.page <= Math.ceil(this.maxPageInPagination/2)) {
         for (let i = 0; i < this.maxPageInPagination; i++) {
-          if (i <= this.numOfPage)
+          if (i < this.numOfPage)
             this.pageList.push(i + 1);
         }
       }
