@@ -13,6 +13,10 @@ export class Pagination {
   private _getNumOfPage: Function;
   private _data: any;
   private _loading: boolean = false;
+  private _enableLoading: boolean = false;
+  private _maxPageInPagination: number = 5;
+  private _enableMaxPageMode: boolean = true;
+  private _pageList: any = [];
 
   get mode(): string {
     return this._mode;
@@ -115,6 +119,35 @@ export class Pagination {
     this._loading = value;
   }
 
+  get enableLoading() {
+    return this._enableLoading;
+  }
+  set enableLoading(value: any) {
+    this._enableLoading = value;
+  }
+
+  get maxPageInPagination(){
+    return this._maxPageInPagination;
+  }
+
+  set maxPageInPagination(value: any) {
+    this._maxPageInPagination = value;
+  }
+
+  get enableMaxPageMode() {
+    return this._enableMaxPageMode;
+  }
+  set enableMaxPageMode(value: any) {
+    this._enableMaxPageMode = value;
+  }
+
+  get pageList() {
+    return this._pageList;
+  }
+  set pageList(value: any) {
+    this._pageList = value;
+  }
+
   constructor(getData?: Function, getNumOfPage?: Function, page?: number, perPage?: number) {
     var self = this;
     this.getData = getData;
@@ -129,7 +162,7 @@ export class Pagination {
   }
 
   private executeGetData(): Promise<any> {
-    this._mode = 'getData';
+    this.mode = 'getData';
     var self = this;
     return new Promise((resolve: any, reject: any) => {
       self.getData(self.page, self.perPage).then((data: any) => {
@@ -142,7 +175,7 @@ export class Pagination {
   }
 
   private executeSearch(data?: any): Promise<any> {
-    this._mode = 'search';
+    this.mode = 'search';
     if (data) this.searchData = data;
     var self = this;
     return new Promise((resolve: any, reject: any) => {
@@ -156,7 +189,7 @@ export class Pagination {
   }
 
   private executeFilter(data?: any): Promise<any> {
-    this._mode = 'filter';
+    this.mode = 'filter';
     if (data) this.filterData = data;
     var self = this;
     return new Promise((resolve: any, reject: any) => {
@@ -174,6 +207,7 @@ export class Pagination {
     this.getNumOfPage().then((count: number) => {
       self.numOfRecord = count;
       self.numOfPage = Math.ceil(count / self.perPage);
+      self.makePageList();
       if (callback) callback();
     }).catch((err: any) => {
       console.log(err);
@@ -189,10 +223,7 @@ export class Pagination {
   }
 
   private executeData(data?: any) {
-    if (this.loading) return new Promise(function (resolve, reject) {
-      resolve(null);
-    });
-    switch (this._mode) {
+    switch (this.mode) {
       case 'getData': {
         return this.executeGetData();
       }
@@ -208,33 +239,114 @@ export class Pagination {
     }
   }
 
+  public makePageList() {
+    if (this.enableMaxPageMode) {
+      this.pageList = [];
+      if (this.page <= Math.ceil(this.maxPageInPagination/2)) {
+        for (let i = 0; i < this.maxPageInPagination; i++) {
+          if (i <= this.numOfPage)
+            this.pageList.push(i + 1);
+        }
+      }
+      else if (this.numOfPage - this.page < Math.ceil(this.maxPageInPagination/2)) {
+        for (let i = this.numOfPage - 1; i >= this.numOfPage - this.maxPageInPagination; i--) {
+          this.pageList.unshift(i + 1);
+        }
+      } else {
+        for (let i = this.page - (Math.floor(this.maxPageInPagination/2) + 1); i <= this.page + (Math.floor(this.maxPageInPagination/2) - 1); i++) {
+          this.pageList.push(i + 1);
+        }
+      }
+    } else {
+      this.pageList = [];
+      for (let i = 0; i < this.numOfPage; i++) {
+        this.pageList.push(i + 1);
+      }
+    }
+  }
+
   public getPage(page: number, data?: any) {
+    var self = this;
+    if (this.loading) return new Promise(function (resolve, reject) {
+      resolve(null);
+    });
     this.page = page;
-    return this.executeData(data);
+    if (this.enableLoading) this.loading = true;
+    return this.executeData(data).then((res: any) => {
+      self.loading = false;
+      self.makePageList();
+      return res;
+    }).catch((err: any) => {
+      self.loading = false;
+      return Promise.reject(err);
+    })
   }
 
   public nextPage(data?: any) {
+    var self = this;
+    if (this.loading) return new Promise(function (resolve, reject) {
+      resolve(null);
+    });
     this.page++;
-    return this.executeData(data);
+    if (this.enableLoading) this.loading = true;
+    return this.executeData(data).then((res: any) => {
+      self.loading = false;
+      self.makePageList();
+      return res;
+    }).catch((err: any) => {
+      self.loading = false;
+      return Promise.reject(err);
+    })
   }
 
   public prevPage(data?: any) {
+    var self = this;
+    if (this.loading) return new Promise(function (resolve, reject) {
+      resolve(null);
+    });
     this.page--;
-    return this.executeData(data);
+    if (this.enableLoading) this.loading = true;
+    return this.executeData(data).then((res: any) => {
+      self.loading = false;
+      self.makePageList();
+      return res;
+    }).catch((err: any) => {
+      self.loading = false;
+      return Promise.reject(err);
+    })
   }
 
   public firstPage(data?: any) {
+    var self = this;
+    if (this.loading) return new Promise(function (resolve, reject) {
+      resolve(null);
+    });
     this.page = 1;
-    return this.executeData(data);
+    if (this.enableLoading) this.loading = true;
+    return this.executeData(data).then((res: any) => {
+      self.loading = false;
+      self.makePageList();
+      return res;
+    }).catch((err: any) => {
+      self.loading = false;
+      return Promise.reject(err);
+    })
   }
 
   public lastPage(data?: any) {
     var self = this;
-    return new Promise((resolve, reject) => {
-      self.executeGetNumOfPage(() => {
-        self.page = self.numOfPage;
-        resolve(self.executeData(data));
-      });
+    if (this.loading) return new Promise(function (resolve, reject) {
+      resolve(null);
+    });
+    this.page = self.numOfPage;
+    if (this.enableLoading) this.loading = true;
+    return this.executeData(data).then((res: any) => {
+      self.loading = false;
+      self.makePageList();
+      return res;
+    }).catch((err: any) => {
+      self.loading = false;
+      return Promise.reject(err);
     })
   }
 }

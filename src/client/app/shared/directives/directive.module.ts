@@ -7,10 +7,11 @@ import { TagsInputDirective } from './tagsinput.directive';
 import { AutoCompleteDirective } from './autocomplete.directive';
 import { CaretDetectDirective } from './caret-detect.directive';
 import { DataClipboardTargetDirective } from './data-clipboard-target.directive';
+import { MaterialSelectDirective } from './material-select.directive'
 
 @NgModule({
   imports: [FormsModule],
-  declarations: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective],
-  exports: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective]
+  declarations: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective, MaterialSelectDirective],
+  exports: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective, MaterialSelectDirective]
 })
 export class DirectiveModule { }
