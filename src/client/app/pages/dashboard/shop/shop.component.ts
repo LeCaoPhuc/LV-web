@@ -23,13 +23,13 @@ export class ShopComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // console.log('---------');
-    // this.parse.init();
-    // this.parse.login('phongdo', '11111111').then((user: ParseUser) => {
-    //   console.log(user);
-    // }).catch((err: any) => {
-    //   console.log(err);
-    // })
+    this.parse.cloud('getShopInfo',{})
+    .then(function(result){
+
+    })
+    .catch(function(err){
+      
+    })
     console.log(this.getString.get('TEST', ['Phong', 'Do']));
   }
 
