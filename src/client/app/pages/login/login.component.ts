@@ -55,7 +55,7 @@ export class LoginComponent {
       this.loginData.password.message = 'Mật khẩu không được để trống';
     }
     else if (event && event.pattern) {
-      this.loginData.password.message = 'Mật khẩu tối đa chứa 8 kí tự';
+      this.loginData.password.message = 'Mật khẩu tối thiểu chứa 8 kí tự';
     } else {
       this.loginData.password.message = '';
     }
@@ -82,6 +82,7 @@ export class LoginComponent {
           }
         })
         .catch(function(err: any){
+          alert('Tài khoản hoặc mật khẩu không chính xác!');
           console.log('error logInadmin',err);
         })
       }

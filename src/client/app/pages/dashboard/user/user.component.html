@@ -8,20 +8,8 @@
 				<i class="material-icons">chevron_left</i>
 			</a>
 		</li>
-		<li class="active">
-			<a>1</a>
-		</li>
-		<li class="waves-effect">
-			<a>2</a>
-		</li>
-		<li class="waves-effect">
-			<a>3</a>
-		</li>
-		<li class="waves-effect">
-			<a>4</a>
-		</li>
-		<li class="waves-effect">
-			<a>5</a>
+		<li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of listPage;" (click)="onClickPaginationPage(page)">
+			<a>{{ page }}</a>
 		</li>
 		<li class="waves-effect">
 			<a>
@@ -45,7 +33,7 @@
 		</thead>
 
 		<tbody>
-			<tr *ngFor="let user of users; let i=index" (click)="showUserDetails($event)">
+			<tr *ngFor="let user of userList; let i=index" (click)="showUserDetails($event)">
 				<td>{{i + 1}}</td>
 				<td>{{user.lastName}}</td>
 				<td>{{user.firstName}}</td>
@@ -57,8 +45,8 @@
 				<td>
 					<div class="switch">
 						<label>
-							<input *ngIf="user.block" disabled type="checkbox" :checked>
-							<input *ngIf="!user.block" disabled type="checkbox">
+							<input *ngIf="user.status" disabled type="checkbox" :checked>
+							<input *ngIf="!user.status" disabled type="checkbox">
 							<span class="lever"></span>
 						</label>
 					</div>
