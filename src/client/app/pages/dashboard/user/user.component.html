@@ -2,17 +2,17 @@
 	<h4 class="title col s6">Danh sách người dùng</h4>
 	<a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap()">
 		<i class="material-icons left">add_circle</i>Thêm người dùng mới</a>
-	<ul class="pagination right">
-		<li class="disabled">
-			<a>
+	<ul *ngIf="pagination.pageList && pagination.pageList.length" class="pagination right">
+		<li class="waves-effect first-page" [ngClass]="{'disabled': pagination.page == 1}">
+			<a (click)="pagination.firstPage()">
 				<i class="material-icons">chevron_left</i>
 			</a>
 		</li>
-		<li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of listPage;" (click)="onClickPaginationPage(page)">
+		<li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of pagination.pageList;" (click)="getUserList(page)">
 			<a>{{ page }}</a>
 		</li>
-		<li class="waves-effect">
-			<a>
+		<li class="waves-effect last-page"  [ngClass]="{'disabled': pagination.page == pagination.numOfPage}">
+			<a (click)="pagination.lastPage()"> 
 				<i class="material-icons">chevron_right</i>
 			</a>
 		</li>
@@ -33,7 +33,7 @@
 		</thead>
 
 		<tbody>
-			<tr *ngFor="let user of userList; let i=index" (click)="showUserDetails($event)">
+			<tr *ngFor="let user of userList; let i=index" (click)="showUserDetails(user)">
 				<td>{{i + 1}}</td>
 				<td>{{user.lastName}}</td>
 				<td>{{user.firstName}}</td>

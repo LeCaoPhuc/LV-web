@@ -26,3 +26,54 @@ table thead tr {
 .btn-add {
   margin: 14.5px;
 }
+ul {
+  list-style-type: none;
+  padding: 0 0 0 8px;
+}
+
+.page-container{
+}
+
+.page-title{
+  display: flex;
+  align-items: center;
+  padding: 15px 0px;
+  border-bottom: 1px solid #ccc;
+}
+
+.pagination{
+  width: auto;
+}
+
+.pagination > li{
+  cursor: pointer;
+}
+
+.first-page > a, .last-page > a {
+  padding: 0px;
+}
+
+tbody tr:hover {
+  background: #e8fdfb;
+}
+
+.text-overflow {
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  color: #EC646A;
+  /* font-weight: 500; */
+  font-size: 2em;
+}
+
+table thead tr {
+  font-weight: 300;
+}
+
+.btn-add {
+  /* margin: 14.5px; */
+}
