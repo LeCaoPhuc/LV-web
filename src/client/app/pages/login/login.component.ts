@@ -19,8 +19,8 @@ export class LoginComponent {
     }
   }
   public loginFlag: boolean = false;
-  public usernamePattern = /^[a-zA-Z0-9_]{1,12}$/;
-  public passwordPattern = /^[a-zA-Z0-9]{8,}$/;
+  public usernamePattern = /^[a-zA-Z0-9_]{1,50}$/;
+  public passwordPattern = /^[a-zA-Z0-9]{8,12}$/;
   constructor(
     private router: Router,
     private sharedService: SharedService,

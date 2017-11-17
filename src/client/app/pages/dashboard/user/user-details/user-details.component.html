@@ -4,60 +4,69 @@
 			<i class="material-icons">close</i>
 		</a>
 	</div>
-	<form class="col s12">
+	<form #userDetailForm="ngForm" class="col s12">
 		<div class="row">
 			<div class="col s8">
 				<div class="row" *ngIf="pageType == 'add'">
 					<div  class="input-field col s6">
 						<i class="material-icons prefix">contacts</i>
-						<input id="username" type="text" class="" [value]="user.userName">
-						<label for="username" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">lock</i>
-						<input id="password" type="password" class="" [value]="user.userName">
-						<label for="password" [class]="pageType != 'add' ? 'active' : ''">Mật khẩu</label>
+						<input #username id="username" name="username" maxlength="50" type="text" class="" [(ngModel)]="user.userName" [pattern]="userError.username.pattern"
+						validate-onblur required (emiter)="usernameErrorMessage($event)">
+						<label for="username" [attr.data-error]="userError.username.message" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">person</i>
-						<input id="last_name" type="text" class="" [value]="user.lastName">
-						<label for="last_name" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
+						<input #lastname id="lastname" name="lastname" maxlength="50" type="text" class="" [(ngModel)]="user.lastName" [pattern]="userError.lastname.pattern"
+						validate-onblur required (emiter)="lastnameErrorMessage($event)">
+						<label for="lastname" [attr.data-error]="userError.lastname.message" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">person</i>
-						<input id="first_name" type="text" class="" [value]="user.firstName">
-						<label for="first_name" [class]="pageType != 'add' ? 'active' : ''">Tên</label>
+						<input #firstname id="firstname" name="firstname" maxlength="50" type="text" class="" [(ngModel)]="user.firstName" [pattern]="userError.firstname.pattern"
+						validate-onblur required (emiter)="firstnameErrorMessage($event)">
+						<label for="firstname" [attr.data-error]="userError.firstname.message" [class]="pageType != 'add' ? 'active' : ''">Tên</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">phone</i>
-						<input id="phoneNumber" type="text" class="" [value]="user.phoneNumber">
-						<label for="phoneNumber" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
+						<input #phonenumber id="phonenumber" name="phonenumber" maxlength="11" type="text" class="" [(ngModel)]="user.phoneNumber" [pattern]="userError.phonenumber.pattern"
+						validate-onblur required (emiter)="phonenumberErrorMessage($event)">
+						<label for="phonenumber" [attr.data-error]="userError.phonenumber.message" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">email</i>
-						<input id="email" type="email" class="" [value]="user.email">
-						<label for="email" [class]="pageType != 'add' ? 'active' : ''">Email</label>
+						<input #email id="email" type="email" name="email" class="" maxlength="50" [(ngModel)]="user.email" [pattern]="userError.email.pattern"
+						validate-onblur required (emiter)="emailErrorMessage($event)">
+						<label for="email" [attr.data-error]="userError.email.message" [class]="pageType != 'add' ? 'active' : ''">Email</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">map</i>
-						<input id="address" type="text" class="" [value]="user.address">
-						<label for="address" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
+						<input #address id="address" name="address" type="text" maxlength="255" class="" [(ngModel)]="user.address" [pattern]="userError.address.pattern"
+						validate-onblur required (emiter)="addressErrorMessage($event)">
+						<label for="address" [attr.data-error]="userError.address.message" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<i class="material-icons prefix">wc</i>
-						<select id="gender">
-							<option value="male" selected>Nam</option>
+						<select #gender name="gender" id="gender" [value]="user.gender">
+							<option value="male">Nam</option>
 							<option value="female">Nữ</option>
 						</select>
 						<label>Giới tính</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">wc</i>
+						<select #gender name="usertype" id="usertype" [value]="user.usertype">
+							<option value="admin">Quản trị viên</option>
+							<option value="">Khách hàng</option>
+						</select>
+						<label>Loại khách hàng</label>
 					</div>
 				</div>
 			</div>
@@ -79,4 +88,5 @@
 			</div>
 		</div>
 	</form>
+	
 </div>
