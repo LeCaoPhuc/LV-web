@@ -51,11 +51,6 @@ export class ProductComponent implements OnInit {
     this.parse.cloud('getCategoryList', { limit: 10000, page: 1 }).then(function (res: any) {
       if (res && res.data) {
         self.listCategory = res.data;
-        setTimeout(() => {
-          $('.add-product-category').material_select(function (event: any) {
-            console.log($(this));
-          });
-        }, 100);
       }
     }).catch(function (err: any) {
       console.log(err);
@@ -76,26 +71,6 @@ export class ProductComponent implements OnInit {
   getPageNumber() {
     var self = this;
     this.pagination.executeGetNumOfPage();
-  }
-
-  makePageList() {
-    var self = this;
-    self.listPage = [];
-    if (self.pagination.page <= 3) {
-      for (let i = 0; i < 5; i++) {
-        if (i <= self.pagination.numOfPage)
-          self.listPage.push(i + 1);
-      }
-    }
-    else if (self.pagination.numOfPage - self.pagination.page <= 3) {
-      for (let i = self.pagination.numOfPage; i > self.pagination.numOfPage - 5; i--) {
-        self.listPage.unshift(i + 1);
-      }
-    } else {
-      for (let i = self.pagination.page - 3; i <= self.pagination.page + 1; i++) {
-        self.listPage.push(i + 1);
-      }
-    }
   }
 
   showProductDetails(args: any) {
