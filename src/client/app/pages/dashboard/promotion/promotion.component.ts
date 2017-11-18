@@ -31,7 +31,7 @@ export class PromotionComponent implements OnInit {
             })
         }
         this.pagination.getData = function (page: number, perPage: number) {
-            return self.parseService.cloud('getPromotionList', {
+            return self.parseService.cloud('getListPromotion', {
                 page: page,
                 limit: perPage
             })

@@ -188,7 +188,7 @@ export class PromotionDetailsComponent implements OnInit {
             }
 
             var checkDate = self.checkDate(true, true);
-            if (!self.formInvalid.percentRequired || !self.formInvalid.nameRequired || !checkDate) {
+            if (self.formInvalid.percentRequired || self.formInvalid.nameRequired || !checkDate) {
                 return true;
             }
         }
@@ -232,11 +232,11 @@ export class PromotionDetailsComponent implements OnInit {
                 self.formInvalid.endDateBeforeStartDate = false;
             }
         }
-        if (!self.formInvalid.startDateRequired || !self.formInvalid.startDateBeforeToDay ||
+        if (!self.formInvalid.startDateRequired && !self.formInvalid.startDateBeforeToDay &&
             !self.formInvalid.startDateAfterEndDate) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
