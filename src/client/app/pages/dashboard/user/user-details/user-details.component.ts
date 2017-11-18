@@ -157,9 +157,6 @@ export class UserDetailsComponent implements OnInit {
 	goBack() {
 		this.location.back();
 	}
-	fetchUser(user: any) {
-
-	}
 	onDeleteUserButtonTap() {
 		var self = this;
 		this.parseService.cloud('deleteObject', {

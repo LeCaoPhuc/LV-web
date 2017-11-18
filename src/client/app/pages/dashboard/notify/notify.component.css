@@ -1,0 +1,30 @@
+.notify-layout {
+  margin-top: 20px;
+  padding: 20px 0px;
+  width: calc(100% - 10px);
+  height: 100%;
+  background-color: #ececec;
+}
+.title {
+  color: #EC646A;
+  /* font-weight: 500; */
+  font-size: 2em;
+}
+.btn-close {
+  position: absolute;
+  right: 3%;
+  top: 10%;
+}
+.input-field .prefix.active {
+  color: #26a69a;
+}
+.material-icons.prefix {
+  color: #999;
+}
+.error {
+    color : red;
+    margin-left: 45px; 
+}
+.helper-text {
+  margin-left: 45px;
+}

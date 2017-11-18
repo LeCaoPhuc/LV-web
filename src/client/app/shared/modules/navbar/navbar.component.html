@@ -24,7 +24,7 @@
     <a class="side-bar-text">Quản lí chất liệu</a>
   </li>
    <li>
-    <a class="side-bar-text">Gửi thông báo</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/notify' ]" [routerLinkActive]="['router-link-active']">Gửi thông báo</a>
   </li>
    <li>
     <a (click)='onClickLogOut()' class="side-bar-text">Đăng xuất</a>

@@ -1,0 +1,54 @@
+<div class="notify-layout z-depth-3 row">
+	<h4 class="title col s6 offset-s1">Gửi thông báo</h4>
+	<div class="section"></div>
+	<div class="section"></div>
+	<div class="section"></div>
+	<div class="btn-close">
+		<a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
+			<i class="material-icons">close</i>
+		</a>
+	</div>
+	<form #notifyForm="ngForm" class="col s12">
+		<div class="row">
+			<div class="col s8 offset-s1" *ngIf="notifyData">
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">contacts</i>
+						<input #username id="username" name="username" maxlength="50" type="text" class="" [(ngModel)]="notifyInfo.username" [pattern]="notifyData.username.pattern"
+						[ngClass]="{'invalid':username.errors}" validate-onblur required (emiter)="usernameErrorMessage($event)">
+						<label for="username">Nhập tài khoản</label>
+						<span class="helper-text" [attr.data-error]="notifyData.username.message"></span>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">lock</i>
+						<input #title id="title" name="title" maxlength="12" type="text" class="" [(ngModel)]="notifyInfo.title" [pattern]="notifyData.title.pattern"
+						[ngClass]="{'invalid':title.errors}" validate-onblur required (emiter)="titleErrorMessage($event)">
+						<label for="title">Tiêu đề</label>
+						<span class="helper-text" [attr.data-error]="notifyData.title.message"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+							<i class="material-icons prefix">person</i>
+							<textarea #content id="content" [(ngModel)]="notifyInfo.content" name="content" class="materialize-textarea" [ngClass]="{'invalid':content.errors}"
+							 required validate-onblur (emiter)="contentErrorMessage($event)"></textarea>
+							<label for="content">Nội dung</label>
+							<span class="helper-text error">{{ notifyData.content.message }}</span>
+					</div>
+				</div>
+				<div class="row">
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn btn-add" (click)="onClickSendNotify(notifyForm)">
+                        <i class="material-icons left">send</i>
+                            Gửi thông báo
+                        </a>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</form>
+	
+</div>
