@@ -74,5 +74,11 @@ export class PromotionComponent implements OnInit {
                 console.log("error ")
             })
     }
+
+    showPromotionDetails(promotion: any) {
+        // var index = args.currentTarget.children[0].innerText - 1;
+        this.sharedService.setShareData('currentPromotion', promotion);
+        this.router.navigate(['dashboard/promotion/' + promotion.id]);
+    }
 }
 
