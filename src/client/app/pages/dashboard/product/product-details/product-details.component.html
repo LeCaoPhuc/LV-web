@@ -5,7 +5,7 @@
         <i class="material-icons">close</i>
       </a>
     </div>
-    <form *ngIf="product" class="col s12">
+    <form #addProductForm="ngForm" *ngIf="product" class="col s12">
       <div class="row product-info-container">
         <div class="col s8">
           <div class="row">
@@ -45,15 +45,15 @@
             <a (click)="file.click()">Thay đổi ảnh</a>
             <input #file type="file" (change)="changePhoto(file)" style="display:none">
           </div> -->
-          <a class="waves-effect waves-light btn btn-save" (click)="saveProduct()">
+          <a class="waves-effect waves-light btn btn-save" (click)="saveProduct(addProductForm)">
             <i class="material-icons left">save</i>
             <span>Lưu lại</span>
           </a>
-          <a class="waves-effect waves-light btn btn-save" (click)="addProductDetailModal.open()">
+          <a class="waves-effect waves-light btn btn-save" [ngClass]="{'disabled':product.id == ''}" (click)="bindingProductDetail(addProductDetailModal)">
             <i class="material-icons left">add</i>
             <span>Thêm SP chi tiết</span>
           </a>
-          <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
+          <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" [ngClass]="{'disabled':product.id == ''}" (click)="confirmDelete.open()">
             <i class="material-icons left">close</i>
             <span>Xóa sản phẩm</span>
           </a>
@@ -89,11 +89,11 @@
               <td>{{ item.get('price') }}</td>
               <td>{{ item.get('quantity') }}</td>
               <td class="product-detail-action">
-                <span class="red-text text-darken-2">
-                  <i class="material-icons">delete</i>
-                </span>
-                <span class="orange-text text-darken-2">
+                <span class="orange-text text-darken-2" (click)="bindingProductDetail(addProductDetailModal, item)">
                   <i class="material-icons">edit</i>
+                </span>
+                <span class="red-text text-darken-2" (click)="confirmDeleteDetail.open();confirmDeleteDetail.product = item">
+                  <i class="material-icons">delete</i>
                 </span>
               </td>
             </tr>
@@ -110,25 +110,26 @@
       <h4 class="col s12">Thêm sản phẩm chi tiết</h4>
     </div>
     <div class="row">
-      <form #productDetailForm>
+      <form #productDetailForm="ngForm">
         <div class="col s8">
           <div class="input-field col s12">
-            <input #sku id="sku" type="text" class="validate" name="sku" [(ngModel)]="productDetail.sku" required [pattern]="skuPattern">
+            <input #sku id="sku" type="text" class="validate" name="sku" [(ngModel)]="productDetail.sku" validate-onblur required [pattern]="skuPattern">
             <label for="sku" class="active">Sku</label>
             <span class="helper-text" data-error="Sku phải vừa đủ 8 ký tự và toàn số"></span>
           </div>
           <div class="input-field col s12">
-            <input id="price" type="number" step="1000" min="0" class="validate" name="price" [(ngModel)]="productDetail.price" required>
+            <input id="price" type="number" step="1000" min="0" class="validate" name="price" [(ngModel)]="productDetail.price" validate-onblur required>
             <label for="price" class="active">Giá</label>
             <span class="helper-text" data-error="Giá không được để trống hoặc bé hơn 0"></span>
           </div>
           <div class="input-field col s12">
-            <input id="quantity" type="number" step="1" min="0" class="validate" name="quantity" [(ngModel)]="productDetail.quantity" required>
+            <input id="quantity" type="number" step="1" min="0" class="validate" name="quantity" [(ngModel)]="productDetail.quantity"
+              required>
             <label for="quantity" class="active">Số lượng</label>
             <span class="helper-text" data-error="Số lượng không được để trống hoặc bé hơn 0"></span>
           </div>
           <div class="input-field col s12">
-            <select *ngIf="materialList && materialList.length > 0" name="material" [(ngModel)]="productDetail.material" material-select>
+            <select *ngIf="materialList && materialList.length > 0" name="material" [(ngModel)]="productDetail.material" validate-onblur material-select>
               <option value="" disabled selected>Chọn chất liệu</option>
               <option *ngFor="let item of materialList" [value]="item.id">{{item.get('material_name')}}</option>
             </select>
@@ -150,7 +151,8 @@
           </div>
         </div>
         <div class="col s4 center-align">
-          <img [src]="(productDetail && productDetail.image && productDetail.image._url) ? productDetail.image._url : '../../../../assets/images/product_default.png'" stretch="fill" class="z-depth-1">
+          <img [src]="(productDetail && productDetail.image && productDetail.image._url) ? productDetail.image._url : '../../../../assets/images/product_default.png'"
+            stretch="fill" class="z-depth-1">
           <div>
             <a (click)="file.click()">Thay đổi ảnh</a>
             <input #file type="file" (change)="changePhoto(file)" style="display:none">
@@ -172,4 +174,28 @@
   <!-- <div class="modal-footer">
 
   </div> -->
+</div>
+
+<div #confirmDeleteDetail material-modal class="modal">
+  <div class="modal-content">
+    <p style="font-size:1.1em">
+      Bạn có chắc chắn muốn xóa sản phẩm chi tiết này?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn modal-close waves-effect waves-light materialize-green">Không</button>
+    <button class="btn modal-close waves-effect waves-light materialize-red" (click)="deleteProductDetail(confirmDeleteDetail.product)">Có</button>
+  </div>
+</div>
+
+<div #confirmDelete material-modal class="modal">
+  <div class="modal-content">
+    <p style="font-size:1.1em">
+      Bạn có chắc chắn muốn xóa sản phẩm này?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn modal-close waves-effect waves-light materialize-green">Không</button>
+    <button class="btn modal-close waves-effect waves-light materialize-red" (click)="deleteProduct()">Có</button>
+  </div>
 </div>
