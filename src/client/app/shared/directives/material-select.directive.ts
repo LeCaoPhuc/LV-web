@@ -15,10 +15,13 @@ export class MaterialSelectDirective {
   ngOnInit() {
     var self = this;
     setTimeout(function () {
-      $(self.el.nativeElement).material_select(function () {
-        self.materialSelectEmiter.next(self.el.nativeElement.value);
-        self.ngModel.update.emit(self.el.nativeElement.value);
-      });
+      $(self.el.nativeElement).select();
     }, 100);
+
+    self.el.nativeElement.onchange = function(event: any){
+      // console.log(event);
+      self.materialSelectEmiter.next(self.el.nativeElement.value);
+      self.ngModel.update.emit(self.el.nativeElement.value);
+    }
   }
 }

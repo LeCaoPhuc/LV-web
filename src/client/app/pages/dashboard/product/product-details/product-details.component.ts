@@ -154,4 +154,8 @@ export class ProductDetailsComponent implements OnInit {
     alert('onChangeImageTap');
   }
 
+  test(event: any){
+    console.log(event);
+  }
+
 }

@@ -125,11 +125,11 @@ export class UserDetailsComponent implements OnInit {
 		if (this.user.gender == 'female') {
 			$('#gender').prop('selectedIndex', 1);
 		}
-		$('#gender').material_select();
+		// $('#gender').material_select();
 		if (this.user.usertype != 'admin') {
 			$('#usertype').prop('selectedIndex', 1);
 		}
-		$('#usertype').material_select();
+		// $('#usertype').material_select();
 	}
 	goBack() {
 		this.location.back();

@@ -1,5 +1,5 @@
 <div class="product-detail-container">
-  <div class="product-details-layout z-depth-3">
+  <div class="product-details-layout z-depth-3 row">
     <div class="btn-close">
       <a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
         <i class="material-icons">close</i>
@@ -20,7 +20,7 @@
                 <option value="" disabled selected>Chọn ngành hàng</option>
                 <option *ngFor="let item of listCategory" [value]="item.id">{{item.get('category_name')}}</option>
               </select>
-              <label>Ngành hàng</label>
+              <label>Ngành hàng {{product.category}}</label>
             </div>
             <div class="input-field col s6">
               <select name="status" [(ngModel)]="product.status" material-select>
@@ -61,7 +61,7 @@
     </form>
   </div>
 
-  <div class="product-details-layout z-depth-3">
+  <div class="product-details-layout z-depth-3 row">
     <div class="row">
       <div class="col s12">
         <p class="product-detail-title">Danh sách hàng hóa chi tiết</p>
@@ -101,4 +101,13 @@
   </div>
 </div>
 
-
+<button data-target="modal1" class="btn modal-trigger">Modal</button>
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
