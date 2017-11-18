@@ -10,6 +10,7 @@ import { ShopModule } from "./shop/index";
 import { ProductModule } from "./product/index";
 import { OrderModule } from "./order/index";
 import { PromotionModule } from "./promotion/index";
+import { NotifyModule } from "./notify/index";
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { PromotionModule } from "./promotion/index";
     ShopModule,
     ProductModule,
     OrderModule,
-    PromotionModule
+    PromotionModule,
+    NotifyModule
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent]
