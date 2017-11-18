@@ -8,17 +8,20 @@
 		<div class="row">
 			<div class="col s8" *ngIf="user">
 				<div class="row" *ngIf="pageType == 'add'">
+					
 					<div class="input-field col s6">
 						<i class="material-icons prefix">contacts</i>
 						<input #username id="username" name="username" maxlength="50" type="text" class="" [(ngModel)]="user.userName" [pattern]="userError.username.pattern"
 						[ngClass]="{'invalid':username.errors}" validate-onblur required (emiter)="usernameErrorMessage($event)">
-						<label for="username" [attr.data-error]="userError.username.message" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
+						<label for="username" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
+						<span class="helper-text" [attr.data-error]="userError.username.message"></span>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">lock</i>
 						<input #password id="password" name="password" maxlength="12" type="password" class="" [(ngModel)]="user.password" [pattern]="userError.password.pattern"
 						[ngClass]="{'invalid':password.errors}" validate-onblur required (emiter)="passwordErrorMessage($event)">
-						<label for="password" [attr.data-error]="userError.password.message" [class]="pageType != 'add' ? 'active' : ''">Mật khẩu</label>
+						<label for="password" [class]="pageType != 'add' ? 'active' : ''">Mật khẩu</label>
+						<span class="helper-text" [attr.data-error]="userError.password.message"></span>
 					</div>
 				</div>
 				<div class="row">
@@ -26,13 +29,15 @@
 						<i class="material-icons prefix">person</i>
 						<input #lastname id="lastname" name="lastname" maxlength="50" type="text" class="" [(ngModel)]="user.lastName" [pattern]="userError.lastname.pattern"
 						[ngClass]="{'invalid':lastname.errors}" validate-onblur required (emiter)="lastnameErrorMessage($event)">
-						<label for="lastname" [attr.data-error]="userError.lastname.message" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
+						<label for="lastname" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
+						<span class="helper-text" [attr.data-error]="userError.lastname.message"></span>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">person</i>
 						<input #firstname id="firstname" name="firstname" maxlength="50" type="text" class="" [(ngModel)]="user.firstName" [pattern]="userError.firstname.pattern"
 						[ngClass]="{'invalid':firstname.errors}" validate-onblur required (emiter)="firstnameErrorMessage($event)">
-						<label for="firstname" [attr.data-error]="userError.firstname.message" [class]="pageType != 'add' ? 'active' : ''">Tên</label>
+						<label for="firstname"  [class]="pageType != 'add' ? 'active' : ''">Tên</label>
+						<span class="helper-text" [attr.data-error]="userError.firstname.message"></span>
 					</div>
 				</div>
 				<div class="row">
@@ -40,13 +45,15 @@
 						<i class="material-icons prefix">phone</i>
 						<input #phonenumber id="phonenumber" name="phonenumber" maxlength="11" type="text" class="" [(ngModel)]="user.phoneNumber" [pattern]="userError.phonenumber.pattern"
 						[ngClass]="{'invalid':phonenumber.errors}" validate-onblur (emiter)="phonenumberErrorMessage($event)">
-						<label for="phonenumber" [attr.data-error]="userError.phonenumber.message" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
+						<label for="phonenumber" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
+						<span class="helper-text" [attr.data-error]="userError.phonenumber.message"></span>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">email</i>
 						<input #email id="email" type="email" name="email" class="" maxlength="50" [(ngModel)]="user.email" [pattern]="userError.email.pattern"
 						[ngClass]="{'invalid':email.errors}" validate-onblur (emiter)="emailErrorMessage($event)">
-						<label for="email" [attr.data-error]="userError.email.message" [class]="pageType != 'add' ? 'active' : ''">Email</label>
+						<label for="email" [class]="pageType != 'add' ? 'active' : ''">Email</label>
+						<span class="helper-text" [attr.data-error]="userError.email.message"></span>
 					</div>
 				</div>
 				<div class="row">
@@ -54,13 +61,15 @@
 						<i class="material-icons prefix">map</i>
 						<input #address id="address" name="address" type="text" maxlength="255" class="" [(ngModel)]="user.address"
 						[ngClass]="{'invalid':address.errors}" (emiter)="addressErrorMessage($event)">
-						<label for="address" [attr.data-error]="userError.address.message" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
+						<label for="address" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
+						<span class="helper-text" [attr.data-error]="userError.address.message"></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">wc</i>
 						<select #gender name="gender" [(ngModel)]="user.gender" material-select>
+							<option value="nodata">-Không có dữ liệu-</option>
 							<option value="male">Nam</option>
 							<option value="female">Nữ</option>
 						</select>
@@ -70,7 +79,7 @@
 						<i class="material-icons prefix">people</i>
 						<select #gender name="usertype" id="usertype" [(ngModel)]="user.usertype" material-select>
 							<option value="admin">Quản trị viên</option>
-							<option value="">Khách hàng</option>
+							<option value="user">Khách hàng</option>
 						</select>
 						<label>Loại khách hàng</label>
 					</div>
@@ -85,8 +94,8 @@
 				<h5 *ngIf="pageType != 'add'" style="color: #797979">@{{user.userName}}</h5>
 				<div class="switch">
 					<label>
-						<input *ngIf="user.status=='block'" disabled type="checkbox" :checked>
-						<input *ngIf="user.status!='block'" disabled type="checkbox">
+						<input *ngIf="user.status=='block'" #checkbox name="checkbox" (change)="checkBoxChange(checkbox)" type="checkbox" :checked>
+						<input *ngIf="user.status!='block'" #checkbox name="checkbox"  (change)="checkBoxChange(checkbox)" type="checkbox">
 						<span class="lever"></span>
 						<label for="status">Khóa tài khoản</label>
 					</label>

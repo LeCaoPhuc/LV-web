@@ -38,7 +38,7 @@
 				<td>{{user.lastName ? user.lastName : '-' }}</td>
 				<td>{{user.firstName ? user.firstName : '-'}}</td>
 				<td >{{'@' + user.userName ? user.userName : '-'}}</td>
-				<td>{{user.gender == 'male' ? 'Nam' : 'Nữ'}}</td>
+				<td>{{user.gender && user.gender == 'male' ? 'Nam' : (user.gender && user.gender == 'female' ? 'Nữ' : '-')}}</td>
 				<td>{{user.phoneNumber ? user.phoneNumber : '-'}}</td>
 				<td>{{user.email ? user.email : '-'}}</td>
 				<td class="address">{{user.address ? user.address : '-'}}</td>

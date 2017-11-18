@@ -62,12 +62,13 @@ export class UserComponent implements OnInit {
 							lastName: res.data[i].get('last_name'),
 							firstName:  res.data[i].get('first_name'),
 							userName:  res.data[i].get('username'),
-							gender: res.data[i].get('gender') ,
+							gender: res.data[i].get('gender') ? res.data[i].get('gender') : 'nodata' ,
 							phoneNumber : res.data[i].get('phone_number') ? res.data[i].get('phone_number') : '',
 							email: res.data[i].get('email') ? res.data[i].get('email') : '',
 							address: res.data[i].get('address') ? res.data[i].get('address') : '',
 							status: res.data[i].get('status'),
-							avatar : res.data[i].get('avatar') ? res.data[i].get('avatar').url() : null
+							avatar : res.data[i].get('avatar') ? res.data[i].get('avatar').url() : null,
+							usertype: res.data[i].get('user_type') ? res.data[i].get('user_type') : 'user',
 						})
 					}
 				}
