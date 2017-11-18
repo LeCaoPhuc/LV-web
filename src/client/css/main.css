@@ -7,4 +7,11 @@
     padding-left: 0;
   }
 }
-      
+
+.helper-text{
+  min-height: 0px !important;
+}
+
+.select-dropdown{
+  max-height: 150px !important;
+}
