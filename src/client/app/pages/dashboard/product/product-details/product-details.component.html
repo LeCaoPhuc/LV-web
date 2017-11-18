@@ -1,57 +1,104 @@
-<div class="product-details-layout z-depth-3">
-  <div class="btn-close">
-    <a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
-      <i class="material-icons">close</i>
-    </a>
-  </div>
-  <form class="col s12">
-    <div class="row">
-      <div class="col s8">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="name" type="text" class="" name="name" [(ngModel)]="product.name">
-            <label for="name" class="active">Tên sản phẩm</label>
+<div class="product-detail-container">
+  <div class="product-details-layout z-depth-3">
+    <div class="btn-close">
+      <a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
+        <i class="material-icons">close</i>
+      </a>
+    </div>
+    <form *ngIf="product" class="col s12">
+      <div class="row product-info-container">
+        <div class="col s8">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="name" type="text" class="validate" name="name" [(ngModel)]="product.name" required>
+              <label for="name" class="active" data-error="Tên sản phẩm không được để trống">Tên sản phẩm</label>
+            </div>
           </div>
-          <div class="input-field col s6">
-            <select *ngIf="listCategory && listCategory.length > 0" name="category" [(ngModel)]="product.category" material-select>
-              <option value="" disabled selected>Chọn ngành hàng</option>
-              <option *ngFor="let item of listCategory" [value]="item.id">{{item.get('category_name')}}</option>
-            </select>
-            <label>Ngành hàng {{product.category}}</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <select *ngIf="listCategory && listCategory.length > 0" name="category" [(ngModel)]="product.category" material-select>
+                <option value="" disabled selected>Chọn ngành hàng</option>
+                <option *ngFor="let item of listCategory" [value]="item.id">{{item.get('category_name')}}</option>
+              </select>
+              <label>Ngành hàng</label>
+            </div>
+            <div class="input-field col s6">
+              <select name="status" [(ngModel)]="product.status" material-select>
+                <option value="">Còn hàng</option>
+                <option value="block">Hết hàng</option>
+              </select>
+              <label>Tình trạng</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="price" type="number" class="" [value]="product.price">
-            <label for="price" class="active">Giá</label>
-          </div>
-          <div class="input-field col s6">
-            <select name="status" [(ngModel)]="product.status" material-select>
-              <option value="">Còn hàng</option>
-              <option value="block">Hết hàng</option>
-            </select>
-            <label>Tình trạng</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="description" class="materialize-textarea" name="description" [(ngModel)]="product.description"></textarea>
-            <label for="description" class="active">Mô tả sản phẩm</label>
-          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="description" class="materialize-textarea" name="description" [(ngModel)]="product.description"></textarea>
+              <label for="description" class="active">Mô tả sản phẩm</label>
+            </div>
 
+          </div>
+        </div>
+        <div class="col s4 center-align product-action">
+          <!-- <img [src]="product.image ? product.image : '../../../../assets/images/product_default.png'" stretch="fill" class="z-depth-1">
+          <div>
+            <a (click)="file.click()">Thay đổi ảnh</a>
+            <input #file type="file" (change)="changePhoto(file)" style="display:none">
+          </div> -->
+          <a class="waves-effect waves-light btn btn-save" (click)="saveProduct()">
+            <i class="material-icons left">save</i>
+            <span>Lưu lại</span>
+          </a>
+          <a class="waves-effect waves-light btn btn-save" (click)="saveProductDetail()">
+            <i class="material-icons left">add</i>
+            <span>Thêm SP chi tiết</span>
+          </a>
+          <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
+            <i class="material-icons left">close</i>
+            <span>Xóa sản phẩm</span>
+          </a>
         </div>
       </div>
-      <div class="col s4 center-align">
-        <img *ngIf="product" [src]="product.image ? product.image : '../../../../assets/images/product_default.png'" stretch="fill" class="z-depth-1">
-        <div>
-          <a (click)="file.click()">Thay đổi ảnh</a>
-          <input #file type="file" (change)="changePhoto(file)" style="display:none">
-        </div>
-        <a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap()">
-          <i class="material-icons left">save</i>Lưu lại</a>
-        <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
-          <i class="material-icons left">close</i>Xóa sản phẩm</a>
+    </form>
+  </div>
+
+  <div class="product-details-layout z-depth-3">
+    <div class="row">
+      <div class="col s12">
+        <p class="product-detail-title">Danh sách hàng hóa chi tiết</p>
       </div>
     </div>
-  </form>
+    <div class="row">
+      <div class="col s12">
+        <table>
+          <thead>
+            <th>STT</th>
+            <th>Sku</th>
+            <th>Chất liệu</th>
+            <th>Màu sắc</th>
+            <th>Giá</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productDetailList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.get('sku') }}</td>
+              <td>{{ item.get('material').get('material_name') }}</td>
+              <td>{{ item.get('color').get('color_name') }}</td>
+              <td>{{ item.get('price') }}</td>
+              <td class="product-detail-action">
+                <span class="red-text text-darken-2">
+                  <i class="material-icons">delete</i>
+                </span>
+                <span class="orange-text text-darken-2">
+                  <i class="material-icons">edit</i>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
+
+

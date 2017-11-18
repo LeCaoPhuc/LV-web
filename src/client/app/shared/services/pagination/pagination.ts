@@ -251,7 +251,8 @@ export class Pagination {
       }
       else if (this.numOfPage - this.page < Math.ceil(this.maxPageInPagination/2)) {
         for (let i = this.numOfPage - 1; i >= this.numOfPage - this.maxPageInPagination; i--) {
-          this.pageList.unshift(i + 1);
+          if(i >= 0)
+            this.pageList.unshift(i + 1);
         }
       } else {
         for (let i = this.page - (Math.floor(this.maxPageInPagination/2) + 1); i <= this.page + (Math.floor(this.maxPageInPagination/2) - 1); i++) {
