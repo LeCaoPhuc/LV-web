@@ -43,7 +43,7 @@
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">phone</i>
-						<input #phonenumber id="phonenumber" name="phonenumber" maxlength="11" type="text" class="" [(ngModel)]="user.phoneNumber" [pattern]="userError.phonenumber.pattern"
+						<input #phonenumber id="phonenumber" name="phonenumber" minlength="10" maxlength="11" type="text" class="" [(ngModel)]="user.phoneNumber" [pattern]="userError.phonenumber.pattern"
 						[ngClass]="{'invalid':phonenumber.errors}" validate-onblur (emiter)="phonenumberErrorMessage($event)">
 						<label for="phonenumber" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
 						<span class="helper-text" [attr.data-error]="userError.phonenumber.message"></span>
