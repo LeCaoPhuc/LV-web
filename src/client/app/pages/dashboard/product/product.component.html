@@ -47,7 +47,7 @@
             <th>Tên sản phẩm</th>
             <th>Ngành hàng</th>
             <th>Mô tả</th>
-            <th>Giá</th>
+            <!-- <th>Giá</th> -->
             <th>Tình trạng</th>
           </tr>
         </thead>
@@ -55,12 +55,12 @@
         <tbody>
           <tr *ngFor="let product of listProduct; let i=index" (click)="showProductDetails(product)">
             <td>{{i + 1}}</td>
-            <td>{{product.get('product').get('product_name')}}</td>
+            <td>{{product.get('product_name')}}</td>
             <td>{{product.get('category').get('category_name')}}</td>
-            <td class="text-overflow">{{product.get('product').get('product_description')}}</td>
-            <td>{{product.get('price')}}</td>
+            <td class="text-overflow">{{product.get('product_description')}}</td>
+            <!-- <td>{{product.get('price')}}</td> -->
             <td>
-              <span *ngIf="product.get('product').get('status') == 'block'">Hết hàng</span>
+              <span *ngIf="product.get('status') == 'block'">Hết hàng</span>
             </td>
           </tr>
         </tbody>

@@ -163,7 +163,7 @@
     "jquery": "^2.2.4",
     "material-colors": "^1.2.5",
     "material-icons": "^0.1.0",
-    "materialize-css": "^0.100.2",
+    "materialize-css": "^1.0.0-alpha.1",
     "parse": "^1.10.1",
     "rxjs": "^5.5.0",
     "stringbuilder": "0.0.11",

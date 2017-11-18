@@ -20,7 +20,7 @@ export class AppComponent  {
 
   ngOnInit() {
     $(document).ready(function () {
-			$('select').material_select();
+			// $('select').material_select();
 		});
   }
 }

@@ -31,15 +31,14 @@ export class ProductComponent implements OnInit {
     this.pagination.enableMaxPageMode = true;
     this.pagination.maxPageInPagination = 5;
     this.pagination.getData = function (page: number, perPage: number) {
-      return self.parse.cloud('getProductListWithCategory', {
+      return self.parse.cloud('getProductList', {
         categoryId: self.currentCategoryId,
         limit: perPage,
-        page: page,
-        withBlock: true
+        page: page
       })
     }
     this.pagination.getNumOfPage = function () {
-      return self.parse.cloud('getCountProductWithCategory', {
+      return self.parse.cloud('getCountProduct', {
         categoryId: self.currentCategoryId,
         withBlock: true
       }).then(function (res: any) {
