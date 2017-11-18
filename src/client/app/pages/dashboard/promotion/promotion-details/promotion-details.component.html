@@ -58,7 +58,7 @@
                         <i class="material-icons left">save</i>
                         <span>Lưu lại</span>
                     </a>
-                    <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeletePromotionButtonTap()">
+                    <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="confirmDelete.open()">
                         <i class="material-icons left">close</i>
                         <span>Xóa khuyến mãi</span>
                     </a>
@@ -68,13 +68,14 @@
     </div>
 </div>
 
-<button data-target="modal1" class="btn modal-trigger">Modal</button>
-<div id="modal1" class="modal">
+<div #confirmDelete material-modal class="modal">
     <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <p style="font-size:1.1em">
+            Bạn có chắc chắn muốn xóa khuyến mãi này?
+        </p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <button class="btn modal-close waves-effect waves-light materialize-green">Không</button>
+        <button class="btn modal-close waves-effect waves-light materialize-red" (click)="onDeletePromotionButtonTap()">Có</button>
     </div>
 </div>

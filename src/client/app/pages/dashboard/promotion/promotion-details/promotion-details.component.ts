@@ -114,7 +114,12 @@ export class PromotionDetailsComponent implements OnInit {
     }
 
     onDeletePromotionButtonTap() {
-        alert('onDeletePromotionButtonTap');
+        var self = this;
+        self.parse.cloud('deletePromotion', {
+            promotionId: self.promotion.id
+        }).then(function () {
+            self.router.navigate(['dashboard/promotion']);
+        })
     }
 
     onSaveButtonTap() {
