@@ -8,10 +8,10 @@ tbody tr:hover {
 }
 
 .address {
-  white-space: nowrap; 
+  white-space: nowrap;
   max-width: 200px;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .title {
@@ -26,26 +26,26 @@ table thead tr {
 .btn-add {
   margin: 14.5px;
 }
+
 ul {
   list-style-type: none;
   padding: 0 0 0 8px;
 }
 
-.page-container{
-}
+.page-container {}
 
-.page-title{
+.page-title {
   display: flex;
   align-items: center;
   padding: 15px 0px;
   border-bottom: 1px solid #ccc;
 }
 
-.pagination{
+.pagination {
   width: auto;
 }
 
-.pagination > li{
+.pagination > li {
   cursor: pointer;
 }
 

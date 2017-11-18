@@ -25,13 +25,13 @@ export class UserComponent implements OnInit {
 		this.pagination.enableLoading = true;
 		this.pagination.enableMaxPageMode = true;
 		this.pagination.maxPageInPagination = 5;
-		this.pagination.getNumOfPage = function(){
-			return self.parseService.cloud('countObject',{
+		this.pagination.getNumOfPage = function () {
+			return self.parseService.cloud('countObject', {
 				className: 'User'
 			})
-		}		
- 		this.pagination.getData = function(page: number, perPage: number) {
-			return self.parseService.cloud('getUserList',{
+		}
+		this.pagination.getData = function (page: number, perPage: number) {
+			return self.parseService.cloud('getUserList', {
 				page: page,
 				limit: perPage
 			})
@@ -39,7 +39,7 @@ export class UserComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		var self =this;
+		var self = this;
 		this.getUserList(self.pagination.page);
 		this.getPageNumber();
 	}
@@ -49,38 +49,38 @@ export class UserComponent implements OnInit {
 	}
 
 	getUserList(page: any) {
-		var self =this;
+		var self = this;
 		this.pagination.getPage(page)
-		.then(function(res: any){	
-			console.log(res);
-			if(res && res.success) {
-				self.userList = [];
-				if(res.data) {
-					for(var i = 0 ; i < res.data.length; i++) {
-						self.userList.push({
-							id: res.data[i].id,
-							lastName: res.data[i].get('last_name'),
-							firstName:  res.data[i].get('first_name'),
-							userName:  res.data[i].get('username'),
-							gender: res.data[i].get('gender') ? res.data[i].get('gender') : 'nodata' ,
-							phoneNumber : res.data[i].get('phone_number') ? res.data[i].get('phone_number') : '',
-							email: res.data[i].get('email') ? res.data[i].get('email') : '',
-							address: res.data[i].get('address') ? res.data[i].get('address') : '',
-							status: res.data[i].get('status'),
-							avatar : res.data[i].get('avatar') ? res.data[i].get('avatar').url() : null,
-							usertype: res.data[i].get('user_type') ? res.data[i].get('user_type') : 'user',
-						})
+			.then(function (res: any) {
+				console.log(res);
+				if (res && res.success) {
+					self.userList = [];
+					if (res.data) {
+						for (var i = 0; i < res.data.length; i++) {
+							self.userList.push({
+								id: res.data[i].id,
+								lastName: res.data[i].get('last_name'),
+								firstName: res.data[i].get('first_name'),
+								userName: res.data[i].get('username'),
+								gender: res.data[i].get('gender') ? res.data[i].get('gender') : 'nodata',
+								phoneNumber: res.data[i].get('phone_number') ? res.data[i].get('phone_number') : '',
+								email: res.data[i].get('email') ? res.data[i].get('email') : '',
+								address: res.data[i].get('address') ? res.data[i].get('address') : '',
+								status: res.data[i].get('status'),
+								avatar: res.data[i].get('avatar') ? res.data[i].get('avatar').url() : null,
+								usertype: res.data[i].get('user_type') ? res.data[i].get('user_type') : 'user',
+							})
+						}
 					}
 				}
-			}
-		})
-		.catch(function(err: any){
-			console.log("error ")
-		})
+			})
+			.catch(function (err: any) {
+				console.log("error ")
+			})
 	}
 	showUserDetails(user: any) {
 		this.sharedService.setShareData('currentUser', user);
-		this.router.navigate(['dashboard/user/'+user.id]);
+		this.router.navigate(['dashboard/user/' + user.id]);
 	}
 
 	onAddButtonTap(args: any) {

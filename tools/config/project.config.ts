@@ -12,8 +12,8 @@ export class ProjectConfig extends SeedConfig {
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
   FONTS_DEST = `${this.APP_DEST}/fonts`;
   FONTS_SRC = [
-      'node_modules/font-awesome/fonts/**',
-      'node_modules/materialize-css/dist/fonts/**'
+    'node_modules/font-awesome/fonts/**',
+    'node_modules/materialize-css/dist/fonts/**'
   ];
 
   constructor() {
@@ -28,6 +28,7 @@ export class ProjectConfig extends SeedConfig {
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
+      { src: 'moment/min/moment.min.js', inject: 'libs' },
       { src: 'parse/dist/parse.min.js', inject: 'libs' },
       { src: 'materialize-css/dist/js/materialize.min.js', inject: 'libs' },
       { src: 'materialize-css/dist/css/materialize.min.css', inject: true },

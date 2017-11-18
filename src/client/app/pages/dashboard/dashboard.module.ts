@@ -9,6 +9,8 @@ import { UserModule } from "./user/index";
 import { ShopModule } from "./shop/index";
 import { ProductModule } from "./product/index";
 import { OrderModule } from "./order/index";
+import { PromotionModule } from "./promotion/index";
+
 @NgModule({
   imports: [
     CommonModule, 
@@ -20,6 +22,7 @@ import { OrderModule } from "./order/index";
     ShopModule,
     ProductModule,
     OrderModule,
+    PromotionModule
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent]
