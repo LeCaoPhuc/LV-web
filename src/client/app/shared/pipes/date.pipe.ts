@@ -8,7 +8,7 @@ export class DateTimePipe implements PipeTransform {
             return '';
         try {
             var date = new moment(value);
-            return date.format('DD/MM/YYYY HH:mm:ss');
+            return date.format('DD/MM/YYYY');
         } catch (e) {
             return '';
         }

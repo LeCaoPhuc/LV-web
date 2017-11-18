@@ -47,7 +47,7 @@ export class ShopComponent implements OnInit {
     private parseService: ParseSDKService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-     
+
   }
 
   ngOnInit() {

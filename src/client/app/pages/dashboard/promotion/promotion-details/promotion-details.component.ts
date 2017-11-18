@@ -3,6 +3,7 @@ import { HttpRequestService, ParseSDKService, SharedService } from '../../../../
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 declare var $: any;
+declare var moment: any;
 /**
  * This class represents the lazy loaded PromotionDetailsComponent.
  */
@@ -21,11 +22,23 @@ export class PromotionDetailsComponent implements OnInit {
         start_date: new Date(),
         end_date: new Date()
     };
+    public formInvalid: any = {
+        nameRequired: false,
+        percentRequired: false,
+        startDateRequired: false,
+        startDateAfterEndDate: false,
+        startDateBeforeToDay: false,
+        endDateRequired: false,
+        endDateBeforeStartDate: false,
+        endDateBeforeToDay: false
+    };
+
     public promotionDetail: any = [];
 
     constructor(
         private sharedService: SharedService,
         private location: Location,
+        private router: Router,
         private activatedRoute: ActivatedRoute,
         private parse: ParseSDKService
     ) {
@@ -42,32 +55,32 @@ export class PromotionDetailsComponent implements OnInit {
                     name: '',
                     description: '',
                     percent: 0,
-                    start_date: new Date(),
-                    end_date: new Date()
+                    start_date: self.dateToPickerDate(),
+                    end_date: self.dateToPickerDate()
                 }
             } else {
-                self.promotion = self.sharedService.getShareData('currentPromotion');
-                if (self.promotion) {
+                var promotionShared = self.sharedService.getShareData('currentPromotion');
+                if (promotionShared) {
                     self.promotion = {
-                        id: self.promotion.id,
-                        name: self.promotion.name,
-                        description: self.promotion.description,
-                        percent: self.promotion.percent,
-                        start_date: self.promotion.start_date,
-                        end_date: self.promotion.end_date
+                        id: promotionShared.id,
+                        name: promotionShared.name,
+                        description: promotionShared.description,
+                        percent: promotionShared.percent,
+                        start_date: self.dateToPickerDate(promotionShared.start_date),
+                        end_date: self.dateToPickerDate(promotionShared.end_date)
                     }
                 } else {
                     self.parse.cloud('getPromotion', {
                         promotionId: params['id']
                     }).then(function (res: any) {
-                        self.promotion = res.data;
+                        var promotionObj = res.data;
                         self.promotion = {
-                            id: self.promotion.id,
-                            name: self.promotion.get('name'),
-                            description: self.promotion.get('description'),
-                            percent: (self.promotion.get('percent') ? self.promotion.get('percent') : 0) * 100,
-                            start_date: self.promotion.get('start_date'),
-                            end_date: self.promotion.get('end_date')
+                            id: promotionObj.id,
+                            name: promotionObj.get('name'),
+                            description: promotionObj.get('description'),
+                            percent: (promotionObj.get('percent') ? promotionObj.get('percent') : 0) * 100,
+                            start_date: self.dateToPickerDate(promotionObj.get('start_date')),
+                            end_date: self.dateToPickerDate(promotionObj.get('end_date'))
                         }
                     });
                 }
@@ -75,24 +88,29 @@ export class PromotionDetailsComponent implements OnInit {
         })
     }
 
-    savePromotion() {
-        if (!this.promotion || !this.promotion.name) return;
-        this.parse.cloud('savePromotion', {
-            id: this.promotion.id,
-            name: this.promotion.name,
-            description: this.promotion.description,
-            percent: this.promotion.percent,
-            start_date: this.promotion.start_date,
-            end_date: this.promotion.end_date
-        }).then(function (res: any) {
-            console.log(res);
-        }).catch(function (err: any) {
-            console.log(err);
-        })
+    savePromotion(savePromotion: any) {
+        var self = this;
+        if (savePromotion.valid && !self.checkFormInvalid(savePromotion)) {
+            if (!self.promotion || !self.promotion.name) return;
+            self.parse.cloud('savePromotion', {
+                id: self.promotion.id,
+                name: self.promotion.name,
+                description: self.promotion.description,
+                percent: self.promotion.percent / 100,
+                startDate: self.promotion.start_date,
+                endDate: self.promotion.end_date
+            }).then(function (res: any) {
+                alert('Lưu thành công');
+                self.router.navigate(['dashboard/promotion']);
+                console.log(res);
+            }).catch(function (err: any) {
+                console.log(err);
+            })
+        }
     }
 
     goBack() {
-        this.location.back();
+        this.router.navigate(['dashboard/promotion']);
     }
 
     onDeletePromotionButtonTap() {
@@ -101,5 +119,127 @@ export class PromotionDetailsComponent implements OnInit {
 
     onSaveButtonTap() {
         alert('onSaveButtonTap');
+    }
+
+    promotionNameErrorMessage(event: any) {
+        if (!event) {
+            this.formInvalid.nameRequired = false;
+        } else if (event && event.required) {
+            this.formInvalid.nameRequired = true;
+        }
+    }
+
+    percentErrorMessage(event: any) {
+        if (!event) {
+            this.formInvalid.percentRequired = false;
+        } else if (event && event.required) {
+            this.formInvalid.percentRequired = true;
+        }
+    }
+
+    onMaterialStartDatePickerEmiter(event: any) {
+        this.checkDate(true, false);
+        if (this.formInvalid.endDateBeforeStartDate) {
+            this.checkDate(false, true);
+        }
+    }
+
+    onMaterialEndDatePickerEmiter(event: any) {
+        this.checkDate(false, true);
+        if (this.formInvalid.startDateAfterEndDate) {
+            this.checkDate(true, false);
+        }
+    }
+
+    resetVaidForm() {
+        this.formInvalid = {
+            nameRequired: false,
+            percentRequired: false,
+            startDateRequired: false,
+            startDateAfterEndDate: false,
+            startDateBeforeToDay: false,
+            endDateRequired: false,
+            endDateBeforeStartDate: false,
+            endDateBeforeToDay: false
+        };
+    }
+
+    checkFormInvalid(form: any) {
+        var self = this;
+
+        if (form) {
+            // Check name
+            if (form.form.controls.name.invalid) {
+                self.formInvalid.nameRequired = true;
+            } else {
+                self.formInvalid.nameRequired = false;
+            }
+
+            // Check percent
+            if (form.form.controls.percent.invalid) {
+                self.formInvalid.percentRequired = true;
+            } else {
+                self.formInvalid.percentRequired = false;
+            }
+
+            var checkDate = self.checkDate(true, true);
+            if (!self.formInvalid.percentRequired || !self.formInvalid.nameRequired || !checkDate) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    checkDate(checkStartDate: boolean, checkEndDate: boolean) {
+        var self = this;
+        var date = new Date();
+        var today = new moment();
+
+        var startDate = new moment((self.promotion.start_date ? new Date(self.promotion.start_date) : date));
+        var endDate = new moment((self.promotion.end_date ? new Date(self.promotion.end_date) : date));
+        if (checkStartDate) {
+            if (!self.promotion.start_date) {
+                self.formInvalid.startDateRequired = true;
+                self.formInvalid.startDateBeforeToDay = false;
+                self.formInvalid.startDateAfterEndDate = false;
+            } else if (self.promotion.end_date && endDate.diff(startDate, 'day') < 0) {
+                self.formInvalid.startDateRequired = false;
+                self.formInvalid.startDateBeforeToDay = false;
+                self.formInvalid.startDateAfterEndDate = true;
+            } else {
+                self.formInvalid.startDateRequired = false;
+                self.formInvalid.startDateBeforeToDay = false;
+                self.formInvalid.startDateAfterEndDate = false;
+            }
+        }
+        if (checkEndDate) {
+            if (!self.promotion.end_date) {
+                self.formInvalid.endDateRequired = true;
+                self.formInvalid.endDateBeforeToDay = false;
+                self.formInvalid.endDateBeforeStartDate = false;
+            } else if (self.promotion.start_date && endDate.diff(startDate, 'day') < 0) {
+                self.formInvalid.endDateRequired = false;
+                self.formInvalid.endDateBeforeToDay = false;
+                self.formInvalid.endDateBeforeStartDate = true;
+            } else {
+                self.formInvalid.endDateRequired = false;
+                self.formInvalid.endDateBeforeToDay = false;
+                self.formInvalid.endDateBeforeStartDate = false;
+            }
+        }
+        if (!self.formInvalid.startDateRequired || !self.formInvalid.startDateBeforeToDay ||
+            !self.formInvalid.startDateAfterEndDate) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    dateToPickerDate(date?: any) {
+        if (!date) {
+            date = new Date();
+        }
+        var dt = new moment(date);
+        return dt.format('ddd MMM DD YYYY');
     }
 }

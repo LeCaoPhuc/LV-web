@@ -30,7 +30,7 @@ export class ProjectConfig extends SeedConfig {
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'moment/min/moment.min.js', inject: 'libs' },
       { src: 'parse/dist/parse.min.js', inject: 'libs' },
-      { src: 'materialize-css/dist/js/materialize.min.js', inject: 'libs' },
+      { src: 'materialize-css/dist/js/materialize.js', inject: 'libs' },
       { src: 'materialize-css/dist/css/materialize.min.css', inject: true },
       { src: 'material-colors/dist/colors.css', inject: true }
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},

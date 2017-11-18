@@ -123,7 +123,8 @@
             <span class="helper-text" data-error="Giá không được để trống hoặc bé hơn 0"></span>
           </div>
           <div class="input-field col s12">
-            <input id="quantity" type="number" step="1" min="0" class="validate" name="quantity" [(ngModel)]="productDetail.quantity" required>
+            <input id="quantity" type="number" step="1" min="0" class="validate" name="quantity" [(ngModel)]="productDetail.quantity"
+              required>
             <label for="quantity" class="active">Số lượng</label>
             <span class="helper-text" data-error="Số lượng không được để trống hoặc bé hơn 0"></span>
           </div>
@@ -150,7 +151,8 @@
           </div>
         </div>
         <div class="col s4 center-align">
-          <img [src]="(productDetail && productDetail.image && productDetail.image._url) ? productDetail.image._url : '../../../../assets/images/product_default.png'" stretch="fill" class="z-depth-1">
+          <img [src]="(productDetail && productDetail.image && productDetail.image._url) ? productDetail.image._url : '../../../../assets/images/product_default.png'"
+            stretch="fill" class="z-depth-1">
           <div>
             <a (click)="file.click()">Thay đổi ảnh</a>
             <input #file type="file" (change)="changePhoto(file)" style="display:none">

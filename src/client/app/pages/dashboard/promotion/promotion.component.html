@@ -9,7 +9,7 @@
             </a>
         </li>
         <li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of pagination.pageList;"
-            (click)="getUserList(page)">
+            (click)="getPromotionList(page)">
             <a>{{ page }}</a>
         </li>
         <li class="waves-effect last-page" [ngClass]="{'disabled': pagination.page == pagination.numOfPage}">

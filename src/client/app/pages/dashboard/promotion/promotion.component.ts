@@ -21,7 +21,7 @@ export class PromotionComponent implements OnInit {
         var self = this;
         this.pagination = new Pagination();
         this.pagination.page = 1;
-        this.pagination.perPage = 5;
+        this.pagination.perPage = 10;
         this.pagination.enableLoading = true;
         this.pagination.enableMaxPageMode = true;
         this.pagination.maxPageInPagination = 5;
@@ -73,6 +73,10 @@ export class PromotionComponent implements OnInit {
             .catch(function (err: any) {
                 console.log("error ")
             })
+    }
+
+    onAddButtonTap(args: any) {
+        this.router.navigate(['dashboard/promotion/new']);
     }
 
     showPromotionDetails(promotion: any) {

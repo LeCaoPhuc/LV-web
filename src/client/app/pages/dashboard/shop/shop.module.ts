@@ -6,7 +6,7 @@ import { HttpRequestService } from '../../../shared/index';
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '../../../shared/directives/index';
 @NgModule({
-  imports: [SharedModule, CommonModule,DirectiveModule,FormsModule],
+  imports: [SharedModule, CommonModule, DirectiveModule, FormsModule],
   declarations: [ShopComponent],
   exports: [ShopComponent]
 })

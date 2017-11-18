@@ -5,30 +5,56 @@
                 <i class="material-icons">close</i>
             </a>
         </div>
-        <form *ngIf="promotion" class="col s12">
+        <form #promotionForm="ngForm" class="col s12">
             <div class="row promotion-info-container">
                 <div class="col s8">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="name" type="text" class="validate" name="name" [(ngModel)]="promotion.name" required>
-                            <label for="name" class="active" data-error="Tên khuyến mãi không được để trống">Tên khuyến mãi</label>
+                            <input #name id="name" type="text" class="validate" name="name" [(ngModel)]="promotion.name" validate-onblur (emiter)="promotionNameErrorMessage($event)"
+                                required [ngClass]="{'invalid' : name.errors, 'invalid' : formInvalid.nameRequired}">
+                            <label for="name" class="active">Tên khuyến mãi</label>
+                            <span class="helper-text" *ngIf="name.errors || formInvalid.nameRequired" data-error="Tên khuyến mãi không được để trống"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="description" class="materialize-textarea" name="description" [(ngModel)]="promotion.description"></textarea>
+                            <textarea #description id="description" class="materialize-textarea" name="description" [(ngModel)]="promotion.description"></textarea>
                             <label for="description" class="active">Mô tả khuyến mãi</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="percent" type="text" class="validate" name="percent" [(ngModel)]="promotion.percent" required>
-                            <label for="percent" class="active" data-error="Giảm giá không được để trống">Giảm giá (%)</label>
+                            <input #percent id="percent" type="text" class="validate" name="percent" [(ngModel)]="promotion.percent" validate-onblur
+                                (emiter)="percentErrorMessage($event)" required [ngClass]="{'invalid' : percent.errors, 'invalid': formInvalid.percentRequired}">
+                            <label for="percent" class="active">Giảm giá (%)</label>
+                            <span class="helper-text" *ngIf="percent.errors || formInvalid.nameRequired" data-error="Giảm giá không được để trống"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <i class="material-icons prefix">access_time</i>
+                            <input #startdate id="startdate" name="startdate" type="text" class="datepicker" material-datepicker [(ngModel)]="promotion.start_date"
+                                (materialDatePickerEmiter)="onMaterialStartDatePickerEmiter($event)" [ngClass]="formInvalid.startDateRequired || formInvalid.startDateBeforeToDay || formInvalid.startDateAfterEndDate ? 'invalid' : ''"
+                                [datePickerInput]="promotion.start_date">
+                            <label for="startdate" class="active">Ngày bắt đầu</label>
+                            <span class="helper-text" *ngIf="formInvalid.startDateRequired" data-error="Ngày bắt đầu không được để trống"></span>
+                            <span class="helper-text" *ngIf="formInvalid.startDateBeforeToDay" data-error="Ngày bắt đầu phải sau ngày hôm nay"></span>
+                            <span class="helper-text" *ngIf="formInvalid.startDateAfterEndDate" data-error="Ngày bắt đầu phải trước ngày kết thúc"></span>
+                        </div>
+                        <div class="input-field col s5 offset-s1">
+                            <i class="material-icons prefix">access_time</i>
+                            <input #enddate id="enddate" name="enddate" type="text" class="datepicker" material-datepicker [(ngModel)]="promotion.end_date"
+                                (materialDatePickerEmiter)="onMaterialEndDatePickerEmiter($event)" [ngClass]="formInvalid.endDateRequired || formInvalid.endDateBeforeToday || formInvalid.endDateBeforeStartDate ? 'invalid' : ''"
+                                [datePickerInput]="promotion.end_date">
+                            <label for="enddate" class="active">Ngày kết thúc</label>
+                            <span class="helper-text" *ngIf="formInvalid.endDateRequired" data-error="Ngày kết thúc không được để trống"></span>
+                            <span class="helper-text" *ngIf="formInvalid.endDateBeforeToday" data-error="Ngày kết thúc phải sau ngày hôm nay"></span>
+                            <span class="helper-text" *ngIf="formInvalid.endDateBeforeStartDate" data-error="Ngày kết thúc phải sau ngày bắt đầu"></span>
                         </div>
                     </div>
                 </div>
                 <div class="col s4 center-align promotion-action">
-                    <a class="waves-effect waves-light btn btn-save" (click)="savePromotion()">
+                    <a class="waves-effect waves-light btn btn-save" (click)="savePromotion(promotionForm)">
                         <i class="material-icons left">save</i>
                         <span>Lưu lại</span>
                     </a>
