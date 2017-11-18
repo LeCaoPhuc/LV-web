@@ -1,11 +1,35 @@
 .title {
   color: #EC646A;
-  font-weight: 300;
-  padding: 20px;
+  /* font-weight: 500; */
+  font-size: 2em;
 }
 
 .content {
   padding: 10px;
   /* display: flex;
   justify-content: center; */
+}
+.btn-save {
+    padding: 20px;
+}
+  
+.page-title{
+  display: flex;
+  align-items: center;
+  padding: 15px 0px;
+  border-bottom: 1px solid #ccc;
+}
+.shop-layout {
+  margin-top: 20px;
+  padding: 20px 0px;
+  width: calc(100% - 10px);
+  height: 100%;
+  background-color: #ececec;
+}
+.error {
+    color : red;
+    margin-left: 45px; 
+}
+.helper-text {
+  margin-left: 45px;
 }

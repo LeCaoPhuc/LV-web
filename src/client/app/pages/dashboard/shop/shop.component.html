@@ -1,63 +1,80 @@
-<div >
-
-	<h4 class="title col s5">Thông tin cửa hàng</h4>
-
-	<form class="content">
-		<div class="row ">
-			<div class="input-field col s5">
-				<i class="material-icons prefix">local_mall</i>
-				<input #shopname id="shopname" id="shopname" type="text" class="" [(ngModel)]="shopInfo.username">
-				<label for="shopname" class="active">Tên cửa hàng</label>
-			</div>
-			<div class="input-field col s5 offset-s1">
-				<i class="material-icons prefix">contact_phone</i>
-				<input id="phoneNumber" type="text" class="" value="01665009900">
-				<label for="phoneNumber" class="active">Số điện thoại</label>
-			</div>
+<div class="row">
+	<div class="row page-title">
+		<div class="col s8">
+			<span class="title">Thông tin cửa hàng</span>
 		</div>
-		<div class="row ">
-			<div class="input-field col s5">
-				<i class="material-icons prefix">access_time</i>
-				<input #shopname id="shopname" name="shopname" type="text" class="timepicker" material-timepicker [(ngModel)]="shopInfo.username">
-				<label for="shopname" class="active">Giờ mở cửa</label>
-			</div>
-			<div class="input-field col s5 offset-s1">
-				<i class="material-icons prefix">access_time</i>
-				<input id="phoneNumber" type="text" class="timepicker" value="01665009900">
-				<label for="phoneNumber" class="active">Giờ đóng cửa</label>
-			</div>
+		<div class="col s4">
+		<a class="waves-effect waves-light btn btn-add right" (click)="onClickSaveShopInfo(shopForm)">
+			<i class="material-icons left">save</i>
+			<span>Lưu thông tin</span>
+		</a>
 		</div>
-		<div class="row">
-			<div class="input-field col s5">
-				<i class="material-icons prefix">location_on</i>
-				<input id="latitude" type="text" class="" value="1.0">
-				<label for="latitude" class="active">Latitude</label>
+	</div>
+	<form #shopForm="ngForm" class="content row">
+		<div class="col s12">
+			<div class="row">
+				<div class="input-field col s6">
+					<i class="material-icons prefix">local_mall</i>
+					<input #shopname id="shopname" name="shopname" type="text" class="validate" required [(ngModel)]="shopInfo.shopname">
+					<label for="shopname" class="active">Tên cửa hàng</label>
+					<span class="helper-text" data-error="Tên cửa hàng không được để trống"></span>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">contact_phone</i>
+					<input #phonenumber id="phonenumber" name="phonenumber" type="text" minlength="10" maxlength="12" class="validate" 
+					[pattern]="shopData.phonenumber.pattern" (emiter)="phonenumberErrorMessage($event)" validate-onblur required [ngClass]="{'invalid':phonenumber.errors}" [(ngModel)]="shopInfo.phonenumber">
+					<label for="phonenumber" class="active">Số điện thoại</label>
+					<span class="helper-text" [attr.data-error]="shopData.phonenumber.message"></span>
+				</div>
 			</div>
-			<div class="input-field col s5 offset-s1">
-				<i class="material-icons prefix">location_on</i>
-				<input id="longitude" type="text" class="" value="1.0">
-				<label for="longitude" class="active">Longitude</label>
+			<div class="row ">
+				<div class="input-field col s6">
+					<i class="material-icons prefix">access_time</i>
+					<input #timeopen id="timeopen" name="timeopen" type="text" class="timepicker validate" [ngClass]="{'invalid':timeopen.errors}"
+					required validate-onblur material-timepicker [(ngModel)]="shopInfo.timeopen" (emiter)="timeopenErrorMessage($event)">
+					<label for="timeopen" class="active" >Giờ mở cửa</label>
+					<span class="helper-text error">{{ shopData.timeopen.message }}</span>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">access_time</i>
+					<input #timeclose id="timeclose" name="timeclose" type="text" class="timepicker" [ngClass]="{'invalid':timeclose.errors}"
+					required validate-onblur material-timepicker [(ngModel)]="shopInfo.timeclose" (emiter)="timecloseErrorMessage($event)">
+					<label for="timeclose" class="active">Giờ đóng cửa</label>
+					<span class="helper-text error">{{ shopData.timeclose.message }}</span>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s11">
-				<i class="material-icons prefix">map</i>
-				<input id="address" type="text" class="" value="user.address">
-				<label for="address" class="active">Địa chỉ</label>
+			<div class="row">
+				<div class="input-field col s6">
+					<i class="material-icons prefix">location_on</i>
+					<input #latitude id="latitude" name="latitude" type="number" [ngClass]="{'invalid':latitude.errors}" [pattern]="shopData.latitude.pattern" class="validate" 
+					required validate-onblur (emiter)="latitudeErrorMessage($event)" [(ngModel)]="shopInfo.latitude">
+					<label for="latitude" class="active">Vĩ độ</label>
+					<span class="helper-text" [attr.data-error]="shopData.latitude.message"></span>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">location_on</i>
+					<input #longitude id="longitude" name="longitude" type="number" [ngClass]="{'invalid':longitude.errors}" [pattern]="shopData.longitude.pattern" class="validate" 
+					required validate-onblur (emiter)="longitudeErrorMessage($event)" [(ngModel)]="shopInfo.longitude">
+					<label for="longitude" class="active">Kinh độ</label>
+					<span class="helper-text" [attr.data-error]="shopData.longitude.message"></span>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s11">
-				<i class="material-icons prefix">description</i>
-				<input id="address" type="text" class="" value="user.address">
-				<label for="address" class="active">Địa chỉ</label>
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">map</i>
+					<input #address name="address" id="address" type="text" maxlength="255" class="validate" required [(ngModel)]="shopInfo.address">
+					<label for="address" class="active">Địa chỉ</label>
+					<span class="helper-text" data-error="Địa chỉ không được để trống và nhỏ hơn 255 kí tự"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">description</i>
+					<input #description name="description" id="description" type="text" class="validate" [(ngModel)]="shopInfo.description">
+					<label for="address" class="active">Mô tả</label>
+					<span class="helper-text" data-error="Mô tả phải ít hơn 255 kí tự"></span>
+				</div>
 			</div>
 		</div>
 	</form>
-
-
-
-	<!--
-  <p>policy</p>
-  <p>faq</p> -->
 </div>
