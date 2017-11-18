@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
 		var self = this;
 		this.pagination = new Pagination();
 		this.pagination.page = 1;
-		this.pagination.perPage = 2;
+		this.pagination.perPage = 5;
 		this.pagination.enableLoading = true;
 		this.pagination.enableMaxPageMode = true;
 		this.pagination.maxPageInPagination = 5;
@@ -63,11 +63,11 @@ export class UserComponent implements OnInit {
 							firstName:  res.data[i].get('first_name'),
 							userName:  res.data[i].get('username'),
 							gender: res.data[i].get('gender') ,
-							phoneNumber : res.data[i].get('phone_number') ? res.data[i].get('phone_number') : 'không có số điện thoại',
-							email: res.data[i].get('email') ? res.data[i].get('email') : 'không có email',
-							address: res.data[i].get('address') ? res.data[i].get('address') : 'không có địa chỉ',
-							status: res.data[i].get('status')=='block' ? false : true,
-							avatar : res.data[i].get('avatar') ? res.data[i].get('avatar').url() : '../../../../assets/images/avatar_default.png'
+							phoneNumber : res.data[i].get('phone_number') ? res.data[i].get('phone_number') : '',
+							email: res.data[i].get('email') ? res.data[i].get('email') : '',
+							address: res.data[i].get('address') ? res.data[i].get('address') : '',
+							status: res.data[i].get('status'),
+							avatar : res.data[i].get('avatar') ? res.data[i].get('avatar').url() : null
 						})
 					}
 				}

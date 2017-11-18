@@ -6,26 +6,32 @@
 	</div>
 	<form #userDetailForm="ngForm" class="col s12">
 		<div class="row">
-			<div class="col s8">
+			<div class="col s8" *ngIf="user">
 				<div class="row" *ngIf="pageType == 'add'">
-					<div  class="input-field col s6">
+					<div class="input-field col s6">
 						<i class="material-icons prefix">contacts</i>
 						<input #username id="username" name="username" maxlength="50" type="text" class="" [(ngModel)]="user.userName" [pattern]="userError.username.pattern"
-						validate-onblur required (emiter)="usernameErrorMessage($event)">
+						[ngClass]="{'invalid':username.errors}" validate-onblur required (emiter)="usernameErrorMessage($event)">
 						<label for="username" [attr.data-error]="userError.username.message" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">lock</i>
+						<input #password id="password" name="password" maxlength="12" type="password" class="" [(ngModel)]="user.password" [pattern]="userError.password.pattern"
+						[ngClass]="{'invalid':password.errors}" validate-onblur required (emiter)="passwordErrorMessage($event)">
+						<label for="password" [attr.data-error]="userError.password.message" [class]="pageType != 'add' ? 'active' : ''">Mật khẩu</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">person</i>
 						<input #lastname id="lastname" name="lastname" maxlength="50" type="text" class="" [(ngModel)]="user.lastName" [pattern]="userError.lastname.pattern"
-						validate-onblur required (emiter)="lastnameErrorMessage($event)">
+						[ngClass]="{'invalid':lastname.errors}" validate-onblur required (emiter)="lastnameErrorMessage($event)">
 						<label for="lastname" [attr.data-error]="userError.lastname.message" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">person</i>
 						<input #firstname id="firstname" name="firstname" maxlength="50" type="text" class="" [(ngModel)]="user.firstName" [pattern]="userError.firstname.pattern"
-						validate-onblur required (emiter)="firstnameErrorMessage($event)">
+						[ngClass]="{'invalid':firstname.errors}" validate-onblur required (emiter)="firstnameErrorMessage($event)">
 						<label for="firstname" [attr.data-error]="userError.firstname.message" [class]="pageType != 'add' ? 'active' : ''">Tên</label>
 					</div>
 				</div>
@@ -33,36 +39,36 @@
 					<div class="input-field col s6">
 						<i class="material-icons prefix">phone</i>
 						<input #phonenumber id="phonenumber" name="phonenumber" maxlength="11" type="text" class="" [(ngModel)]="user.phoneNumber" [pattern]="userError.phonenumber.pattern"
-						validate-onblur required (emiter)="phonenumberErrorMessage($event)">
+						[ngClass]="{'invalid':phonenumber.errors}" validate-onblur (emiter)="phonenumberErrorMessage($event)">
 						<label for="phonenumber" [attr.data-error]="userError.phonenumber.message" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">email</i>
 						<input #email id="email" type="email" name="email" class="" maxlength="50" [(ngModel)]="user.email" [pattern]="userError.email.pattern"
-						validate-onblur required (emiter)="emailErrorMessage($event)">
+						[ngClass]="{'invalid':email.errors}" validate-onblur (emiter)="emailErrorMessage($event)">
 						<label for="email" [attr.data-error]="userError.email.message" [class]="pageType != 'add' ? 'active' : ''">Email</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">map</i>
-						<input #address id="address" name="address" type="text" maxlength="255" class="" [(ngModel)]="user.address" [pattern]="userError.address.pattern"
-						validate-onblur required (emiter)="addressErrorMessage($event)">
+						<input #address id="address" name="address" type="text" maxlength="255" class="" [(ngModel)]="user.address"
+						[ngClass]="{'invalid':address.errors}" (emiter)="addressErrorMessage($event)">
 						<label for="address" [attr.data-error]="userError.address.message" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s6">
 						<i class="material-icons prefix">wc</i>
-						<select #gender name="gender" id="gender" [value]="user.gender">
+						<select #gender name="gender" [(ngModel)]="user.gender" material-select>
 							<option value="male">Nam</option>
 							<option value="female">Nữ</option>
 						</select>
-						<label>Giới tính</label>
+						<label>Giới tính </label>
 					</div>
 					<div class="input-field col s6">
-						<i class="material-icons prefix">wc</i>
-						<select #gender name="usertype" id="usertype" [value]="user.usertype">
+						<i class="material-icons prefix">people</i>
+						<select #gender name="usertype" id="usertype" [(ngModel)]="user.usertype" material-select>
 							<option value="admin">Quản trị viên</option>
 							<option value="">Khách hàng</option>
 						</select>
@@ -70,20 +76,24 @@
 					</div>
 				</div>
 			</div>
-			<div class="col s4 center-align">
-				<img [src]="user.avatar ? user.avatar : '../../../../assets/images/avatar_default.png'" stretch="fill" class="z-depth-1">
+			<div class="col s4 center-align" *ngIf="user">
+				<img [src]="avatar ? avatar : '../../../../assets/images/avatar_default.png'" stretch="fill" class="z-depth-1">
+				 <div>
+					<a style="cursor: pointer;" (click)="file.click()">Thay đổi ảnh</a>
+					<input #file name="file" type="file" (change)="changePhoto(file)" style="display:none">
+				</div>
 				<h5 *ngIf="pageType != 'add'" style="color: #797979">@{{user.userName}}</h5>
 				<div class="switch">
 					<label>
-						<input *ngIf="user.block" type="checkbox" :checked>
-						<input *ngIf="!user.block" type="checkbox">
+						<input *ngIf="user.status=='block'" disabled type="checkbox" :checked>
+						<input *ngIf="user.status!='block'" disabled type="checkbox">
 						<span class="lever"></span>
-						<label for="block">Khóa tài khoản</label>
+						<label for="status">Khóa tài khoản</label>
 					</label>
 				</div>
-				<a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap()">
+				<a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap(userDetailForm)">
 					<i class="material-icons left">save</i>Lưu lại</a>
-				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
+				<a *ngIf="pageType != 'add'" class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
 					<i class="material-icons left">close</i>Xóa tài khoản</a>
 			</div>
 		</div>

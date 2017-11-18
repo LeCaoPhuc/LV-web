@@ -13,8 +13,22 @@ declare var $: any;
 	styleUrls: ['user-details.component.css'],
 })
 export class UserDetailsComponent implements OnInit {
-	public user: any = {};
+	public user: any = {
+			id: '',
+			gender: 'male',
+			lastName: '',
+			firstName: '',
+			userName: '',
+			address: '',
+			phoneNumber: '',
+			email: '',
+			status: false,
+			usertype: '',
+			password: ''
+	};
+	private currentFile : any;;
 	public pageType: string;
+	public avatar : any =  '../../../../assets/images/avatar_default.png';
 	private userTemp = {
 		id: '',
 		gender: 'male',
@@ -27,35 +41,45 @@ export class UserDetailsComponent implements OnInit {
 		status: false,
 		usertype: '',
 	}
-	public userError = {
+	public userError : any = {
 		username: {
 			message: '',
-			pattern: /^[a-zA-Z0-9]{1,50}$/
+			pattern: /^[a-zA-Z0-9 ]{1,50}$/,
+			name: 'Tài khoản'
 		},
 		firstname: {
 			message: '',
-			pattern: /^[a-zA-Z]{1,50}$/
+			pattern: /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý ]{1,50}$/,
+			name: 'Họ'
 		},
 		lastname: {
 			message: '',
-			pattern: /^[a-zA-Z]{1,50}$/
+			pattern: /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý ]{1,50}$/,
+			name: 'Tên'
 		},
 		address: {
 			message: '',
-			pattern: /^[a-zA-Z0-9]{1,255}$/
 		},
 		email: {
 			message: '',
-			pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			name: 'Email'
 		},
 		phonenumber : {
 			message: '',
-			pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+			pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+			name: 'Số điện thoại'
+		},
+		password : {
+			message: '',
+			pattern:  /^[a-zA-Z0-9 ]{8,12}$/,
+			name: 'Số điện thoại'
 		}
 	}
 	constructor(
 		private sharedService: SharedService,
 		private location: Location,
+		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private parseService: ParseSDKService,
 		private changeDetectorRef: ChangeDetectorRef
@@ -81,7 +105,7 @@ export class UserDetailsComponent implements OnInit {
 					status: false,
 					usertype: '',
 				}
-				self.setChangeSelectBox();
+				// self.setChangeSelectBox();
 			}
 			else {
 				self.pageType = 'edit';
@@ -103,33 +127,35 @@ export class UserDetailsComponent implements OnInit {
 										address: result.data.get('address'),
 										phoneNumber: result.data.get('phone_number'),
 										email: result.data.get('email'),
-										status: result.data.get('status') == 'block' ? true : false,
+										status: result.data.get('status'),
 										usertype: result.data.get('user_type'),
 										avatar: result.data.get('avatar') ? result.data.get('avatar').url() : '../../../../assets/images/avatar_default.png'
 									}
+									self.avatar = result.data.get('avatar') ? result.data.get('avatar').url() : '../../../../assets/images/avatar_default.png';
 								}
 							}
-							self.setChangeSelectBox();
 						})
 						.catch(function (err) {
 							console.log(err);
 						})
 				}
 				else {
-					self.setChangeSelectBox();
+					self.avatar = self.avatar ? self.user.avatar : '../../../../assets/images/avatar_default.png'
 				}
 			}
 		})
 	}
-	setChangeSelectBox() {
-		if (this.user.gender == 'female') {
-			$('#gender').prop('selectedIndex', 1);
+	changePhoto(file: any) {
+		var reader = new FileReader();
+		if(file.files && file.files[0]){
+			this.currentFile = file.files[0];
+			var reader = new FileReader();
+			reader.onload = (event:any) => {
+				this.avatar = event.target.result;
+			}
+			reader.readAsDataURL(file.files[0]);
+			// file.value = null;
 		}
-		$('#gender').material_select();
-		if (this.user.usertype != 'admin') {
-			$('#usertype').prop('selectedIndex', 1);
-		}
-		$('#usertype').material_select();
 	}
 	goBack() {
 		this.location.back();
@@ -151,8 +177,55 @@ export class UserDetailsComponent implements OnInit {
 				console.log(err);
 			})
 	}
-
-	onSaveButtonTap() {
+	onSaveButtonTap(userDetail: any) {
+		// console.log('onSaveButtonTap');
+		var self  = this;
+		if(userDetail.valid) { 
+			console.log('onSaveButtonTap');
+			console.log('a');
+			if(this.avatar && this.avatar.substr(0,4) == 'data') {
+				this.user.avatar = this.parseService.parseFile(this.currentFile.name.substr(this.currentFile.name.indexOf('.')+1),this.currentFile,true);
+			}
+			else {
+				this.user.avatar = null;
+			}
+			this.parseService.cloud('saveUserInfo',this.user) 
+			.then(function(result){
+				alert('Lưu thành công');
+				self.router.navigate(['dashboard/user']);
+			})
+			.catch(function(err){
+				console.log(err);
+				if(err.message.error.code==602 && self.pageType == 'edit') {
+					alert('Email đã được sử dụng');
+				}
+				else if(err.message.error.code==602 && self.pageType == 'add') {
+					if(err.message.message == 'email') {
+						alert('Email đã được sử dụng');
+					}
+					else {
+						alert('Tài khoản đã được sử dụng');
+					}
+				}
+				else  {
+					alert('Có lỗi trong quá trình save');
+				}
+			})
+		}
+		else {
+			for(var i in userDetail.controls) {
+				if(userDetail.controls[i] && userDetail.controls[i].errors) {
+					$('[name='+i+']').addClass('invalid');
+					if(userDetail.controls[i].errors.required) {
+						this.userError[i].message = this.userError[i].name + ' không được để trống';
+					}
+					else if(userDetail.controls[i].errors.pattern) {
+						this.userError[i].message = this.userError[i].name + '  không đúng định dạng';
+					}
+				}
+			}
+			console.log('onSaveButtonTap');
+		}
 	}
 	usernameErrorMessage(event: any) {
 		console.log(event);
@@ -173,11 +246,11 @@ export class UserDetailsComponent implements OnInit {
 	firstnameErrorMessage(event: any) {
 		console.log(event);
 		if (event && event.required) {
-			this.userError.firstname.message = 'Tài khoản không được để trống';
+			this.userError.firstname.message = 'Họ không được để trống';
 		}
 		else {
 			if (event && event.pattern) {
-				this.userError.firstname.message = 'Tài khoản không đúng định dạng';
+				this.userError.firstname.message = 'Họ không đúng định dạng';
 			}
 			else {
 				this.userError.firstname.message = '';
@@ -189,11 +262,11 @@ export class UserDetailsComponent implements OnInit {
 	lastnameErrorMessage(event: any) {
 		console.log(event);
 		if (event && event.required) {
-			this.userError.lastname.message = 'Tài khoản không được để trống';
+			this.userError.lastname.message = 'Tên không được để trống';
 		}
 		else {
 			if (event && event.pattern) {
-				this.userError.lastname.message = 'Tài khoản không đúng định dạng';
+				this.userError.lastname.message = 'Tên không đúng định dạng';
 			}
 			else {
 				this.userError.lastname.message = '';
@@ -205,11 +278,11 @@ export class UserDetailsComponent implements OnInit {
 	emailErrorMessage(event: any) {
 		console.log(event);
 		if (event && event.required) {
-			this.userError.email.message = 'Tài khoản không được để trống';
+			this.userError.email.message = 'Email không được để trống';
 		}
 		else {
 			if (event && event.pattern) {
-				this.userError.email.message = 'Tài khoản không đúng định dạng';
+				this.userError.email.message = 'Email không đúng định dạng';
 			}
 			else {
 				this.userError.email.message = '';
@@ -221,14 +294,14 @@ export class UserDetailsComponent implements OnInit {
 	phonenumberErrorMessage(event: any) {
 		console.log(event);
 		if (event && event.required) {
-			this.userError.phonenumber.message = 'Tài khoản không được để trống';
+			this.userError.phonenumber.message = 'Số điện thoại không được để trống';
 		}
 		else {
 			if (event && event.pattern) {
-				this.userError.username.message = 'Tài khoản không đúng định dạng';
+				this.userError.phonenumber.message = 'Số điện thoại không đúng định dạng';
 			}
 			else {
-				this.userError.username.message = '';
+				this.userError.phonenumber.message = '';
 			}
 		}
 
@@ -237,17 +310,25 @@ export class UserDetailsComponent implements OnInit {
 	addressErrorMessage(event: any) {
 		console.log(event);
 		if (event && event.required) {
-			this.userError.username.message = 'Tài khoản không được để trống';
+			this.userError.address.message = 'Địa chỉ không được để trống';
 		}
 		else {
-			if (event && event.pattern) {
-				this.userError.username.message = 'Tài khoản không đúng định dạng';
-			}
-			else {
-				this.userError.username.message = '';
-			}
+			this.userError.address.message = '';
 		}
 
 		this.changeDetectorRef.detectChanges();
+	}
+	passwordErrorMessage(event: any) {
+		if (event && event.required) {
+			this.userError.password.message = 'Mật khẩu không được để trống';
+		}
+		else {
+			if (event && event.pattern) {
+				this.userError.password.message = 'Mật khẩu không đúng định dạng';
+			}
+			else {
+				this.userError.password.message = '';
+			}
+		}
 	}
 }

@@ -35,18 +35,18 @@
 		<tbody>
 			<tr *ngFor="let user of userList; let i=index" (click)="showUserDetails(user)">
 				<td>{{i + 1}}</td>
-				<td>{{user.lastName}}</td>
-				<td>{{user.firstName}}</td>
-				<td>{{'@' + user.userName}}</td>
+				<td>{{user.lastName ? user.lastName : '-' }}</td>
+				<td>{{user.firstName ? user.firstName : '-'}}</td>
+				<td >{{'@' + user.userName ? user.userName : '-'}}</td>
 				<td>{{user.gender == 'male' ? 'Nam' : 'Nữ'}}</td>
-				<td>{{user.phoneNumber}}</td>
-				<td>{{user.email}}</td>
-				<td class="address">{{user.address}}</td>
+				<td>{{user.phoneNumber ? user.phoneNumber : '-'}}</td>
+				<td>{{user.email ? user.email : '-'}}</td>
+				<td class="address">{{user.address ? user.address : '-'}}</td>
 				<td>
 					<div class="switch">
 						<label>
-							<input *ngIf="user.status" disabled type="checkbox" :checked>
-							<input *ngIf="!user.status" disabled type="checkbox">
+							<input *ngIf="user.status=='block'" disabled type="checkbox" :checked>
+							<input *ngIf="user.status!='block'" disabled type="checkbox">
 							<span class="lever"></span>
 						</label>
 					</div>

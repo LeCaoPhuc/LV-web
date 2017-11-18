@@ -53,5 +53,14 @@ export class ParseSDKService {
     return new ParseUser(Parse.User.current());
   }
 
+  
+  parseFile(name: string, file: any, save: boolean) {
+      var parseFile = new Parse.File(name, file);
+      if (save == true) {
+          return parseFile.save();
+      }
+      return parseFile;
+  }
+
 }
 
