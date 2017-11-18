@@ -169,8 +169,16 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  saveProduct() {
+  saveProduct(addProductForm: any) {
     var self = this;
+    if (addProductForm.invalid) {
+      for (var i in addProductForm.controls) {
+        if (addProductForm.controls[i].errors) {
+          $('[name=' + i + ']').addClass('invalid');
+        }
+      }
+      return;
+    }
     if (!this.product || !this.product.name) return;
     this.parse.cloud('saveProduct', {
       id: this.product.id,
@@ -188,6 +196,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   saveProductDetail(productDetailForm: any) {
+    if (productDetailForm.invalid) {
+      for (var i in productDetailForm.controls) {
+        if (productDetailForm.controls[i].errors) {
+          $('[name=' + i + ']').addClass('invalid');
+        }
+      }
+      return;
+    }
     var self = this;
     this.parse.cloud('saveProductDetail', {
       product_id: this.product.id,
@@ -284,7 +300,7 @@ export class ProductDetailsComponent implements OnInit {
     })
   }
 
-  deleteProduct(){
+  deleteProduct() {
     var self = this;
     this.parse.cloud('deleteProduct', {
       id: this.product.id
