@@ -46,6 +46,18 @@ export class ParseSDKService {
       })
     })
   }
+
+  file(fileName: string, file: any) {
+    return new Promise((resolve: Function, reject: Function) => {
+      var parseFile = new Parse.File(fileName, file);
+      parseFile.save().then((file: any) => {
+        resolve(file);
+      }).catch((err: any) => {
+        reject(err);
+      })
+    })
+  }
+
   fetch() {
     return Parse.User.current().fetch();
   }
@@ -53,13 +65,13 @@ export class ParseSDKService {
     return new ParseUser(Parse.User.current());
   }
 
-  
+
   parseFile(name: string, file: any, save: boolean) {
-      var parseFile = new Parse.File(name, file);
-      if (save == true) {
-          return parseFile.save();
-      }
-      return parseFile;
+    var parseFile = new Parse.File(name, file);
+    if (save == true) {
+      return parseFile.save();
+    }
+    return parseFile;
   }
 
 }

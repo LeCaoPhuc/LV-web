@@ -10,8 +10,15 @@
   box-shadow: unset !important;
 }
 
+.product-avatar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 img {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   margin-bottom: 10px;
   width: 100px;
   border-radius: 50px;
@@ -64,4 +71,13 @@ table{
 .product-info-container{
   display: flex;
   align-items: center;
+}
+
+.product-detail-action{
+  padding: 10px 0px;
+}
+
+.product-detail-action > button{
+  width: 90%;
+  margin-bottom: 10px;
 }
