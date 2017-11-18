@@ -5,7 +5,7 @@ import { UserRoutes } from "./user/index";
 import { ShopRoutes } from "./shop/index";
 import { ProductRoutes } from "./product/index";
 import { OrderRoutes } from "./order/index";
-
+import { NotifyRoutes } from "./notify/index";
 export const DashboardRoutes: Routes = [
 	{
 		path: 'dashboard',
@@ -16,6 +16,7 @@ export const DashboardRoutes: Routes = [
 			...ShopRoutes,
 			...ProductRoutes,
 			...OrderRoutes,
+			...NotifyRoutes
 			// ...LoginRoutes
 		]
 	},

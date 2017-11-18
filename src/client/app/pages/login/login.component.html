@@ -12,7 +12,8 @@
                     <div class="input-field">
                         <input #username id="username" type="text" [pattern]="usernamePattern" name="username" [(ngModel)]="loginData.username.value"
                             [ngClass]="{'invalid':username.errors}" validate-onblur required (emiter)="usernameErrorMessage($event)">
-                        <label for="username" class="width-100" [attr.data-error]="loginData.username.message">Tài khoản</label>
+                        <label for="username" class="width-100" >Tài khoản</label>
+                        <span class="helper-text" [attr.data-error]="loginData.username.message"></span>
                     </div>
                 </div>
                 <div class='row col s12'>
@@ -21,6 +22,7 @@
                             (emiter)="passwordErrorMessage($event)" [ngClass]="{'invalid':password.errors}" [pattern]="passwordPattern"
                         />
                         <label [attr.data-error]="loginData.password.message" for="password" class="width-100">Mật khảu</label>
+                         <span class="helper-text" [attr.data-error]="loginData.password.message"></span>
                     </div>
                 </div>
                 <div class="section"></div>

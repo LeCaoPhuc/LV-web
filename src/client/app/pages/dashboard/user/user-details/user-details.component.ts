@@ -23,24 +23,12 @@ export class UserDetailsComponent implements OnInit {
 			phoneNumber: '',
 			email: '',
 			status: false,
-			usertype: '',
+			usertype: 'user',
 			password: ''
 	};
 	private currentFile : any;;
 	public pageType: string;
 	public avatar : any =  '../../../../assets/images/avatar_default.png';
-	private userTemp = {
-		id: '',
-		gender: 'male',
-		lastName: '',
-		firstName: '',
-		userName: '',
-		address: '',
-		phoneNumber: '',
-		email: '',
-		status: false,
-		usertype: '',
-	}
 	public userError : any = {
 		username: {
 			message: '',
@@ -103,7 +91,7 @@ export class UserDetailsComponent implements OnInit {
 					phoneNumber: '',
 					email: '',
 					status: false,
-					usertype: '',
+					usertype: 'user',
 				}
 				// self.setChangeSelectBox();
 			}
@@ -120,7 +108,7 @@ export class UserDetailsComponent implements OnInit {
 								if (result.data) {
 									self.user = {
 										id: result.data.id,
-										gender: result.data.get('gender'),
+										gender: result.data.get('gender') ? result.data.get('gender') : 'nodata',
 										lastName: result.data.get('last_name'),
 										firstName: result.data.get('first_name'),
 										userName: result.data.get('username'),
@@ -128,7 +116,7 @@ export class UserDetailsComponent implements OnInit {
 										phoneNumber: result.data.get('phone_number'),
 										email: result.data.get('email'),
 										status: result.data.get('status'),
-										usertype: result.data.get('user_type'),
+										usertype: result.data.get('user_type') ? result.data.get('user_type') : 'user',
 										avatar: result.data.get('avatar') ? result.data.get('avatar').url() : '../../../../assets/images/avatar_default.png'
 									}
 									self.avatar = result.data.get('avatar') ? result.data.get('avatar').url() : '../../../../assets/images/avatar_default.png';
@@ -157,11 +145,17 @@ export class UserDetailsComponent implements OnInit {
 			// file.value = null;
 		}
 	}
+	checkBoxChange(checkbox: any) {
+		console.log(checkbox);
+		if(this.user.status == 'block') {
+			this.user.status = null;
+		}
+		else {
+			this.user.status = 'block';
+		}
+	}
 	goBack() {
 		this.location.back();
-	}
-	fetchUser(user: any) {
-
 	}
 	onDeleteUserButtonTap() {
 		var self = this;
@@ -183,34 +177,77 @@ export class UserDetailsComponent implements OnInit {
 		if(userDetail.valid) { 
 			console.log('onSaveButtonTap');
 			console.log('a');
+			var image : any;
 			if(this.avatar && this.avatar.substr(0,4) == 'data') {
-				this.user.avatar = this.parseService.parseFile(this.currentFile.name.substr(this.currentFile.name.indexOf('.')+1),this.currentFile,true);
+				if(this.user.gender == 'nodata') {
+					this.user.gender = null;
+				}
+				if(this.user.usertype == 'user') {
+					this.user.usertype = null;
+				}
+				this.parseService.parseFile(this.currentFile.name.substr(this.currentFile.name.indexOf('.')+1),this.currentFile,true)
+				.then(function(image: any) {
+					self.user.avatar = image;
+					self.parseService.cloud('saveUserInfo',self.user) 
+					.then(function(result){
+						alert('Lưu thành công');
+						self.router.navigate(['dashboard/user']);
+					})
+					.catch(function(err){
+						console.log(err);
+						if(err.message.error.code==602 && self.pageType == 'edit') {
+							alert('Email đã được sử dụng');
+						}
+						else if(err.message.error.code==602 && self.pageType == 'add') {
+							if(err.message.message == 'email') {
+								alert('Email đã được sử dụng');
+							}
+							else {
+								alert('Tài khoản đã được sử dụng');
+							}
+						}
+						else  {
+							alert('Có lỗi trong quá trình save');
+						}
+					})
+				})
+				.catch(function(err : any){
+					console.log(err);
+					alert('Có lỗi khi lưu hình ảnh');
+				})
 			}
 			else {
 				this.user.avatar = null;
-			}
-			this.parseService.cloud('saveUserInfo',this.user) 
-			.then(function(result){
-				alert('Lưu thành công');
-				self.router.navigate(['dashboard/user']);
-			})
-			.catch(function(err){
-				console.log(err);
-				if(err.message.error.code==602 && self.pageType == 'edit') {
-					alert('Email đã được sử dụng');
+				if(this.user.gender == 'nodata') {
+					this.user.gender = null;
 				}
-				else if(err.message.error.code==602 && self.pageType == 'add') {
-					if(err.message.message == 'email') {
+				if(this.user.usertype == 'user') {
+					this.user.usertype = null;
+				}
+				self.user.avatar = null;
+				self.parseService.cloud('saveUserInfo',self.user) 
+				.then(function(result){
+					alert('Lưu thành công');
+					self.router.navigate(['dashboard/user']);
+				})
+				.catch(function(err){
+					console.log(err);
+					if(err.message.error.code==602 && self.pageType == 'edit') {
 						alert('Email đã được sử dụng');
 					}
-					else {
-						alert('Tài khoản đã được sử dụng');
+					else if(err.message.error.code==602 && self.pageType == 'add') {
+						if(err.message.message == 'email') {
+							alert('Email đã được sử dụng');
+						}
+						else {
+							alert('Tài khoản đã được sử dụng');
+						}
 					}
-				}
-				else  {
-					alert('Có lỗi trong quá trình save');
-				}
-			})
+					else  {
+						alert('Có lỗi trong quá trình save');
+					}
+				})
+			}
 		}
 		else {
 			for(var i in userDetail.controls) {
