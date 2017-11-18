@@ -9,9 +9,10 @@ import { CaretDetectDirective } from './caret-detect.directive';
 import { DataClipboardTargetDirective } from './data-clipboard-target.directive';
 import { MaterialSelectDirective } from './material-select.directive';
 import { MaterialTimePickerDirective } from './material-time-picker.directive';
+import { MaterialmodalDirective } from './material-modal.directive';
 @NgModule({
   imports: [FormsModule],
-  declarations: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective, MaterialSelectDirective,MaterialTimePickerDirective],
-  exports: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective, MaterialSelectDirective,MaterialTimePickerDirective]
+  declarations: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective, MaterialSelectDirective,MaterialTimePickerDirective,MaterialmodalDirective],
+  exports: [ValidateOnBlurDirective, ScrollDirective, TagsInputDirective, AutoCompleteDirective, CaretDetectDirective, DataClipboardTargetDirective, MaterialSelectDirective,MaterialTimePickerDirective,MaterialmodalDirective]
 })
 export class DirectiveModule { }
