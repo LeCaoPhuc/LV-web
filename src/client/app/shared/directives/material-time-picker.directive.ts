@@ -11,11 +11,17 @@ export class MaterialTimePickerDirective {
   constructor(private el: ElementRef, private ngModel: NgModel) {
     this.materialTimePickerEmiter = new EventEmitter();
   }
-
+  private done: string =  'Xong';
+  private clear: string = 'Xóa';
+  private cancel : string = 'Quay về';
   ngOnInit() {
     var self = this;
     setTimeout(function () {
-      $(self.el.nativeElement).timepicker();
+      $(self.el.nativeElement).timepicker({
+        doneText: self.done,
+        clearText : self.clear,
+        cancel: self.cancel,
+      });
     }, 100);
 
     self.el.nativeElement.onchange = function(event: any){

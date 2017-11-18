@@ -6,8 +6,8 @@
 		<div class="row ">
 			<div class="input-field col s5">
 				<i class="material-icons prefix">local_mall</i>
-				<input id="shop_name" type="text" class="" value="shop name">
-				<label for="shop_name" class="active">Tên cửa hàng</label>
+				<input #shopname id="shopname" id="shopname" type="text" class="" [(ngModel)]="shopInfo.username">
+				<label for="shopname" class="active">Tên cửa hàng</label>
 			</div>
 			<div class="input-field col s5 offset-s1">
 				<i class="material-icons prefix">contact_phone</i>
@@ -17,14 +17,14 @@
 		</div>
 		<div class="row ">
 			<div class="input-field col s5">
-				<i class="material-icons prefix">local_mall</i>
+				<i class="material-icons prefix">access_time</i>
 				<input #shopname id="shopname" name="shopname" type="text" class="timepicker" material-timepicker [(ngModel)]="shopInfo.username">
-				<label for="shopname" class="active">Mở cửa {{ shopInfo.username }}</label>
+				<label for="shopname" class="active">Giờ mở cửa</label>
 			</div>
 			<div class="input-field col s5 offset-s1">
-				<i class="material-icons prefix">contact_phone</i>
+				<i class="material-icons prefix">access_time</i>
 				<input id="phoneNumber" type="text" class="timepicker" value="01665009900">
-				<label for="phoneNumber" class="active">Đóng cửa</label>
+				<label for="phoneNumber" class="active">Giờ đóng cửa</label>
 			</div>
 		</div>
 		<div class="row">
@@ -42,6 +42,13 @@
 		<div class="row">
 			<div class="input-field col s11">
 				<i class="material-icons prefix">map</i>
+				<input id="address" type="text" class="" value="user.address">
+				<label for="address" class="active">Địa chỉ</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s11">
+				<i class="material-icons prefix">description</i>
 				<input id="address" type="text" class="" value="user.address">
 				<label for="address" class="active">Địa chỉ</label>
 			</div>
