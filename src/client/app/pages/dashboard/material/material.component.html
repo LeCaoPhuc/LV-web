@@ -1,0 +1,38 @@
+<div>
+    <h4 class="title col s6">Danh sách chất liệu</h4>
+    <a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap()">
+        <i class="material-icons left">add_circle</i>Thêm chất liệu mới</a>
+    <ul *ngIf="pagination.pageList && pagination.pageList.length" class="pagination right">
+        <li class="waves-effect first-page" [ngClass]="{'disabled': pagination.page == 1}">
+            <a (click)="pagination.firstPage()">
+                <i class="material-icons">chevron_left</i>
+            </a>
+        </li>
+        <li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of pagination.pageList;"
+            (click)="getMaterialList(page)">
+            <a>{{ page }}</a>
+        </li>
+        <li class="waves-effect last-page" [ngClass]="{'disabled': pagination.page == pagination.numOfPage}">
+            <a (click)="pagination.lastPage()">
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </li>
+    </ul>
+    <table class="bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên</th>
+                <th>Mô tả</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let material of materialList; let i=index" (click)="showMaterialDetails(material)">
+                <td>{{i + 1}}</td>
+                <td>{{material.name ? material.name : '-' }}</td>
+                <td>{{material.description ? material.description : '-'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

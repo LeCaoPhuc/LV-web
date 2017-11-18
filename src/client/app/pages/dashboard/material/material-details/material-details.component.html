@@ -1,0 +1,51 @@
+<div class="material-detail-container">
+    <div class="material-details-layout z-depth-3 row">
+        <div class="btn-close">
+            <a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
+                <i class="material-icons">close</i>
+            </a>
+        </div>
+        <form #materialForm="ngForm" class="col s12">
+            <div class="row material-info-container">
+                <div class="col s8">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input #name id="name" type="text" class="validate" name="name" [(ngModel)]="material.name" validate-onblur (emiter)="materialNameErrorMessage($event)"
+                                required [ngClass]="{'invalid' : name.errors, 'invalid' : formInvalid.nameRequired}">
+                            <label for="name" class="active">Tên chất liệu</label>
+                            <span class="helper-text" *ngIf="name.errors || formInvalid.nameRequired" data-error="Tên chất liệu không được để trống"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea #description id="description" class="materialize-textarea" name="description" [(ngModel)]="material.description"></textarea>
+                            <label for="description" class="active">Mô tả chất liệu</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4 center-align material-action">
+                    <a class="waves-effect waves-light btn btn-save" (click)="saveMaterial(materialForm)">
+                        <i class="material-icons left">save</i>
+                        <span>Lưu lại</span>
+                    </a>
+                    <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="confirmDelete.open()" *ngIf="material.id">
+                        <i class="material-icons left">close</i>
+                        <span>Xóa chất liệu</span>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div #confirmDelete material-modal class="modal">
+    <div class="modal-content">
+        <p style="font-size:1.1em">
+            Bạn có chắc chắn muốn xóa chất liệu này?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn modal-close waves-effect waves-light materialize-green">Không</button>
+        <button class="btn modal-close waves-effect waves-light materialize-red" (click)="onDeleteMaterialButtonTap()">Có</button>
+    </div>
+</div>

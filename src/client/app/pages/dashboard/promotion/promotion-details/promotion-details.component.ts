@@ -88,9 +88,10 @@ export class PromotionDetailsComponent implements OnInit {
         })
     }
 
-    savePromotion(savePromotion: any) {
+    savePromotion(promotionForm: any) {
         var self = this;
-        if (savePromotion.valid && !self.checkFormInvalid(savePromotion)) {
+        self.resetVaidForm();
+        if (!self.checkFormInvalid(promotionForm)) {
             if (!self.promotion || !self.promotion.name) return;
             self.parse.cloud('savePromotion', {
                 id: self.promotion.id,
@@ -171,7 +172,6 @@ export class PromotionDetailsComponent implements OnInit {
 
     checkFormInvalid(form: any) {
         var self = this;
-
         if (form) {
             // Check name
             if (form.form.controls.name.invalid) {
@@ -179,14 +179,12 @@ export class PromotionDetailsComponent implements OnInit {
             } else {
                 self.formInvalid.nameRequired = false;
             }
-
             // Check percent
             if (form.form.controls.percent.invalid) {
                 self.formInvalid.percentRequired = true;
             } else {
                 self.formInvalid.percentRequired = false;
             }
-
             var checkDate = self.checkDate(true, true);
             if (self.formInvalid.percentRequired || self.formInvalid.nameRequired || !checkDate) {
                 return true;

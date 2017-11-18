@@ -10,20 +10,22 @@ import { ShopModule } from "./shop/index";
 import { ProductModule } from "./product/index";
 import { OrderModule } from "./order/index";
 import { PromotionModule } from "./promotion/index";
+import { MaterialModule } from "./material/index";
 import { NotifyModule } from "./notify/index";
 
 @NgModule({
   imports: [
-    CommonModule, 
-    RouterModule, 
-    NavbarModule, 
-    FooterModule, 
+    CommonModule,
+    RouterModule,
+    NavbarModule,
+    FooterModule,
     HomeModule,
     UserModule,
     ShopModule,
     ProductModule,
     OrderModule,
     PromotionModule,
+    MaterialModule,
     NotifyModule
   ],
   declarations: [DashboardComponent],
