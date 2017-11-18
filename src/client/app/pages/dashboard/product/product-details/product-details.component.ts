@@ -37,13 +37,14 @@ export class ProductDetailsComponent implements OnInit {
   public materialList: any = [];
   public colorList: any = [];
   public promotionList: any = [];
-  public skuPattern: any = /[0-9]{8,8}$/;
+  public skuPattern: any = '[0-9]{8,8}$';
 
   constructor(
     private sharedService: SharedService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private parse: ParseSDKService
+    private parse: ParseSDKService,
+    private router: Router
   ) {
     // this.product = this.sharedService.getShareData('currentProduct');
 
@@ -168,8 +169,16 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  saveProduct() {
+  saveProduct(addProductForm: any) {
     var self = this;
+    if (addProductForm.invalid) {
+      for (var i in addProductForm.controls) {
+        if (addProductForm.controls[i].errors) {
+          $('[name=' + i + ']').addClass('invalid');
+        }
+      }
+      return;
+    }
     if (!this.product || !this.product.name) return;
     this.parse.cloud('saveProduct', {
       id: this.product.id,
@@ -180,12 +189,22 @@ export class ProductDetailsComponent implements OnInit {
     }).then(function (res: any) {
       console.log(res);
       self.productParseObj = res.data;
+      self.product.id = res.data.id;
     }).catch(function (err: any) {
       console.log(err);
     })
   }
 
   saveProductDetail(productDetailForm: any) {
+    if (productDetailForm.invalid) {
+      for (var i in productDetailForm.controls) {
+        if (productDetailForm.controls[i].errors) {
+          $('[name=' + i + ']').addClass('invalid');
+        }
+      }
+      return;
+    }
+    var self = this;
     this.parse.cloud('saveProductDetail', {
       product_id: this.product.id,
       category_id: this.product.category,
@@ -198,6 +217,17 @@ export class ProductDetailsComponent implements OnInit {
       quantity: this.productDetail.quantity,
       status: this.product.status,
       id: this.productDetail.id,
+    }).then(function (res: any) {
+      if (!self.productDetail.id) {
+        self.productDetailList.push(res.data);
+      } else {
+        for (var i in self.productDetailList) {
+          if (self.productDetail.id == self.productDetailList[i].id) {
+            self.productDetailList[i] = res.data;
+            break;
+          }
+        }
+      }
     })
   }
 
@@ -208,10 +238,10 @@ export class ProductDetailsComponent implements OnInit {
   changePhoto(event: any) {
     var self = this;
     var file: any = event.files[0];
-    this.parse.file('product-avatar', file).then(function(file: any){
+    this.parse.file('product-avatar', file).then(function (file: any) {
       console.log(file);
       self.productDetail.image = file;
-    }).catch(function(err: any){
+    }).catch(function (err: any) {
       console.log(err);
     })
     event.value = null;
@@ -227,6 +257,56 @@ export class ProductDetailsComponent implements OnInit {
 
   onChangeImageTap() {
     alert('onChangeImageTap');
+  }
+
+  bindingProductDetail(addProductDetailModal: any, product?: any) {
+    addProductDetailModal.open();
+    if (!product) {
+      this.productDetail = {
+        id: '',
+        sku: '',
+        material: this.materialList[0].id,
+        color: this.colorList[0].id,
+        price: 0,
+        quantity: 0,
+        promotion: '',
+        image: null
+      }
+    } else {
+      this.productDetail = {
+        id: product.id,
+        sku: product.get('sku'),
+        material: product.get('material').id,
+        color: product.get('color').id,
+        price: product.get('price'),
+        quantity: product.get('quantity'),
+        promotion: product.get('promotion') ? product.get('promotion').id : '',
+        image: product.get('image')
+      }
+    }
+  }
+
+  deleteProductDetail(product: any) {
+    var self = this;
+    this.parse.cloud('deleteProductDetail', {
+      id: product.id
+    }).then(function () {
+      for (var i in self.productDetailList) {
+        if (product.id == self.productDetailList[i].id) {
+          self.productDetailList.splice(i, 1);
+          break;
+        }
+      }
+    })
+  }
+
+  deleteProduct() {
+    var self = this;
+    this.parse.cloud('deleteProduct', {
+      id: this.product.id
+    }).then(function () {
+      self.router.navigate(['dashboard/product']);
+    })
   }
 
   test(event: any) {

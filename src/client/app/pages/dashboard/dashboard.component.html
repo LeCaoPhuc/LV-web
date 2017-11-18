@@ -1,17 +1,18 @@
 <sd-navbar></sd-navbar>
-<div class="main-container">
+<main>
+  <div class="main-container">
     <nav>
-        <div class="nav-wrapper">
-            <div class="col s12">
-                <a href="#!" class="breadcrumb">First</a>
-                <a href="#!" class="breadcrumb">Second</a>
-                <a href="#!" class="breadcrumb">Third</a>
-            </div>
+      <div class="nav-wrapper">
+        <a class="sidenav-trigger" (click)="slideNavaToggle()">
+          <i class="material-icons">menu</i>
+        </a>
+        <div class="col s12">
+          <a *ngFor="let item of breadcrumbList" class="breadcrumb">{{item}}</a>
         </div>
+      </div>
     </nav>
     <div class="content">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
-
-    <!-- <sd-footer></sd-footer> -->
-</div>
+  </div>
+</main>

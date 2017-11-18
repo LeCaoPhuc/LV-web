@@ -24,7 +24,7 @@ ul {
   background-color: #ECEFF1;
   box-shadow: 3px 4px 20px 1px rgba(0, 0, 0, 0.14);
 }
-  
+
 ul li :hover {
   background-color: #CFD8DC;
   color: #424242 !important;
@@ -50,4 +50,12 @@ ul li a.router-link-active {
   line-height: 65px;
   text-align: center;
   vertical-align: middle;
+}
+.logo{
+  margin-bottom: 150px;
+  margin-top: 30px;
+}
+
+.logo img{
+  width:180px;
 }

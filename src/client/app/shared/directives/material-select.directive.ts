@@ -19,9 +19,12 @@ export class MaterialSelectDirective {
     }, 100);
 
     self.el.nativeElement.onchange = function(event: any){
-      // console.log(event);
       self.materialSelectEmiter.next(self.el.nativeElement.value);
       self.ngModel.update.emit(self.el.nativeElement.value);
     }
+
+    this.ngModel.valueChanges.subscribe(function(data:any){
+      $(self.el.nativeElement).select();
+    })
   }
 }

@@ -4,20 +4,21 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 /**
  * This class represents the navigation bar component.
  */
+declare var $: any;
 @Component({
   moduleId: module.id,
   selector: 'sd-navbar',
   templateUrl: 'navbar.component.html',
   styleUrls: ['navbar.component.css'],
 })
-export class NavbarComponent { 
+export class NavbarComponent {
  constructor(
     private router: Router,
     private sharedService: SharedService,
     private parseService: ParseSDKService,
     public changeDetectorRef: ChangeDetectorRef
   ) {
-   
+
   }
   onClickLogOut() {
     var self = this;
@@ -29,5 +30,11 @@ export class NavbarComponent {
       self.router.navigate(['']);
       console.log(err);
     })
+  }
+
+  ngOnInit(){
+    setTimeout(function(){
+      $('#handmade-left-menu').sidenav();
+    },1000)
   }
 }

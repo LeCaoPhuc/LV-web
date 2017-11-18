@@ -20,7 +20,7 @@ export class MaterialTimePickerDirective {
       $(self.el.nativeElement).timepicker({
         doneText: self.done,
         clearText : self.clear,
-        cancel: self.cancel,
+        cancelText: self.cancel,
       });
     }, 100);
 

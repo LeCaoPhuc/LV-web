@@ -7,3 +7,22 @@
 .content {
   padding: 0px 10px;
 }
+
+.sidenav-trigger{
+  position: absolute;
+  cursor: pointer;
+}
+
+.nav-wrapper > .s12{
+  padding-left:35px
+}
+
+@media screen and (min-width: 993px) {
+  .sidenav-trigger{
+    display: none;
+  }
+
+  .nav-wrapper > .s12{
+    padding-left:0px
+  }
+}
