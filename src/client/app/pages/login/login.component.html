@@ -3,8 +3,8 @@
     <div class="section"></div>
     <div class="section"></div>
     <form #loginForm='ngForm' class="content row">
-        <div class="row col s4 offset-s4">
-            <div class="col s6 z-depth-1 grey lighten-4 offset-s3">
+        <div class="row">
+            <div class="z-depth-1 grey lighten-4 row login-container">
                 <div class="section row">
                     <h5 class="title">Đăng Nhập</h5>
                 </div>
@@ -12,7 +12,7 @@
                     <div class="input-field">
                         <input #username id="username" type="text" [pattern]="usernamePattern" name="username" [(ngModel)]="loginData.username.value"
                             [ngClass]="{'invalid':username.errors}" validate-onblur required (emiter)="usernameErrorMessage($event)">
-                        <label for="username" class="width-100" >Tài khoản</label>
+                        <label for="username" class="width-100">Tài khoản</label>
                         <span class="helper-text" [attr.data-error]="loginData.username.message"></span>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                             (emiter)="passwordErrorMessage($event)" [ngClass]="{'invalid':password.errors}" [pattern]="passwordPattern"
                         />
                         <label [attr.data-error]="loginData.password.message" for="password" class="width-100">Mật khảu</label>
-                         <span class="helper-text" [attr.data-error]="loginData.password.message"></span>
+                        <span class="helper-text" [attr.data-error]="loginData.password.message"></span>
                     </div>
                 </div>
                 <div class="section"></div>

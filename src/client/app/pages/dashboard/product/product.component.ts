@@ -12,7 +12,7 @@ declare var $: any;
   styleUrls: ['product.component.css'],
 })
 export class ProductComponent implements OnInit {
-  private listProduct: Array<any>;
+  public listProduct: Array<any>;
   public listCategory: any;
   public currentCategoryId: any;
   public pagination: Pagination;

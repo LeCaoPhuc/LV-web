@@ -7,6 +7,7 @@ import { ProductRoutes } from "./product/index";
 import { OrderRoutes } from "./order/index";
 import { PromotionRoutes } from "./promotion/index";
 import { MaterialRoutes } from "./material/index";
+import { ColorRoutes } from "./color/index";
 import { NotifyRoutes } from "./notify/index";
 
 export const DashboardRoutes: Routes = [
@@ -21,6 +22,7 @@ export const DashboardRoutes: Routes = [
 			...OrderRoutes,
 			...PromotionRoutes,
 			...MaterialRoutes,
+			...ColorRoutes,
 			...NotifyRoutes
 			// ...LoginRoutes
 		]
