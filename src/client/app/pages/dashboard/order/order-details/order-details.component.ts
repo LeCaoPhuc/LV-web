@@ -1,7 +1,8 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, ViewChild } from '@angular/core';
 import { HttpRequestService, ParseSDKService, SharedService,ToolsService } from '../../../../shared/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {Location} from '@angular/common';
+import { OrderDetailsEditComponent } from '../order-details-edit/index';
 declare var $:any ;
 declare var moment: any;
 /**
@@ -27,7 +28,8 @@ export class OrderDetailsComponent implements OnInit {
 	};
 	public orderParseObj: any;
 	public orderDetailList : any;
-	public deliveryDateMessage : string = '';
+  public deliveryDateMessage : string = '';
+  @ViewChild(OrderDetailsEditComponent) orderEditCmp: OrderDetailsEditComponent;
 	constructor(
 		   private sharedService: SharedService,
 			private parse: ParseSDKService,
@@ -38,7 +40,7 @@ export class OrderDetailsComponent implements OnInit {
 			private tools : ToolsService
 	) {
 		// this.order = this.sharedService.getShareData('currentOrder');
-		
+
 	}
 
 	ngOnInit() {
@@ -56,7 +58,8 @@ export class OrderDetailsComponent implements OnInit {
 					delivery_address: this.order.get('delivery_address'),
 					createdAt : this.order.get('createdAt'),
 					buyer: this.order.get('buyer').get('first_name') + ' ' + this.order.get('buyer').get('last_name'),
-				}
+        }
+        self.orderEditCmp.getOrderDetailByOrder(self.orderParseObj);
 				// this.getOrderDetail();
 			} else {
 				this.parse.cloud('getOrderWithId', {
@@ -76,7 +79,8 @@ export class OrderDetailsComponent implements OnInit {
 								buyer:  res.data.get('buyer').get('first_name') + ' ' +res.data.get('buyer').get('last_name'),
 							}
 						}
-					}
+          }
+          self.orderEditCmp.getOrderDetailByOrder(res.data);
 					// self.order = res.data;
 					// self.orderParseObj = self.order;
 					// self.order = {

@@ -72,16 +72,17 @@ export class ToolsService {
     return url;
   }
   numberToFormatedString(num: any) {
-        var str = num.toString();
-        var result: string = '';
-        var count = -1;
-        for (let i = str.length - 1; i > -1; i--) {
-            count++;
-            if (count != 0 && count % 3 == 0) {
-                result = '.'.concat(result);
-            }
-            result = str[i].concat(result);
-        }
-        return result;
+    if (!num) return null;
+    var str = num.toString();
+    var result: string = '';
+    var count = -1;
+    for (let i = str.length - 1; i > -1; i--) {
+      count++;
+      if (count != 0 && count % 3 == 0) {
+        result = '.'.concat(result);
+      }
+      result = str[i].concat(result);
     }
+    return result;
+  }
 }

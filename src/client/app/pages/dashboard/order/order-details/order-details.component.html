@@ -22,7 +22,7 @@
 						<div class="input-field col s6">
 							<i class="material-icons prefix">perm_contact_calendar</i>
 							<input id="deliverydate" type="text" class="datepicker validate" material-datepicker required [disabled]="order.delivery_status == 'bill'"
-							[datePickerInput]="order.delivery_date" name="deliverydate" [ngModel]="order.delivery_date | sdDateTime" (ngModelChange)="chageDeliveryDate($event)" > 
+							[datePickerInput]="order.delivery_date" name="deliverydate" [ngModel]="order.delivery_date | sdDateTime" (ngModelChange)="chageDeliveryDate($event)" >
 							<label for="deliverydate"  class="active">Ngày giao</label>
 							<span class="helper-text error">{{ deliveryDateMessage }}</span>
 						</div>
@@ -32,13 +32,13 @@
 					<div class="row">
 						<div class="input-field col s6">
 							<i class="material-icons prefix">attach_money</i>
-							<input id="totalprice" type="text" disabled class="validate" name="totalprice" [(ngModel)]="order.total_price" > 
+							<input id="totalprice" type="text" disabled class="validate" name="totalprice" [(ngModel)]="order.total_price" >
 							<label for="totalprice" disabled class="active">Tổng tiền</label>
 							<span class="helper-text"></span>
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">perm_contact_calendar</i>
-							<input id="orderdate" type="text" disabled class="validate" name="orderdate" [ngModel]="order.createdAt | sdDateTime" (ngModelChange)="chageOrderDate($event)" > 
+							<input id="orderdate" type="text" disabled class="validate" name="orderdate" [ngModel]="order.createdAt | sdDateTime" (ngModelChange)="chageOrderDate($event)" >
 							<label for="orderdate" disabled class="active">Ngày đặt</label>
 							<span class="helper-text"></span>
 						</div>
@@ -54,7 +54,7 @@
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">person</i>
-							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" > 
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" >
 							<label for="receiver" disabled class="active">Họ tên người nhận</label>
 							<span class="helper-text"></span>
 						</div>
@@ -70,7 +70,7 @@
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">contact_phone</i>
-							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" > 
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" >
 							<label for="receiver" disabled class="active">Số điện thoại</label>
 							<span class="helper-text"></span>
 						</div>
@@ -80,7 +80,7 @@
 					<div class="row">
 						<div class="input-field col s12">
 							<i class="material-icons prefix">map</i>
-							<input id="address" type="text" disabled class="validate" name="address" 
+							<input id="address" type="text" disabled class="validate" name="address"
 							[(ngModel)]="order.delivery_address.street + ' ' + order.delivery_address.commune + ' ' + order.delivery_address.district + ' ' + order.delivery_address.city ">
 							<label for="address" disabled class="active">Địa chỉ giao hàng</label>
 							<span class="helper-text"></span>
@@ -88,7 +88,7 @@
 					</div>
 				</div>
 			</div>
-		</form> 
+		</form>
 		<div class="col s4 row center-align">
 			<div class="row col s8 offset-s2">
 				<a class="waves-effect waves-light btn btn-save  col s12" (click)="saveProduct(addProductForm)">
@@ -111,3 +111,4 @@
         </div>
     </div>
 </div>
+<sd-order-details-edit></sd-order-details-edit>
