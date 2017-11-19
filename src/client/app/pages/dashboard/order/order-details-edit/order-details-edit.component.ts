@@ -23,7 +23,8 @@ export class OrderDetailsEditComponent implements OnInit {
     color: '',
     price: '',
     quantity: '',
-    total: ''
+    total: '',
+    image: ''
   };
   public orderDetailList: any = [];
   @ViewChild('orderDetailModal') orderDetailModal: ElementRef;
@@ -62,7 +63,8 @@ export class OrderDetailsEditComponent implements OnInit {
       color: item.product_detail.get('color').get('color_name'),
       price: item.order_detail.get('unit_price'),
       quantity: item.order_detail.get('quantity_buy'),
-      total: item.order_detail.get('total_price_product')
+      total: item.order_detail.get('total_price_product'),
+      image: item.product_detail.get('image')
     }
     console.log(this.orderDetail);
   }

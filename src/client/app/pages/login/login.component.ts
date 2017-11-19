@@ -78,7 +78,7 @@ export class LoginComponent {
             })
           }
           else {
-            	self.router.navigate(['dashboard']);
+            	self.router.navigate(['dashboard/order']);
           }
         })
         .catch(function(err: any){
