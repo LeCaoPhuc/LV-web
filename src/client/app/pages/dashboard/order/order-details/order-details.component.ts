@@ -218,7 +218,7 @@ export class OrderDetailsComponent implements OnInit {
 			this.deliveryDateMessage = 'Ngày giao không được để trống và lớn hơn ngày hiện tại';
 		}
 	}
-	changeDeliveryStatus(addProductDetailModal: any) {
+	changeDeliveryStatus(editProductDetailModal: any) {
 		var self = this;
 		this.parse.cloud('changeDeliveryStatus',{
 			id: this.order.id
@@ -268,7 +268,7 @@ export class OrderDetailsComponent implements OnInit {
 						console.log(err);
 						alert('Lấy thông tin sản phẩm thất bại')
 					})
-					addProductDetailModal.open();
+					editProductDetailModal.open();
 				}
 				else {
 
@@ -287,10 +287,10 @@ export class OrderDetailsComponent implements OnInit {
 		var dt = new moment(date);
 		return dt.format('ddd MMM DD YYYY');
 	}
-	closeProductDetail(addProductDetailModal: any) {
-		addProductDetailModal.close();
+	closeProductDetail(editProductDetailModal: any) {
+		editProductDetailModal.close();
 	}
-	saveProductDetail(addProductDetailModal: any) {
+	saveProductDetail(editProductDetailModal: any) {
 		if(this.productDetail.quantity > 0 || this.productDetail.quantity > this.currentQuantityProduct) {
 			this.parse.cloud('saveQuantityProductDetail',{
 				id: this.productDetail.id,
@@ -300,7 +300,7 @@ export class OrderDetailsComponent implements OnInit {
 				if(result && result.success) {
 					if(result.data) {
 						alert('Lưu sản phẩm thành công. Hãy duyệt lại đơn hàng!');
-						addProductDetailModal.close();
+						editProductDetailModal.close();
 					}
 				}
 			})

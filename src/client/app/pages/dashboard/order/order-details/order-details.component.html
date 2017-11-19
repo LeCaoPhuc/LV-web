@@ -91,7 +91,7 @@
 		</form>
 		<div class="col s4 row center-align">
 			<div class="row col s8 offset-s2">
-				<a class="waves-effect waves-light btn btn-save  col s12" (click)="changeDeliveryStatus(addProductDetailModal)">
+				<a class="waves-effect waves-light btn btn-save  col s12" (click)="changeDeliveryStatus(editProductDetailModal)">
 					<i class="material-icons left">{{ order.delivery_status == 'order' ? 'check' : 'close' }}</i>
 					<span>{{ order.delivery_status == 'order' ? 'Duyệt' : 'Hủy' }}</span>
 				</a>
@@ -113,7 +113,7 @@
 </div>
 <sd-order-details-edit></sd-order-details-edit>
 
-<div #addProductDetailModal material-modal class="modal">
+<div #editProductDetailModal material-modal class="modal">
 	<div class="modal-content">
 		<div class="row">
 			<h4 class="col s12">Thêm số lượng sản phẩm</h4>
@@ -168,12 +168,12 @@
 					 stretch="fill" class="z-depth-1">
 					<div class="section"></div>
 					<div class="center-align product-detail-action">
-						<button class="btn waves-effect waves-light" (click)="saveProductDetail(addProductDetailModal)">
+						<button class="btn waves-effect waves-light" (click)="saveProductDetail(editProductDetailModal)">
               <i class="material-icons left">save</i>
               <span>Lưu</span>
 			</button>
 						<div class="section"></div>
-						<button class="btn waves-effect waves-light materialize-red" (click)="closeProductDetail(addProductDetailModal)">
+						<button class="btn waves-effect waves-light materialize-red" (click)="closeProductDetail(editProductDetailModal)">
               <i class="material-icons left">close</i>
               <span>Đóng</span>
             </button>
