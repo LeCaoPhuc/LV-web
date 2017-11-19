@@ -1,6 +1,6 @@
 <div>
     <h4 class="title col s6">Danh sách chất liệu</h4>
-    <a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap()">
+    <a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap($event)">
         <i class="material-icons left">add_circle</i>Thêm chất liệu mới</a>
     <ul *ngIf="pagination.pageList && pagination.pageList.length" class="pagination right">
         <li class="waves-effect first-page" [ngClass]="{'disabled': pagination.page == 1}">

@@ -62,7 +62,7 @@ export class DashboardComponent {
           this.breadcrumbList.push('Sản phẩm');
           break;
         case 'order':
-          this.breadcrumbList.push('Đơn hảng');
+          this.breadcrumbList.push('Đơn hàng');
           break;
         case 'promotion':
           this.breadcrumbList.push('Khuyến mãi');

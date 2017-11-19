@@ -1,46 +1,68 @@
-.user-details-layout {
+ul {
+  list-style-type: none;
+  padding: 0 0 0 8px;
+}
+.btn-close {
+    position: absolute;
+    right: 3%;
+    top: 10%;
+}
+.order-layout {
   margin-top: 20px;
   padding: 20px 0px;
   width: calc(100% - 10px);
   height: 100%;
   background-color: #ececec;
 }
-
-img {
-  margin-top: 40px;
-  margin-bottom: 10px;
-  width: 100px;
-  border-radius: 50px;
+.title {
+  color: #EC646A;
+  /* font-weight: 500; */
+  font-size: 2em;
+}
+.page-title{
+  display: flex;
+  align-items: center;
+  padding: 15px 0px;
+  border-bottom: 1px solid #ccc;
 }
 
-.avatar-container {
-  background-color: #5c7aa9;
+.pagination{
+  width: auto;
 }
 
-.material-icons.prefix {
-  color: #999;
+.pagination > li{
+  cursor: pointer;
 }
 
-.input-field .prefix.active {
-  color: #26a69a;
+.first-page > a, .last-page > a {
+  padding: 0px;
 }
 
-.switch {
-  margin-top: 10px;
-  margin-bottom: 10px;
+tbody tr:hover {
+  background: #e8fdfb;
 }
 
-.btn-save {
-  margin-top: 30px;
-  width: 80%;
+.text-overflow {
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.btn-delete {
-  margin-top: 15px;
-  width: 80%;
+.title {
+  color: #EC646A;
+  /* font-weight: 500; */
+  font-size: 2em;
 }
 
-.btn-close {
-  position: absolute;
-  right: 3%;
+table thead tr {
+  font-weight: 300;
+}
+
+.btn-add {
+  /* margin: 14.5px; */
+}
+.error {
+    color : red;
+    margin-left: 45px; 
 }

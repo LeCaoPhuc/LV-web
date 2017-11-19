@@ -1,82 +1,113 @@
-<div class="order-details-layout z-depth-3">
+<div class="order-layout z-depth-3 row">
+	<h5 class="title col s6">Thông tin đơn hàng</h5>
+	<div class="section"></div>
+	<div class="section"></div>
+	<div class="section"></div>
 	<div class="btn-close">
 		<a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
 			<i class="material-icons">close</i>
 		</a>
 	</div>
-	<form class="col s12">
-		<div class="row">
-			<div class="col s8">
-				<div class="row" *ngIf="pageType == 'add'">
-					<div  class="input-field col s6">
-						<i class="material-icons prefix">contacts</i>
-						<input id="ordername" type="text" class="" [value]="order.orderName">
-						<label for="ordername" [class]="pageType != 'add' ? 'active' : ''">Tài khoản</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">lock</i>
-						<input id="password" type="password" class="" [value]="order.orderName">
-						<label for="password" [class]="pageType != 'add' ? 'active' : ''">Mật khẩu</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s6">
-						<i class="material-icons prefix">person</i>
-						<input id="last_name" type="text" class="" [value]="order.lastName">
-						<label for="last_name" [class]="pageType != 'add' ? 'active' : ''">Họ</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">person</i>
-						<input id="first_name" type="text" class="" [value]="order.firstName">
-						<label for="first_name" [class]="pageType != 'add' ? 'active' : ''">Tên</label>
+	<div class="row" *ngIf="order">
+		<form #orderDetailForm="ngForm" class="col s8 row">
+			<div class="row">
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">format_list_numbered</i>
+							<input id="ordernumber" type="text" disabled class="validate" name="ordernumber" [(ngModel)]="order.order_number">
+							<label for="ordernumber" disabled class="active">Số hóa đơn</label>
+							<span class="helper-text"></span>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">perm_contact_calendar</i>
+							<input id="deliverydate" type="text" class="datepicker validate" material-datepicker required [disabled]="order.delivery_status == 'bill'"
+							[datePickerInput]="order.delivery_date" name="deliverydate" [ngModel]="order.delivery_date | sdDateTime" (ngModelChange)="chageDeliveryDate($event)" > 
+							<label for="deliverydate"  class="active">Ngày giao</label>
+							<span class="helper-text error">{{ deliveryDateMessage }}</span>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="input-field col s6">
-						<i class="material-icons prefix">phone</i>
-						<input id="phoneNumber" type="text" class="" [value]="order.phoneNumber">
-						<label for="phoneNumber" [class]="pageType != 'add' ? 'active' : ''">Số điện thoại</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">email</i>
-						<input id="email" type="email" class="" [value]="order.email">
-						<label for="email" [class]="pageType != 'add' ? 'active' : ''">Email</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix">map</i>
-						<input id="address" type="text" class="" [value]="order.address">
-						<label for="address" [class]="pageType != 'add' ? 'active' : ''">Địa chỉ</label>
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">attach_money</i>
+							<input id="totalprice" type="text" disabled class="validate" name="totalprice" [(ngModel)]="order.total_price" > 
+							<label for="totalprice" disabled class="active">Tổng tiền</label>
+							<span class="helper-text"></span>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">perm_contact_calendar</i>
+							<input id="orderdate" type="text" disabled class="validate" name="orderdate" [ngModel]="order.createdAt | sdDateTime" (ngModelChange)="chageOrderDate($event)" > 
+							<label for="orderdate" disabled class="active">Ngày đặt</label>
+							<span class="helper-text"></span>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix">wc</i>
-						<select id="gender">
-							<option value="male" selected>Nam</option>
-							<option value="female">Nữ</option>
-						</select>
-						<label>Giới tính</label>
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">person</i>
+							<input id="buyer" type="text" disabled class="validate" name="buyer" [(ngModel)]="order.buyer">
+							<label for="buyer" disabled class="active">Họ tên người đặt</label>
+							<span class="helper-text"></span>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">person</i>
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" > 
+							<label for="receiver" disabled class="active">Họ tên người nhận</label>
+							<span class="helper-text"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">email</i>
+							<input id="email" type="text" disabled class="validate" name="email" [(ngModel)]="order.buyer">
+							<label for="email" disabled class="active">Email</label>
+							<span class="helper-text"></span>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">contact_phone</i>
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" > 
+							<label for="receiver" disabled class="active">Số điện thoại</label>
+							<span class="helper-text"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">map</i>
+							<input id="address" type="text" disabled class="validate" name="address" 
+							[(ngModel)]="order.delivery_address.street + ' ' + order.delivery_address.commune + ' ' + order.delivery_address.district + ' ' + order.delivery_address.city ">
+							<label for="address" disabled class="active">Địa chỉ giao hàng</label>
+							<span class="helper-text"></span>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col s4 center-align">
-				<img [src]="order.avatar ? order.avatar : '../../../../assets/images/avatar_default.png'" stretch="fill" class="z-depth-1">
-				<h5 *ngIf="pageType != 'add'" style="color: #797979">@{{order.orderName}}</h5>
-				<div class="switch">
-					<label>
-						<input *ngIf="order.block" type="checkbox" :checked>
-						<input *ngIf="!order.block" type="checkbox">
-						<span class="lever"></span>
-						<label for="block">Khóa tài khoản</label>
-					</label>
-				</div>
-				<a class="waves-effect waves-light btn btn-save" (click)="onSaveButtonTap()">
-					<i class="material-icons left">save</i>Lưu lại</a>
-				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="onDeleteUserButtonTap()">
-					<i class="material-icons left">close</i>Xóa tài khoản</a>
+		</form> 
+		<div class="col s4 row center-align">
+			<div class="row col s8 offset-s2">
+				<a class="waves-effect waves-light btn btn-save  col s12" (click)="saveProduct(addProductForm)">
+					<i class="material-icons left">{{ order.delivery_status == 'order' ? 'check' : 'close' }}</i>
+					<span>{{ order.delivery_status == 'order' ? 'Duyệt' : 'Hủy' }}</span>
+				</a>
 			</div>
-		</div>
-	</form>
+			<div class="row col s8 offset-s2">
+				<a class="waves-effect waves-light btn btn-save col s12" [ngClass]="{'disabled':order.delivery_status == 'bill'}" (click)="onClickSave(orderDetailForm)">
+					<i class="material-icons left">save</i>
+					<span>Lưu</span>
+				</a>
+			</div>
+			<div class="row col s8 offset-s2">
+				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1  col s12">
+					<i class="material-icons left">close</i>
+					<span>Xóa</span>
+				</a>
+			</div>
+        </div>
+    </div>
 </div>

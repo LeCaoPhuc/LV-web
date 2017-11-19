@@ -86,7 +86,7 @@
               <td>{{ item.get('sku') }}</td>
               <td>{{ item.get('material').get('material_name') }}</td>
               <td>{{ item.get('color').get('color_name') }}</td>
-              <td>{{ item.get('price') }}</td>
+              <td>{{ tools.numberToFormatedString(item.get('price')) }}</td>
               <td>{{ item.get('quantity') }}</td>
               <td class="product-detail-action">
                 <span class="orange-text text-darken-2" (click)="bindingProductDetail(addProductDetailModal, item)">

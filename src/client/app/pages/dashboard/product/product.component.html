@@ -4,7 +4,7 @@
       <span class="title">Danh sách sản phẩm</span>
     </div>
     <div class="col s4">
-      <a class="waves-effect waves-light btn btn-add right" (click)="onAddButtonTap()">
+      <a class="waves-effect waves-light btn btn-add right" (click)="onAddButtonTap($event)">
         <i class="material-icons left">add_circle</i>
         <span>Thêm sản phẩm mới</span>
       </a>
@@ -61,6 +61,7 @@
             <!-- <td>{{product.get('price')}}</td> -->
             <td>
               <span *ngIf="product.get('status') == 'block'">Hết hàng</span>
+              <span *ngIf="product.get('status') != 'block'">Còn hàng</span>
             </td>
           </tr>
         </tbody>
