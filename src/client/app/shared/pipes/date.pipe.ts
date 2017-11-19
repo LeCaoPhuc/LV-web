@@ -7,6 +7,9 @@ export class DateTimePipe implements PipeTransform {
         if (!value)
             return '';
         try {
+            if (typeof value == 'string') {
+                value = new Date(value);
+            }
             var date = new moment(value);
             return date.format('DD/MM/YYYY');
         } catch (e) {

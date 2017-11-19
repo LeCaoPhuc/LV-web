@@ -167,7 +167,7 @@ export class UserDetailsComponent implements OnInit {
 			})
 			.then(function (result) {
 				alert('Xóa thành công!');
-				self.location.back();
+				self.router.navigate(['dashboard/user']);
 			})
 			.catch(function (err) {
 				console.log(err);

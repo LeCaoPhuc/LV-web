@@ -31,8 +31,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s5">
+                        <div class="input-field col s5 sd-datepicker-container">
                             <i class="material-icons prefix">access_time</i>
+                            <input class="sd-datepicker" [value]="promotion.start_date | sdDateTime" />
                             <input #startdate id="startdate" name="startdate" type="text" class="datepicker" material-datepicker [(ngModel)]="promotion.start_date"
                                 (materialDatePickerEmiter)="onMaterialStartDatePickerEmiter($event)" [ngClass]="formInvalid.startDateRequired || formInvalid.startDateBeforeToDay || formInvalid.startDateAfterEndDate ? 'invalid' : ''"
                                 [datePickerInput]="promotion.start_date">
@@ -41,11 +42,12 @@
                             <span class="helper-text" *ngIf="formInvalid.startDateBeforeToDay" data-error="Ngày bắt đầu phải sau ngày hôm nay"></span>
                             <span class="helper-text" *ngIf="formInvalid.startDateAfterEndDate" data-error="Ngày bắt đầu phải trước ngày kết thúc"></span>
                         </div>
-                        <div class="input-field col s5 offset-s1">
+                        <div class="input-field col s5 offset-s1 sd-datepicker-container">
                             <i class="material-icons prefix">access_time</i>
+                            <input class="sd-datepicker" [value]="promotion.end_date | sdDateTime" />
                             <input #enddate id="enddate" name="enddate" type="text" class="datepicker" material-datepicker [(ngModel)]="promotion.end_date"
                                 (materialDatePickerEmiter)="onMaterialEndDatePickerEmiter($event)" [ngClass]="formInvalid.endDateRequired || formInvalid.endDateBeforeToday || formInvalid.endDateBeforeStartDate ? 'invalid' : ''"
-                                [datePickerInput]="promotion.end_date">
+                                [datePickerInput]="promotion.end_date" />
                             <label for="enddate" class="active">Ngày kết thúc</label>
                             <span class="helper-text" *ngIf="formInvalid.endDateRequired" data-error="Ngày kết thúc không được để trống"></span>
                             <span class="helper-text" *ngIf="formInvalid.endDateBeforeToday" data-error="Ngày kết thúc phải sau ngày hôm nay"></span>

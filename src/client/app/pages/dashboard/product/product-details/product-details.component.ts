@@ -248,18 +248,6 @@ export class ProductDetailsComponent implements OnInit {
     event.value = null;
   }
 
-  onDeleteProductButtonTap() {
-    alert('onDeleteProductButtonTap');
-  }
-
-  onSaveButtonTap() {
-    alert('onSaveButtonTap');
-  }
-
-  onChangeImageTap() {
-    alert('onChangeImageTap');
-  }
-
   bindingProductDetail(addProductDetailModal: any, product?: any) {
     addProductDetailModal.open();
     if (!product) {
@@ -323,5 +311,8 @@ export class ProductDetailsComponent implements OnInit {
   test(event: any) {
     console.log(event);
   }
+  closeProductDetail(addProductDetailModal: any) {
+		addProductDetailModal.close();
+	}
 
 }

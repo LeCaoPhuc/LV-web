@@ -1,17 +1,23 @@
-.main-container{
+.main-container {
   padding-left: 300px;
 }
 
-@media only screen and (max-width : 992px) {
+@media only screen and (max-width: 992px) {
   .main-container {
     padding-left: 0;
   }
 }
 
-.helper-text{
+.helper-text {
   min-height: 0px !important;
 }
 
-.select-dropdown{
+.select-dropdown {
   max-height: 150px !important;
+}
+
+.sd-datepicker-container {}
+
+.sd-datepicker-container .datepicker {
+  display: none;
 }
