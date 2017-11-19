@@ -97,7 +97,7 @@
 				</a>
 			</div>
 			<div class="row col s8 offset-s2">
-				<a class="waves-effect waves-light btn btn-save col s12" [ngClass]="{'disabled':order.delivery_status == 'bill'}" (click)="bindingProductDetail(addProductDetailModal)">
+				<a class="waves-effect waves-light btn btn-save col s12" [ngClass]="{'disabled':order.delivery_status == 'bill'}" (click)="onClickSave(orderDetailForm)">
 					<i class="material-icons left">save</i>
 					<span>Lưu</span>
 				</a>

@@ -118,10 +118,16 @@ export class OrderDetailsComponent implements OnInit {
 	onDeleteOrderButtonTap() {
 		alert('onDeleteOrderButtonTap');
 	}
-
-	onSaveButtonTap() {
-		alert('onSaveButtonTap');
+	onClickSave(orderDetailForm: any) {
+		if(orderDetailForm.valid) {
+			console.log('aaaa');
+		}
+		else {
+			console.log('inalid');
+			this.deliveryDateMessage = 'Ngày giao không được để trống và lớn hơn ngày hiện tại';
+		}
 	}
+
 	dateToPickerDate(date?: any) {
         if (!date) {
             date = new Date();
