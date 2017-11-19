@@ -1,7 +1,8 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, ViewChild } from '@angular/core';
 import { HttpRequestService, ParseSDKService, SharedService,ToolsService } from '../../../../shared/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {Location} from '@angular/common';
+import { OrderDetailsEditComponent } from '../order-details-edit/index';
 declare var $:any ;
 declare var moment: any;
 /**
@@ -18,7 +19,7 @@ export class OrderDetailsComponent implements OnInit {
 		id: '',
 		order_number: '',
 		total_price: '',
-		deliverty_date: {},
+		delivery_date: {},
 		deliverty_status : '',
 		delivery_address: new Date(),
 		createdAt: '',
@@ -27,7 +28,8 @@ export class OrderDetailsComponent implements OnInit {
 	};
 	public orderParseObj: any;
 	public orderDetailList : any;
-	public deliveryDateMessage : string = '';
+  public deliveryDateMessage : string = '';
+  @ViewChild(OrderDetailsEditComponent) orderEditCmp: OrderDetailsEditComponent;
 	constructor(
 		   private sharedService: SharedService,
 			private parse: ParseSDKService,
@@ -38,7 +40,7 @@ export class OrderDetailsComponent implements OnInit {
 			private tools : ToolsService
 	) {
 		// this.order = this.sharedService.getShareData('currentOrder');
-		
+
 	}
 
 	ngOnInit() {
@@ -51,12 +53,13 @@ export class OrderDetailsComponent implements OnInit {
 					id: this.order.id,
 					order_number: this.order.get('order_number'),
 					total_price: self.tools.numberToFormatedString(this.order.get('total_price')),
-					delivery_date:this.order.get('deliverty_date') ? this.order.get('deliverty_date') : new Date(),
+					delivery_date:this.order.get('delivery_date') ? this.order.get('deliverty_date') : new Date(),
 					delivery_status : this.order.get('delivery_status'),
 					delivery_address: this.order.get('delivery_address'),
 					createdAt : this.order.get('createdAt'),
 					buyer: this.order.get('buyer').get('first_name') + ' ' + this.order.get('buyer').get('last_name'),
-				}
+        }
+        self.orderEditCmp.getOrderDetailByOrder(self.orderParseObj);
 				// this.getOrderDetail();
 			} else {
 				this.parse.cloud('getOrderWithId', {
@@ -69,14 +72,15 @@ export class OrderDetailsComponent implements OnInit {
 								id: res.data.id,
 								order_number: res.data.get('order_number'),
 								total_price:  self.tools.numberToFormatedString(res.data.get('total_price')),
-								delivery_date: res.data.get('deliverty_date') ? res.data.get('deliverty_date') : new Date(),
+								delivery_date: res.data.get('delivery_date') ? res.data.get('delivery_date') : new Date(),
 								delivery_status : res.data.get('delivery_status'),
 								delivery_address: res.data.get('delivery_address'),
 								createdAt : res.data.get('createdAt'),
 								buyer:  res.data.get('buyer').get('first_name') + ' ' +res.data.get('buyer').get('last_name'),
 							}
 						}
-					}
+          }
+          self.orderEditCmp.getOrderDetailByOrder(res.data);
 					// self.order = res.data;
 					// self.orderParseObj = self.order;
 					// self.order = {
@@ -109,7 +113,8 @@ export class OrderDetailsComponent implements OnInit {
 		else {
 			this.deliveryDateMessage = '';
 		}
-		this.order.deliverty_date = new Date(event)
+		this.order.delivery_date = new Date(event)
+		console.log(this.order.delivery_date);
 	}
 	goBack() {
 		this.location.back();
@@ -119,8 +124,26 @@ export class OrderDetailsComponent implements OnInit {
 		alert('onDeleteOrderButtonTap');
 	}
 	onClickSave(orderDetailForm: any) {
-		if(orderDetailForm.valid) {
-			console.log('aaaa');
+		if(orderDetailForm.valid && this.order.delivery_date) {
+			var date = new Date();
+			var delivery_date = new moment((new Date(this.order.delivery_date)));
+			if(delivery_date.diff(date, 'day') < 0) {
+				console.log('error');
+				this.deliveryDateMessage = 'Ngày giao không được để trống và lớn hơn ngày hiện tại';
+			}
+			else {
+				this.parse.cloud('saveOrder',{
+					id: this.order.id,
+					delivery_date : this.order.delivery_date
+				})
+				.then(function(res){
+					alert('Lưu thành công');
+				})
+				.catch(function(err){
+					alert('Lưu thất bại');
+					console.log(err);
+				})
+			}
 		}
 		else {
 			console.log('inalid');
