@@ -61,6 +61,7 @@
             <!-- <td>{{product.get('price')}}</td> -->
             <td>
               <span *ngIf="product.get('status') == 'block'">Hết hàng</span>
+              <span *ngIf="product.get('status') != 'block'">Còn hàng</span>
             </td>
           </tr>
         </tbody>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpRequestService, ParseSDKService, SharedService } from '../../../../shared/index';
+import { HttpRequestService, ParseSDKService, SharedService,ToolsService } from '../../../../shared/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 declare var $: any;
@@ -44,7 +44,8 @@ export class ProductDetailsComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private parse: ParseSDKService,
-    private router: Router
+    private router: Router,
+    public tools : ToolsService
   ) {
     // this.product = this.sharedService.getShareData('currentProduct');
 
@@ -288,25 +289,35 @@ export class ProductDetailsComponent implements OnInit {
 
   deleteProductDetail(product: any) {
     var self = this;
-    this.parse.cloud('deleteProductDetail', {
-      id: product.id
-    }).then(function () {
-      for (var i in self.productDetailList) {
-        if (product.id == self.productDetailList[i].id) {
-          self.productDetailList.splice(i, 1);
-          break;
-        }
-      }
-    })
+    var r = confirm("Bạn có muốn xóa chi tiết sản phẩm này !");
+		if (r == true) {
+			  this.parse.cloud('deleteProductDetail', {
+          id: product.id
+        }).then(function () {
+          for (var i in self.productDetailList) {
+            if (product.id == self.productDetailList[i].id) {
+              self.productDetailList.splice(i, 1);
+              break;
+            }
+          }
+        })
+		} else {
+			
+		}
   }
 
   deleteProduct() {
     var self = this;
-    this.parse.cloud('deleteProduct', {
-      id: this.product.id
-    }).then(function () {
-      self.router.navigate(['dashboard/product']);
-    })
+    var r = confirm("Bạn có muốn xóa sản phẩm dùng này !");
+		if (r == true) {
+			  this.parse.cloud('deleteProduct', {
+          id: this.product.id
+        }).then(function () {
+          self.router.navigate(['dashboard/product']);
+        })
+		} else {
+			
+		}
   }
 
   test(event: any) {

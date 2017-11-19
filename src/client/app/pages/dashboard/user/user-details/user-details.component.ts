@@ -159,10 +159,12 @@ export class UserDetailsComponent implements OnInit {
 	}
 	onDeleteUserButtonTap() {
 		var self = this;
-		this.parseService.cloud('deleteObject', {
-			className: 'User',
-			id: this.user.id
-		})
+		var r = confirm("Bạn có muốn xóa người dùng này !");
+		if (r == true) {
+			this.parseService.cloud('deleteObject', {
+				className: 'User',
+				id: this.user.id
+			})
 			.then(function (result) {
 				alert('Xóa thành công!');
 				self.location.back();
@@ -170,6 +172,10 @@ export class UserDetailsComponent implements OnInit {
 			.catch(function (err) {
 				console.log(err);
 			})
+		} else {
+			
+		}
+		
 	}
 	onSaveButtonTap(userDetail: any) {
 		// console.log('onSaveButtonTap');

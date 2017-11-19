@@ -1,67 +1,63 @@
-<div>
-  <h4 class="title col s6">Danh sách đơn hàng</h4>
-  <ul class="pagination right">
-    <li class="disabled">
-      <a>
-        <i class="material-icons">chevron_left</i>
-      </a>
-    </li>
-    <li class="active">
-      <a>1</a>
-    </li>
-    <li class="waves-effect">
-      <a>2</a>
-    </li>
-    <li class="waves-effect">
-      <a>3</a>
-    </li>
-    <li class="waves-effect">
-      <a>4</a>
-    </li>
-    <li class="waves-effect">
-      <a>5</a>
-    </li>
-    <li class="waves-effect">
-      <a>
-        <i class="material-icons">chevron_right</i>
-      </a>
-    </li>
-  </ul>
-  <table class="bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Tên khách hàng</th>
-          <th>Tên</th>
-          <th>Tài khoản</th>
-          <th>Giới tính</th>
-          <th>Số điện thoại</th>
-          <th>Email</th>
-          <th>Địa chỉ</th>
-          <th>Bị khóa</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <!-- <tr *ngFor="let user of users; let i=index" (click)="showUserDetails($event)">
-          <td>{{i + 1}}</td>
-          <td>{{user.lastName}}</td>
-          <td>{{user.firstName}}</td>
-          <td>{{'@' + user.userName}}</td>
-          <td>{{user.gender == 'male' ? 'Nam' : 'Nữ'}}</td>
-          <td>{{user.phoneNumber}}</td>
-          <td>{{user.email}}</td>
-          <td class="address">{{user.address}}</td>
-          <td>
-            <div class="switch">
-              <label>
-                <input *ngIf="user.block" disabled type="checkbox" :checked>
-                <input *ngIf="!user.block" disabled type="checkbox">
-                <span class="lever"></span>
-              </label>
-            </div>
-          </td>
-        </tr> -->
-      </tbody>
-    </table>
+<div class="page-container">
+  <div class="row page-title">
+    <div class="col s8">
+      <span class="title">Danh sách đơn hàng</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s4">
+      <select material-select (materialSelectEmiter)="onSelectOrderType($event)">
+        <option value="" disabled selected>Chọn trạng thái</option>
+        <option value="">Tất cả</option>
+        <option value="order">Order</option>
+        <option value="bill">Bill</option>
+      </select>
+      <!-- <label>Ngành hàng</label> -->
+    </div>
+    <div class="col s8">
+      <ul *ngIf="pagination.pageList && pagination.pageList.length" class="pagination right">
+        <li class="waves-effect first-page" [ngClass]="{'disabled': pagination.page == 1}">
+          <a (click)="pagination.firstPage()">
+            <i class="material-icons">chevron_left</i>
+          </a>
+        </li>
+        <li *ngFor="let page of pagination.pageList" class="waves-effect" [ngClass]="{'active': page == pagination.page}" (click)="getProduct(page)">
+          <a>{{page}}</a>
+        </li>
+        <li class="waves-effect last-page" [ngClass]="{'disabled': pagination.page == pagination.numOfPage}">
+          <a (click)="pagination.lastPage()">
+            <i class="material-icons">chevron_right</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <table class="bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Số hóa đơn</th>
+            <th>Tổng giá</th>
+            <th>Tên khách hàng</th>
+            <th>Ngày đặt</th>
+            <th>Tình trạng</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let order of listOrder; let i=index" (click)="showOrderDetails(order)">
+            <td>{{i + 1}}</td>
+            <td>{{ order.get('order_number') }}</td>
+            <td>{{ tools.numberToFormatedString(order.get('total_price')) }}</td>
+            <td>{{ order.get('buyer').get('first_name') + ' ' + order.get('buyer').get('last_name') }}</td>
+            <td>{{ order.get('createdAt') | sdDateTime}}</td>
+            <td>{{ order.get('delivery_status') }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
