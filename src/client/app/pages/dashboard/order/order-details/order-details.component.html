@@ -22,8 +22,8 @@
 						<div class="input-field col s6">
 							<i class="material-icons prefix">perm_contact_calendar</i>
 							<input id="deliverydate" type="text" class="datepicker validate" material-datepicker required [disabled]="order.delivery_status == 'bill'"
-							[datePickerInput]="order.delivery_date" name="deliverydate" [ngModel]="order.delivery_date | sdDateTime" (ngModelChange)="chageDeliveryDate($event)" >
-							<label for="deliverydate"  class="active">Ngày giao</label>
+							 [datePickerInput]="order.delivery_date" name="deliverydate" [ngModel]="order.delivery_date | sdDateTime" (ngModelChange)="chageDeliveryDate($event)">
+							<label for="deliverydate" class="active">Ngày giao</label>
 							<span class="helper-text error">{{ deliveryDateMessage }}</span>
 						</div>
 					</div>
@@ -32,13 +32,14 @@
 					<div class="row">
 						<div class="input-field col s6">
 							<i class="material-icons prefix">attach_money</i>
-							<input id="totalprice" type="text" disabled class="validate" name="totalprice" [(ngModel)]="order.total_price" >
+							<input id="totalprice" type="text" disabled class="validate" name="totalprice" [(ngModel)]="order.total_price">
 							<label for="totalprice" disabled class="active">Tổng tiền</label>
 							<span class="helper-text"></span>
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">perm_contact_calendar</i>
-							<input id="orderdate" type="text" disabled class="validate" name="orderdate" [ngModel]="order.createdAt | sdDateTime" (ngModelChange)="chageOrderDate($event)" >
+							<input id="orderdate" type="text" disabled class="validate" name="orderdate" [ngModel]="order.createdAt | sdDateTime"  
+							(ngModelChange)="chageOrderDate($event)">
 							<label for="orderdate" disabled class="active">Ngày đặt</label>
 							<span class="helper-text"></span>
 						</div>
@@ -54,7 +55,7 @@
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">person</i>
-							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" >
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name">
 							<label for="receiver" disabled class="active">Họ tên người nhận</label>
 							<span class="helper-text"></span>
 						</div>
@@ -70,7 +71,7 @@
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">contact_phone</i>
-							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name" >
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name">
 							<label for="receiver" disabled class="active">Số điện thoại</label>
 							<span class="helper-text"></span>
 						</div>
@@ -80,8 +81,7 @@
 					<div class="row">
 						<div class="input-field col s12">
 							<i class="material-icons prefix">map</i>
-							<input id="address" type="text" disabled class="validate" name="address"
-							[(ngModel)]="order.delivery_address.street + ' ' + order.delivery_address.commune + ' ' + order.delivery_address.district + ' ' + order.delivery_address.city ">
+							<input id="address" type="text" disabled class="validate" name="address" [(ngModel)]="order.delivery_address.street + ' ' + order.delivery_address.commune + ' ' + order.delivery_address.district + ' ' + order.delivery_address.city ">
 							<label for="address" disabled class="active">Địa chỉ giao hàng</label>
 							<span class="helper-text"></span>
 						</div>
@@ -91,7 +91,7 @@
 		</form>
 		<div class="col s4 row center-align">
 			<div class="row col s8 offset-s2">
-				<a class="waves-effect waves-light btn btn-save  col s12" (click)="saveProduct(addProductForm)">
+				<a class="waves-effect waves-light btn btn-save  col s12" (click)="changeDeliveryStatus(addProductDetailModal)">
 					<i class="material-icons left">{{ order.delivery_status == 'order' ? 'check' : 'close' }}</i>
 					<span>{{ order.delivery_status == 'order' ? 'Duyệt' : 'Hủy' }}</span>
 				</a>
@@ -103,12 +103,83 @@
 				</a>
 			</div>
 			<div class="row col s8 offset-s2">
-				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1  col s12">
+				<a class="waves-effect waves-light btn btn-delete materialize-red lighten-1  col s12" (click)="onClickDelete(orderDetailForm)">
 					<i class="material-icons left">close</i>
 					<span>Xóa</span>
 				</a>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 <sd-order-details-edit></sd-order-details-edit>
+
+<div #addProductDetailModal material-modal class="modal">
+	<div class="modal-content">
+		<div class="row">
+			<h4 class="col s12">Thêm số lượng sản phẩm</h4>
+		</div>
+		<div class="row">
+			<form #productDetailForm="ngForm">
+				<div class="col s8">
+					<div class="input-field col s12">
+						<input #sku id="sku" type="text" disabled class="validate" name="sku" [(ngModel)]="productDetail.sku" validate-onblur required
+						 [pattern]="skuPattern">
+						<label for="sku" class="active">Sku</label>
+						<span class="helper-text" data-error="Sku phải vừa đủ 8 ký tự và toàn số"></span>
+					</div>
+					<div class="input-field col s12">
+						<input id="price" type="number" disabled step="1000" min="0" class="validate" name="price" [(ngModel)]="productDetail.price"
+						 validate-onblur required>
+						<label for="price" class="active">Giá</label>
+						<span class="helper-text" data-error="Giá không được để trống hoặc bé hơn 0"></span>
+					</div>
+					<div class="input-field col s12">
+						<input id="quantity" type="number" step="1" min="0" class="validate" name="quantity" [(ngModel)]="productDetail.quantity"
+						 required>
+						<label for="quantity" class="active">Số lượng</label>
+						<span class="helper-text" data-error="Số lượng không được để trống hoặc bé hơn 0"></span>
+					</div>
+					<div class="input-field col s12">
+						<select disabled *ngIf="materialList && materialList.length > 0" name="material" [(ngModel)]="productDetail.material" validate-onblur
+						 material-select>
+              <option value="" disabled selected>Chọn chất liệu</option>
+              <option *ngFor="let item of materialList" [value]="item.id">{{item.get('material_name')}}</option>
+            </select>
+						<label>Chất liệu</label>
+					</div>
+					<div class="input-field col s12">
+						<select disabled *ngIf="colorList && colorList.length > 0" name="color" [(ngModel)]="productDetail.color" material-select>
+              <option value="" disabled selected>Chọn màu sắc</option>
+              <option *ngFor="let item of colorList" [value]="item.id">{{item.get('color_name')}}</option>
+            </select>
+						<label>Màu sắc</label>
+					</div>
+					<div class="input-field col s12">
+						<select disabled *ngIf="promotionList && promotionList.length > 0" name="promotion" [(ngModel)]="productDetail.promotion"
+						 material-select>
+              <option value="" disabled selected>Chọn khuyến mãi</option>
+              <option *ngFor="let item of promotionList" [value]="item.id">{{item.get('name')}}</option>
+            </select>
+						<label>Khuyến mãi</label>
+					</div>
+				</div>
+				<div class="col s4 center-align">
+					<img [src]="(productDetail && productDetail.image) ? productDetail.image : '../../../../assets/images/product_default.png'"
+					 stretch="fill" class="z-depth-1">
+					<div class="section"></div>
+					<div class="center-align product-detail-action">
+						<button class="btn waves-effect waves-light" (click)="saveProductDetail(addProductDetailModal)">
+              <i class="material-icons left">save</i>
+              <span>Lưu</span>
+			</button>
+						<div class="section"></div>
+						<button class="btn waves-effect waves-light materialize-red" (click)="closeProductDetail(addProductDetailModal)">
+              <i class="material-icons left">close</i>
+              <span>Đóng</span>
+            </button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
