@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['login.component.css']
 })
 export class LoginComponent {
-  private loginData = {
+  public loginData = {
     username: {
       value: '',
       message: 'Tài khoản không chính xác'

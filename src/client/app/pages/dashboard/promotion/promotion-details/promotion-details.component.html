@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input #name id="name" type="text" class="validate" name="name" [(ngModel)]="promotion.name" validate-onblur (emiter)="promotionNameErrorMessage($event)"
-                                required [ngClass]="{'invalid' : name.errors, 'invalid' : formInvalid.nameRequired}">
+                                required [ngClass]="name.errors || formInvalid.nameRequired ? 'invalid' : ''">
                             <label for="name" class="active">Tên khuyến mãi</label>
                             <span class="helper-text" *ngIf="name.errors || formInvalid.nameRequired" data-error="Tên khuyến mãi không được để trống"></span>
                         </div>
@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input #percent id="percent" type="text" class="validate" name="percent" [(ngModel)]="promotion.percent" validate-onblur
-                                (emiter)="percentErrorMessage($event)" required [ngClass]="{'invalid' : percent.errors, 'invalid': formInvalid.percentRequired}">
+                                (emiter)="percentErrorMessage($event)" required [ngClass]="percent.errors || formInvalid.percentRequired ? 'invalid' : ''">
                             <label for="percent" class="active">Giảm giá (%)</label>
                             <span class="helper-text" *ngIf="percent.errors || formInvalid.nameRequired" data-error="Giảm giá không được để trống"></span>
                         </div>

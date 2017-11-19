@@ -11,6 +11,7 @@ import { ProductModule } from "./product/index";
 import { OrderModule } from "./order/index";
 import { PromotionModule } from "./promotion/index";
 import { MaterialModule } from "./material/index";
+import { ColorModule } from "./color/index";
 import { NotifyModule } from "./notify/index";
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NotifyModule } from "./notify/index";
     OrderModule,
     PromotionModule,
     MaterialModule,
+    ColorModule,
     NotifyModule
   ],
   declarations: [DashboardComponent],

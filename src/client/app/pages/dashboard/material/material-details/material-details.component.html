@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input #name id="name" type="text" class="validate" name="name" [(ngModel)]="material.name" validate-onblur (emiter)="materialNameErrorMessage($event)"
-                                required [ngClass]="{'invalid' : name.errors, 'invalid' : formInvalid.nameRequired}">
+                                required [ngClass]="name.errors || formInvalid.nameRequired ? 'invalid' : ''">
                             <label for="name" class="active">Tên chất liệu</label>
                             <span class="helper-text" *ngIf="name.errors || formInvalid.nameRequired" data-error="Tên chất liệu không được để trống"></span>
                         </div>

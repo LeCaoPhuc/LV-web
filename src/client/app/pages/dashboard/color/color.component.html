@@ -1,7 +1,7 @@
 <div>
-    <h4 class="title col s6">Danh sách khuyến mãi</h4>
+    <h4 class="title col s6">Danh sách màu sắc</h4>
     <a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap($event)">
-        <i class="material-icons left">add_circle</i>Thêm khuyến mãi mới</a>
+        <i class="material-icons left">add_circle</i>Thêm màu sắc mới</a>
     <ul *ngIf="pagination.pageList && pagination.pageList.length" class="pagination right">
         <li class="waves-effect first-page" [ngClass]="{'disabled': pagination.page == 1}">
             <a (click)="pagination.firstPage()">
@@ -9,7 +9,7 @@
             </a>
         </li>
         <li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of pagination.pageList;"
-            (click)="getPromotionList(page)">
+            (click)="getColorList(page)">
             <a>{{ page }}</a>
         </li>
         <li class="waves-effect last-page" [ngClass]="{'disabled': pagination.page == pagination.numOfPage}">
@@ -24,20 +24,18 @@
                 <th>#</th>
                 <th>Tên</th>
                 <th>Mô tả</th>
-                <th>Giảm giá (%)</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
+                <th>Màu</th>
             </tr>
         </thead>
 
         <tbody>
-            <tr *ngFor="let promotion of promotionList; let i=index" (click)="showPromotionDetails(promotion)">
+            <tr *ngFor="let color of colorList; let i=index" (click)="showColorDetails(color)">
                 <td>{{i + 1}}</td>
-                <td>{{promotion.name ? promotion.name : '-' }}</td>
-                <td>{{promotion.description ? promotion.description : '-'}}</td>
-                <td>{{promotion.percent ? promotion.percent : '-'}}</td>
-                <td>{{promotion.start_date | sdDateTime}}</td>
-                <td>{{promotion.end_date | sdDateTime}}</td>
+                <td>{{color.name ? color.name : '-' }}</td>
+                <td>{{color.description ? color.description : '-' }}</td>
+                <td style="padding: 5px 5px;">
+                    <div class="color-box" [style.background-color]="color.code"></div>
+                </td>
             </tr>
         </tbody>
     </table>
