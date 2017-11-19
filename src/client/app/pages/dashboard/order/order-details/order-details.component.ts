@@ -109,7 +109,8 @@ export class OrderDetailsComponent implements OnInit {
 		else {
 			this.deliveryDateMessage = '';
 		}
-		this.order.deliverty_date = new Date(event)
+		this.order.delivery_date = new Date(event)
+		console.log(this.order.delivery_date);
 	}
 	goBack() {
 		this.location.back();
@@ -119,8 +120,26 @@ export class OrderDetailsComponent implements OnInit {
 		alert('onDeleteOrderButtonTap');
 	}
 	onClickSave(orderDetailForm: any) {
-		if(orderDetailForm.valid) {
-			console.log('aaaa');
+		if(orderDetailForm.valid && this.order.delivery_date) {
+			var date = new Date();
+			var delivery_date = new moment((new Date(this.order.delivery_date)));
+			if(delivery_date.diff(date, 'day') < 0) {
+				console.log('error');
+				this.deliveryDateMessage = 'Ngày giao không được để trống và lớn hơn ngày hiện tại';
+			}
+			else {
+				this.parse.cloud('saveOrder',{
+					id: this.order.id,
+					delivery_date : this.order.deliverty_date
+				})
+				.then(function(res){
+					alert('Lưu thành công');
+				})
+				.catch(function(err){
+					alert('Lưu thất bại');
+					console.log(err);
+				})
+			}
 		}
 		else {
 			console.log('inalid');
