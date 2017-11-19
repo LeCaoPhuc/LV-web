@@ -14,7 +14,7 @@ export class MaterialDatePickerDirective {
   }
   private today: string = 'Hôm nay';
   private clear: string = 'Xóa';
-  private close: string = 'Đóng';
+  private done: string = 'Xong';
 
   @Input() public datePickerInput: any;
 
@@ -26,7 +26,7 @@ export class MaterialDatePickerDirective {
         selectYears: 15, // Creates a dropdown of 15 years to control year,
         today: self.today,
         clear: self.clear,
-        close: self.close,
+        done: self.done,
         closeOnSelect: false // Close upon selecting a date,
       });
       var $sdInput = $(self.el.nativeElement).parent().find('input.sd-datepicker');
