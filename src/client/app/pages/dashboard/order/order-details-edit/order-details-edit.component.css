@@ -1,0 +1,29 @@
+.title {
+  color: #EC646A;
+  font-size: 2em;
+}
+
+.order-detail-action i{
+  cursor: pointer;
+}
+
+.order-detail-action{
+  padding: 10px 0px;
+}
+
+.order-detail-action > button{
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+img {
+  /* margin-top: 40px; */
+  margin-bottom: 10px;
+  width: 100px;
+  border-radius: 50px;
+}
+
+.order-action > a{
+  width: 80%;
+  margin-bottom: 15px;
+}

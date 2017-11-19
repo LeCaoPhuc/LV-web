@@ -1,3 +1,92 @@
 <div class="order-layout z-depth-3 row">
-	<h5 class="title col s6">Order detail</h5>
+  <h5 class="title col s12">Thông tin đơn hàng</h5>
+  <div class="col s12">
+    <table>
+      <thead>
+        <th>STT</th>
+        <th>Sku</th>
+        <th>Tên sản phẩm</th>
+        <th>Chất liệu</th>
+        <th>Màu sắc</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Tổng</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderDetailList; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{item.product_detail.get('sku')}}</td>
+          <td>{{item.product_detail.get('product').get('product_name')}}</td>
+          <td>{{item.product_detail.get('material').get('material_name')}}</td>
+          <td>{{item.product_detail.get('color').get('color_name')}}</td>
+          <td>{{item.order_detail.get('unit_price')}}</td>
+          <td>{{item.order_detail.get('quantity_buy')}}</td>
+          <td>{{item.order_detail.get('total_price_product')}}</td>
+          <td class="order-detail-action">
+            <span class="orange-text text-darken-2" (click)="bindingOrderDetail(orderDetailModal, item)">
+              <i class="material-icons">edit</i>
+            </span>
+            <span class="red-text text-darken-2" (click)="deleteOrderDetail(item)">
+              <i class="material-icons">delete</i>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div #orderDetailModal material-modal class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <h4 class="col s12">Cập nhật số lượng</h4>
+    </div>
+    <div class="row">
+      <form>
+        <div class="col s8">
+          <div class="input-field col s12">
+            <input #sku id="sku" disabled type="text" class="validate" name="sku" [(ngModel)]="orderDetail.sku">
+            <label for="sku" class="active">Sku</label>
+          </div>
+          <div class="input-field col s12">
+            <input #sku id="name" disabled type="text" class="validate" name="name" [(ngModel)]="orderDetail.name">
+            <label for="name" class="active">Tên sản phẩm</label>
+          </div>
+          <div class="input-field col s12">
+            <input #sku id="material" disabled type="text" class="validate" name="material" [(ngModel)]="orderDetail.material">
+            <label for="material" class="active">Chất liệu</label>
+          </div>
+          <div class="input-field col s12">
+            <input #sku id="color" disabled type="text" class="validate" name="color" [(ngModel)]="orderDetail.color">
+            <label for="color" class="active">Màu sắc</label>
+          </div>
+          <div class="input-field col s12">
+            <input #sku id="price" disabled type="text" class="validate" name="price" [(ngModel)]="orderDetail.price">
+            <label for="price" class="active">Giá</label>
+          </div>
+          <div class="input-field col s12">
+            <input #sku id="quantity" type="number" class="validate" name="quantity" [(ngModel)]="orderDetail.quantity">
+            <label for="quantity" class="active">Số lượng</label>
+          </div>
+          <div class="input-field col s12">
+            <input #sku id="total" disabled type="text" class="validate" name="total" [(ngModel)]="orderDetail.total">
+            <label for="total" class="active">Tổng</label>
+          </div>
+        </div>
+        <div class="col s4 center-align order-action">
+          <img [src]="(orderDetail && orderDetail.image && orderDetail.image._url) ? orderDetail.image._url : '../../../../assets/images/product_default.png'"
+            stretch="fill" class="z-depth-1">
+          <a class="waves-effect waves-light btn btn-save" (click)="updateQuantity()">
+            <i class="material-icons left">save</i>
+            <span>Lưu lại</span>
+          </a>
+          <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="deleteOrderDetail()">
+            <i class="material-icons left">close</i>
+            <span>Xóa sản phẩm</span>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
