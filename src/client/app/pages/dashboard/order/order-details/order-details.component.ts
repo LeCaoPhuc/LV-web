@@ -19,7 +19,7 @@ export class OrderDetailsComponent implements OnInit {
 		id: '',
 		order_number: '',
 		total_price: '',
-		deliverty_date: {},
+		delivery_date: {},
 		deliverty_status : '',
 		delivery_address: new Date(),
 		createdAt: '',
@@ -53,7 +53,7 @@ export class OrderDetailsComponent implements OnInit {
 					id: this.order.id,
 					order_number: this.order.get('order_number'),
 					total_price: self.tools.numberToFormatedString(this.order.get('total_price')),
-					delivery_date:this.order.get('deliverty_date') ? this.order.get('deliverty_date') : new Date(),
+					delivery_date:this.order.get('delivery_date') ? this.order.get('deliverty_date') : new Date(),
 					delivery_status : this.order.get('delivery_status'),
 					delivery_address: this.order.get('delivery_address'),
 					createdAt : this.order.get('createdAt'),
@@ -72,7 +72,7 @@ export class OrderDetailsComponent implements OnInit {
 								id: res.data.id,
 								order_number: res.data.get('order_number'),
 								total_price:  self.tools.numberToFormatedString(res.data.get('total_price')),
-								delivery_date: res.data.get('deliverty_date') ? res.data.get('deliverty_date') : new Date(),
+								delivery_date: res.data.get('delivery_date') ? res.data.get('delivery_date') : new Date(),
 								delivery_status : res.data.get('delivery_status'),
 								delivery_address: res.data.get('delivery_address'),
 								createdAt : res.data.get('createdAt'),
@@ -134,7 +134,7 @@ export class OrderDetailsComponent implements OnInit {
 			else {
 				this.parse.cloud('saveOrder',{
 					id: this.order.id,
-					delivery_date : this.order.deliverty_date
+					delivery_date : this.order.delivery_date
 				})
 				.then(function(res){
 					alert('Lưu thành công');
