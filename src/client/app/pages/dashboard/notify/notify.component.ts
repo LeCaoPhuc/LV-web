@@ -77,6 +77,9 @@ export class NotifyComponent implements OnInit {
 		if (event && event.required) {
 			this.notifyData.content.message = this.notifyData.content.name  + ' không được để trống';
 		}
+		else {
+			this.notifyData.content.message = '';
+		}
 		this.changeDetectorRef.detectChanges();
 	}
 	onClickSendNotify(notifyForm: any) {

@@ -11,31 +11,37 @@
     </div>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/user']" [routerLinkActive]="['router-link-active']">Quản lí người dùng</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/user']" [routerLinkActive]="['router-link-active']">Quản lý người dùng</a>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/shop']" [routerLinkActive]="['router-link-active']">Quản lí thông tin shop</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/shop']" [routerLinkActive]="['router-link-active']">Quản lý thông tin shop</a>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/product']" [routerLinkActive]="['router-link-active']">Quản lí sản phẩm</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/product']" [routerLinkActive]="['router-link-active']">Quản lý sản phẩm</a>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/order']" [routerLinkActive]="['router-link-active']">Quản lí đơn hàng</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/product']" [routerLinkActive]="['router-link-active']">Quản lý Loại sản phẩm</a>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/promotion']">Quản lí khuyến mãi</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/order']" [routerLinkActive]="['router-link-active']">Quản lý đơn hàng</a>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/color']">Quản lí màu sắc</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/promotion']">Quản lý khuyến mãi</a>
   </li>
   <li>
-    <a class="side-bar-text" [routerLink]="[ '/dashboard/material']">Quản lí chất liệu</a>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/color']">Quản lý màu sắc</a>
+  </li>
+  <li>
+    <a class="side-bar-text" [routerLink]="[ '/dashboard/material']">Quản lý chất liệu</a>
   </li>
   <li>
     <a class="side-bar-text" [routerLink]="[ '/dashboard/notify']" [routerLinkActive]="['router-link-active']">Gửi thông báo</a>
   </li>
   <li>
     <a (click)='onClickLogOut()' class="side-bar-text" style="cursor: pointer">Đăng xuất</a>
+  </li>
+  <li>
+    <div class="section"></div>
   </li>
 </ul>
 <!-- <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a> -->

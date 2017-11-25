@@ -19,7 +19,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">lock</i>
-						<input #title id="title" name="title" maxlength="12" type="text" class="" [(ngModel)]="notifyInfo.title" [pattern]="notifyData.title.pattern"
+						<input #title id="title" name="title" maxlength="50" type="text" [(ngModel)]="notifyInfo.title"
 						[ngClass]="{'invalid':title.errors}" validate-onblur required (emiter)="titleErrorMessage($event)">
 						<label for="title">Tiêu đề</label>
 						<span class="helper-text" [attr.data-error]="notifyData.title.message"></span>

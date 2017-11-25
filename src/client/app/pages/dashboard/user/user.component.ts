@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
 		var self = this;
 		this.pagination = new Pagination();
 		this.pagination.page = 1;
-		this.pagination.perPage = 5;
+		this.pagination.perPage = 10;
 		this.pagination.enableLoading = true;
 		this.pagination.enableMaxPageMode = true;
 		this.pagination.maxPageInPagination = 5;

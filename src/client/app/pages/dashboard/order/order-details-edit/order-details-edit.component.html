@@ -8,9 +8,9 @@
         <th>Tên sản phẩm</th>
         <th>Chất liệu</th>
         <th>Màu sắc</th>
-        <th>Giá</th>
-        <th>Số lượng</th>
-        <th>Tổng</th>
+        <th>Đơn Giá</th>
+        <th>Số lượng đặt</th>
+        <th>Thành tiền</th>
         <th></th>
       </thead>
       <tbody>
@@ -20,9 +20,9 @@
           <td>{{item.product_detail.get('product').get('product_name')}}</td>
           <td>{{item.product_detail.get('material').get('material_name')}}</td>
           <td>{{item.product_detail.get('color').get('color_name')}}</td>
-          <td>{{item.order_detail.get('unit_price')}}</td>
+          <td>{{item.order_detail.get('unit_price') ?  tools.numberToFormatedString(item.order_detail.get('unit_price')) : '0' }}</td>
           <td>{{item.order_detail.get('quantity_buy')}}</td>
-          <td>{{item.order_detail.get('total_price_product')}}</td>
+          <td>{{item.order_detail.get('total_price_product') ? tools.numberToFormatedString(item.order_detail.get('total_price_product')) : '0'}}</td>
           <td class="order-detail-action">
             <span class="orange-text text-darken-2" (click)="bindingOrderDetail(orderDetailModal, item)">
               <i class="material-icons">edit</i>
@@ -79,7 +79,7 @@
             stretch="fill" class="z-depth-1">
           <a class="waves-effect waves-light btn btn-save" (click)="updateQuantity()">
             <i class="material-icons left">save</i>
-            <span>Lưu lại</span>
+            <span>Lưu</span>
           </a>
           <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="deleteOrderDetail()">
             <i class="material-icons left">close</i>

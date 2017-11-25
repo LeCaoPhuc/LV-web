@@ -78,6 +78,9 @@ export class OrderDetailsEditComponent implements OnInit {
     }).then(function (res: any) {
       alert('Cập nhật số lượng thành công!');
     })
+    .catch(function(err){
+      alert('Cập nhật thất bại');
+    })
   }
 
   deleteOrderDetail(item?: any) {
@@ -104,6 +107,9 @@ export class OrderDetailsEditComponent implements OnInit {
         if(self.orderDetailList.length == 0){
           self.router.navigate(['dashboard/order']);
         }
+      })
+      .catch(function(err){
+        alert('Xóa thất bại')
       })
     }
   }

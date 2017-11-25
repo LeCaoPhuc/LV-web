@@ -28,7 +28,7 @@
                 <option value="">Còn hàng</option>
                 <option value="block">Hết hàng</option>
               </select>
-              <label>Tình trạng {{product.status}}</label>
+              <label>Tình trạng</label>
             </div>
           </div>
           <div class="row">
@@ -47,7 +47,7 @@
           </div> -->
           <a class="waves-effect waves-light btn btn-save" (click)="saveProduct(addProductForm)">
             <i class="material-icons left">save</i>
-            <span>Lưu lại</span>
+            <span>Lưu</span>
           </a>
           <a class="waves-effect waves-light btn btn-save" [ngClass]="{'disabled':product.id == ''}" (click)="bindingProductDetail(addProductDetailModal)">
             <i class="material-icons left">add</i>
@@ -107,7 +107,7 @@
 <div #addProductDetailModal material-modal class="modal">
   <div class="modal-content">
     <div class="row">
-      <h4 class="col s12">Thêm sản phẩm chi tiết</h4>
+      <h4 class="col s12">{{ isEdit ? 'Chỉnh sửa sản phẩm chi tiết': 'Thêm sản phẩm chi tiết' }}</h4>
     </div>
     <div class="row">
       <form #productDetailForm="ngForm">

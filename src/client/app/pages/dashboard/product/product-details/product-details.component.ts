@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class ProductDetailsComponent implements OnInit {
   private productParseObj: any;
+  private isEdit: boolean = false;
   public product: any = {
     id: '',
     name: '',
@@ -229,6 +230,10 @@ export class ProductDetailsComponent implements OnInit {
           }
         }
       }
+      alert('Lưu thành công');
+    })
+    .catch(function(err){
+      alert('Có lỗi trong quá trình lưu');
     })
   }
 
@@ -251,6 +256,7 @@ export class ProductDetailsComponent implements OnInit {
   bindingProductDetail(addProductDetailModal: any, product?: any) {
     addProductDetailModal.open();
     if (!product) {
+      this.isEdit = false;
       this.productDetail = {
         id: '',
         sku: '',
@@ -262,6 +268,7 @@ export class ProductDetailsComponent implements OnInit {
         image: null
       }
     } else {
+       this.isEdit = true;
       this.productDetail = {
         id: product.id,
         sku: product.get('sku'),
