@@ -1,0 +1,43 @@
+<div>
+	<h4 class="title col s6">Danh sách loại sản phẩm</h4>
+	<a class="waves-effect waves-light btn btn-add" (click)="onAddButtonTap($event)">
+		<i class="material-icons left">add_circle</i>Thêm loại sản phẩm mới</a>
+	<ul *ngIf="pagination.pageList && pagination.pageList.length" class="pagination right">
+		<li class="waves-effect first-page" [ngClass]="{'disabled': pagination.page == 1}">
+			<a (click)="pagination.firstPage()">
+				<i class="material-icons">chevron_left</i>
+			</a>
+		</li>
+		<li style="cursor: pointer;" [ngClass]="pagination.page==page ? 'active' : ''" *ngFor="let page of pagination.pageList;" (click)="getUserList(page)">
+			<a>{{ page }}</a>
+		</li>
+		<li class="waves-effect last-page"  [ngClass]="{'disabled': pagination.page == pagination.numOfPage}">
+			<a (click)="pagination.lastPage()"> 
+				<i class="material-icons">chevron_right</i>
+			</a>
+		</li>
+	</ul>
+	<table class="bordered">
+		<thead>
+			<tr>
+				<th style="padding-right: 30px">#</th>
+				<th>Tên loại sản phẩm</th>
+				<th style="text-align: center">Hình ảnh</th>
+                <th>Ngày tạo</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr (click)="showUserDetails(user)">
+				<td>1</td>
+				<td>Hóa phẩm</td>
+				<td style="text-align: center">
+                    <div>
+                        <img stretch="fill" style="height: 10%; width: 10%;" src="../../../../assets/images/avatar_default.png">
+                    </div>
+                </td>
+				<td>12/10/12</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

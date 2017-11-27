@@ -50,7 +50,7 @@ export class DashboardComponent {
     for (var i in split) {
       switch (split[i]) {
         case 'dashboard':
-          this.breadcrumbList.push('Tổng quan');
+          this.breadcrumbList.push('Tổng quan');
           break;
         case 'user':
           this.breadcrumbList.push('Người dùng');
@@ -60,6 +60,9 @@ export class DashboardComponent {
           break;
         case 'product':
           this.breadcrumbList.push('Sản phẩm');
+          break;
+        case 'category':
+          this.breadcrumbList.push('Loại sản phẩm');
           break;
         case 'order':
           this.breadcrumbList.push('Đơn hàng');

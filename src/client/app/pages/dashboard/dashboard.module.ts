@@ -12,7 +12,7 @@ import { PromotionModule } from "./promotion/index";
 import { MaterialModule } from "./material/index";
 import { ColorModule } from "./color/index";
 import { NotifyModule } from "./notify/index";
-
+import { CategoryModule } from "./category/index";
 @NgModule({
   imports: [
     CommonModule,
@@ -26,7 +26,8 @@ import { NotifyModule } from "./notify/index";
     PromotionModule,
     MaterialModule,
     ColorModule,
-    NotifyModule
+    NotifyModule,
+    CategoryModule
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent]

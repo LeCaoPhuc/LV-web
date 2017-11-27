@@ -8,7 +8,7 @@ import { PromotionRoutes } from "./promotion/index";
 import { MaterialRoutes } from "./material/index";
 import { ColorRoutes } from "./color/index";
 import { NotifyRoutes } from "./notify/index";
-
+import {CatgeoryRoutes } from "./category/index";
 export const DashboardRoutes: Routes = [
 	{
 		path: 'dashboard',
@@ -21,7 +21,8 @@ export const DashboardRoutes: Routes = [
 			...PromotionRoutes,
 			...MaterialRoutes,
 			...ColorRoutes,
-			...NotifyRoutes
+			...NotifyRoutes,
+			...CatgeoryRoutes
 			// ...LoginRoutes
 		]
 	},
