@@ -93,11 +93,14 @@ export class MaterialDetailsComponent implements OnInit {
 
     onDeleteMaterialButtonTap() {
         var self = this;
-        self.parse.cloud('deleteMaterial', {
-            materialId: self.material.id
-        }).then(function () {
-            self.router.navigate(['dashboard/material']);
-        })
+        var r = confirm("Bạn có muốn xóa chất liệu này !");
+		if (r == true) {
+			 self.parse.cloud('deleteMaterial', {
+                materialId: self.material.id
+            }).then(function () {
+                self.router.navigate(['dashboard/material']);
+            })
+		}
     }
 
     onSaveButtonTap() {

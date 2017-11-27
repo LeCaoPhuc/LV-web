@@ -34,7 +34,8 @@ export class CategoryComponent implements OnInit {
 		this.pagination.getData = function (page: number, perPage: number) {
 			return self.parseService.cloud('getCategoryList', {
 				page: page,
-				limit: perPage
+				limit: perPage,
+        isAdmin: true,
 			})
 		}
     }
@@ -61,7 +62,7 @@ export class CategoryComponent implements OnInit {
   showCategoryDetails(category: any) {
     // var index = args.currentTarget.children[0].innerText - 1;
     this.sharedService.setShareData('currentCategory', category);
-    this.router.navigate(['dashboard/categry/' + category.id]);
+    this.router.navigate(['dashboard/category/' + category.id]);
   }
   onAddButtonTap(args: any) {
     this.router.navigate(['dashboard/category/new']);

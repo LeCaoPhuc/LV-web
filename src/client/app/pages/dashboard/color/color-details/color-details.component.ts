@@ -97,11 +97,14 @@ export class ColorDetailsComponent implements OnInit {
 
     onDeleteColorButtonTap() {
         var self = this;
-        self.parse.cloud('deleteColor', {
-            colorId: self.color.id
-        }).then(function () {
-            self.router.navigate(['dashboard/color']);
-        })
+        var r = confirm("Bạn có muốn xóa màu sắc này !");
+		if (r == true) {
+			self.parse.cloud('deleteColor', {
+                colorId: self.color.id
+            }).then(function () {
+                self.router.navigate(['dashboard/color']);
+            })
+		}
     }
 
     onSaveButtonTap() {

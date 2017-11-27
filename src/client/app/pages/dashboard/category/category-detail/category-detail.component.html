@@ -1,0 +1,54 @@
+<div class="material-detail-container">
+    <div class="material-details-layout z-depth-3 row">
+        <div class="btn-close">
+            <a class="btn-floating btn-small waves-effect waves-light materialize-red lighten-1" (click)="goBack()">
+                <i class="material-icons">close</i>
+            </a>
+        </div>
+        <form #categoryForm="ngForm" class="col s12">
+            <div class="row material-info-container">
+                <div class="col s8">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input #name id="name" type="text" class="validate" name="name" validate-onblur  
+                             [(ngModel)]="category.name"
+                                required [ngClass]="name.errors ? 'invalid' : ''">
+                            <label for="name" class="active">Tên loại sản phẩm</label>
+                            <span class="helper-text" *ngIf="name.errors" data-error="Tên loại sản phẩm không được để trống"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s8 row offset-s2">
+                            <div class="col s12">
+                                 <img style="width: 100%; height: 100%" [src]="category.image ? category.image.url() : '../../../../assets/images/product_default.png'">
+                            </div>
+                            <div class="section"></div>
+                            <div class="col s12">
+                                <a style="cursor: pointer; margin-left: 10px" (click)="file.click()">Thay đổi ảnh</a>
+                                <input #file type="file" (change)="changePhoto(file)" style="display:none">
+                                <div class="row col s12">
+                                    <span class="error" *ngIf="!category.image">Loại sản phẩm phải có hình ảnh đại diện!</span>
+                                </div>
+                            </div>
+                            
+
+                        </div> 
+                    </div>
+                </div>
+                <div class="col s4 center-align material-action">
+                    <div class="section"></div>
+                    <div class="section"></div>
+                    <div class="section"></div>
+                    <a class="waves-effect waves-light btn btn-save" (click)="saveCategory(categoryForm)">
+                        <i class="material-icons left">save</i>
+                        <span>Lưu</span>
+                    </a>
+                    <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="deleteCategory()" *ngIf="category.id">
+                        <i class="material-icons left">close</i>
+                        <span>Xóa</span>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
