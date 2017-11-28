@@ -46,16 +46,16 @@ ul li a.router-link-active {
 }
 
 .logo-container {
-  height: 65px;
-  line-height: 65px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   vertical-align: middle;
 }
 .logo{
-  margin-bottom: 150px;
-  margin-top: 30px;
+  padding-bottom: 150px;
+  padding-top: 30px;
 }
 
 .logo img{
-  width:180px;
+  width:120px;
 }

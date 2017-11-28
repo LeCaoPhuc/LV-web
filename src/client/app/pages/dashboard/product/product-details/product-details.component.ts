@@ -161,7 +161,8 @@ export class ProductDetailsComponent implements OnInit {
       this.parse.cloud('getProductDetailWithId', {
         id: this.product.id,
         limit: 10000,
-        page: 1
+        page: 1,
+        isAdmin: true
       }).then(function (res: any) {
         self.productDetailList = res.data;
         console.log(self.productDetailList);
@@ -190,10 +191,12 @@ export class ProductDetailsComponent implements OnInit {
       status: this.product.status
     }).then(function (res: any) {
       console.log(res);
-      self.productParseObj = res.data;
-      self.product.id = res.data.id;
+      alert('Lưu thành công');
+      self.productParseObj = res.data[0].get('product');
+      self.product.id = res.data[0].get('product').id;
     }).catch(function (err: any) {
       console.log(err);
+      alert('Lưu thất bại');
     })
   }
 
@@ -217,7 +220,7 @@ export class ProductDetailsComponent implements OnInit {
       price: this.productDetail.price,
       sku: this.productDetail.sku,
       quantity: this.productDetail.quantity,
-      status: this.product.status,
+      status: this.productDetail.status,
       id: this.productDetail.id,
     }).then(function (res: any) {
       if (!self.productDetail.id) {
@@ -277,7 +280,8 @@ export class ProductDetailsComponent implements OnInit {
         price: product.get('price'),
         quantity: product.get('quantity'),
         promotion: product.get('promotion') ? product.get('promotion').id : '',
-        image: product.get('image')
+        image: product.get('image'),
+        status: product.get('status') ? product.get('status') : ''
       }
     }
   }
@@ -308,7 +312,12 @@ export class ProductDetailsComponent implements OnInit {
 			  this.parse.cloud('deleteProduct', {
           id: this.product.id
         }).then(function () {
+          alert('Xóa thành công');
           self.router.navigate(['dashboard/product']);
+        })
+        .catch(function(err){
+           alert('Xóa thất bại');
+           console.log(err);
         })
 		} else {
 			

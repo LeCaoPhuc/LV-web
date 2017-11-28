@@ -51,9 +51,9 @@
           </a>
           <a class="waves-effect waves-light btn btn-save" [ngClass]="{'disabled':product.id == ''}" (click)="bindingProductDetail(addProductDetailModal)">
             <i class="material-icons left">add</i>
-            <span>Thêm SP chi tiết</span>
+            <span>Thêm chi tiết sản phẩm</span>
           </a>
-          <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" [ngClass]="{'disabled':product.id == ''}" (click)="confirmDelete.open()">
+          <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" [ngClass]="{'disabled':product.id == ''}" (click)="deleteProduct()">
             <i class="material-icons left">close</i>
             <span>Xóa sản phẩm</span>
           </a>
@@ -92,7 +92,7 @@
                 <span class="orange-text text-darken-2" (click)="bindingProductDetail(addProductDetailModal, item)">
                   <i class="material-icons">edit</i>
                 </span>
-                <span class="red-text text-darken-2" (click)="confirmDeleteDetail.open();confirmDeleteDetail.product = item">
+                <span class="red-text text-darken-2" (click)="deleteProductDetail(item);">
                   <i class="material-icons">delete</i>
                 </span>
               </td>
@@ -143,11 +143,18 @@
             <label>Màu sắc</label>
           </div>
           <div class="input-field col s12">
+              <select name="status" [(ngModel)]="productDetail.status" material-select>
+                <option value="">Còn hàng</option>
+                <option value="block">Hết hàng</option>
+              </select>
+              <label>Tình trạng</label>
+            </div>
+          <div class="input-field col s12">
             <select *ngIf="promotionList && promotionList.length > 0" name="promotion" [(ngModel)]="productDetail.promotion" material-select>
               <option value="" disabled selected>Chọn khuyến mãi</option>
               <option *ngFor="let item of promotionList" [value]="item.id">{{item.get('name')}}</option>
             </select>
-            <label>Khuyến mãi</label>
+            <label>{{ !promotionList || promotionList.length==0 ? 'Không có khuyến mãi khả dụng' : 'Khuyến mãi' }}</label>
           </div>
         </div>
         <div class="col s4 center-align">
