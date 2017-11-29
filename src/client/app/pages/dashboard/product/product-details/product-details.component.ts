@@ -61,7 +61,7 @@ export class ProductDetailsComponent implements OnInit {
         console.log(this.product);
       }
     } else {
-      this.parse.cloud('getCategoryList', { limit: 10000, page: 1 }).then(function (res: any) {
+      this.parse.cloud('getCategoryList', {isAdmin: true, limit: 10000, page: 1 }).then(function (res: any) {
         if (res && res.data) {
           self.listCategory = res.data;
           if (self.listCategory && self.listCategory.length && (self.product && !self.product.category)) {
@@ -192,8 +192,17 @@ export class ProductDetailsComponent implements OnInit {
     }).then(function (res: any) {
       console.log(res);
       alert('Lưu thành công');
-      self.productParseObj = res.data[0].get('product');
-      self.product.id = res.data[0].get('product').id;
+      if(res.data) {
+        if(res.data[0]) {
+          self.productParseObj = res.data[0].get('product');
+          self.product.id = res.data[0].get('product').id;
+        }
+        else {
+          self.productParseObj = res.data;
+          self.product.id = res.data.id;
+        }
+      }
+      
     }).catch(function (err: any) {
       console.log(err);
       alert('Lưu thất bại');

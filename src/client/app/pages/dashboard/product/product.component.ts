@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     var self = this;
-    this.parse.cloud('getCategoryList', { limit: 10000, page: 1 }).then(function (res: any) {
+    this.parse.cloud('getCategoryList', {isAdmin: true, limit: 10000, page: 1 }).then(function (res: any) {
       if (res && res.data) {
         self.listCategory = res.data;
       }
