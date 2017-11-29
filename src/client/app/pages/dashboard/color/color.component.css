@@ -81,4 +81,5 @@ table thead tr {
 .color-box {
     height: 35px;
     width: 100px;
+    border: 1px solid #ccc;
 }

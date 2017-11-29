@@ -24,7 +24,6 @@ export class OrderDetailsComponent implements OnInit {
 		delivery_address: new Date(),
 		createdAt: '',
 		buyer: '',
-		receiver: {},
 	};
 	public colorList: Array<any>;
 	public materialList: Array<any>;
@@ -71,7 +70,7 @@ export class OrderDetailsComponent implements OnInit {
 					delivery_status: this.order.get('delivery_status'),
 					delivery_address: this.order.get('delivery_address'),
 					createdAt: this.order.get('createdAt'),
-					buyer: this.order.get('buyer').get('first_name') + ' ' + this.order.get('buyer').get('last_name'),
+					buyer: this.order.get('buyer').get('username'),
 				}
 				self.orderEditCmp.getOrderDetailByOrder(self.orderParseObj);
 				// this.getOrderDetail();
@@ -90,7 +89,7 @@ export class OrderDetailsComponent implements OnInit {
 								delivery_status: res.data.get('delivery_status'),
 								delivery_address: res.data.get('delivery_address'),
 								createdAt: res.data.get('createdAt'),
-								buyer: res.data.get('buyer').get('first_name') + ' ' + res.data.get('buyer').get('last_name'),
+								buyer: res.data.get('buyer').get('username'),
 							}
 						}
 					}

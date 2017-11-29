@@ -49,14 +49,14 @@
 					<div class="row">
 						<div class="input-field col s6">
 							<i class="material-icons prefix">person</i>
-							<input id="buyer" type="text" disabled class="validate" name="buyer" [(ngModel)]="order.buyer">
+							<input id="buyer" type="text" disabled class="validate" name="buyer" [(ngModel)]="order.delivery_address.name">
 							<label for="buyer" disabled class="active">Họ tên người đặt</label>
 							<span class="helper-text"></span>
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">person</i>
-							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name">
-							<label for="receiver" disabled class="active">Họ tên người nhận</label>
+							<input id="buyer" type="text" disabled class="validate" name="buyer" [(ngModel)]="order.buyer">
+							<label for="buyer" disabled class="active">Tài khoản người đặt</label>
 							<span class="helper-text"></span>
 						</div>
 					</div>
@@ -65,13 +65,13 @@
 					<div class="row">
 						<div class="input-field col s6">
 							<i class="material-icons prefix">email</i>
-							<input id="email" type="text" disabled class="validate" name="email" [(ngModel)]="order.buyer">
+							<input id="email" type="text" disabled class="validate" name="email" [(ngModel)]="order.delivery_address.email">
 							<label for="email" disabled class="active">Email</label>
 							<span class="helper-text"></span>
 						</div>
 						<div class="input-field col s6">
 							<i class="material-icons prefix">contact_phone</i>
-							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.name">
+							<input id="receiver" type="text" disabled class="validate" name="receiver" [(ngModel)]="order.delivery_address.telephone">
 							<label for="receiver" disabled class="active">Số điện thoại</label>
 							<span class="helper-text"></span>
 						</div>
@@ -111,7 +111,7 @@
 		</div>
 	</div>
 </div>
-<sd-order-details-edit></sd-order-details-edit>
+<sd-order-details-edit [orderStatus]="order.delivery_status"></sd-order-details-edit>
 
 <div #editProductDetailModal material-modal class="modal">
 	<div class="modal-content">

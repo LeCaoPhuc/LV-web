@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef,Input } from '@angular/core';
 import { HttpRequestService, ParseSDKService, SharedService, ToolsService } from '../../../../shared/index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
@@ -7,6 +7,7 @@ declare var moment: any;
 /**
  * This class represents the lazy loaded OrderDetailsComponent.
  */
+
 @Component({
   moduleId: module.id,
   selector: 'sd-order-details-edit',
@@ -14,6 +15,7 @@ declare var moment: any;
   styleUrls: ['order-details-edit.component.css'],
 })
 export class OrderDetailsEditComponent implements OnInit {
+  @Input() orderStatus: any;
   public order: any;
   public orderDetail: any = {
     id: '',
@@ -35,7 +37,7 @@ export class OrderDetailsEditComponent implements OnInit {
     private router: Router,
   ) {
     // this.order = this.sharedService.getShareData('currentOrder');
-
+    
   }
 
   ngOnInit() {
@@ -54,6 +56,10 @@ export class OrderDetailsEditComponent implements OnInit {
   }
 
   bindingOrderDetail(orderDetailModal: any, item: any) {
+    if(this.orderStatus =='bill'){
+      alert('Đơn hàng là bill thì không thể chỉnh sửa');
+      return;
+    }
     orderDetailModal.open();
     this.orderDetail = {
       id: item.order_detail.id,

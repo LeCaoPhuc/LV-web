@@ -23,7 +23,7 @@
           <td>{{item.order_detail.get('unit_price') ?  tools.numberToFormatedString(item.order_detail.get('unit_price')) : '0' }}</td>
           <td>{{item.order_detail.get('quantity_buy')}}</td>
           <td>{{item.order_detail.get('total_price_product') ? tools.numberToFormatedString(item.order_detail.get('total_price_product')) : '0'}}</td>
-          <td class="order-detail-action">
+          <td class="order-detail-action" *ngIf="orderStatus == 'order'">
             <span class="orange-text text-darken-2" (click)="bindingOrderDetail(orderDetailModal, item)">
               <i class="material-icons">edit</i>
             </span>
@@ -83,7 +83,7 @@
           </a>
           <a class="waves-effect waves-light btn btn-delete materialize-red lighten-1" (click)="deleteOrderDetail()">
             <i class="material-icons left">close</i>
-            <span>Xóa sản phẩm</span>
+            <span>Xóa</span>
           </a>
         </div>
       </form>
